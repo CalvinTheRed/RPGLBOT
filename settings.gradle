@@ -1,2 +1,5 @@
-rootProject.name = 'RPGLBOT'
+plugins {
+    id 'com.alexvasilkov.git-dependencies' version '2.0.4'
+}
 
+rootProject.name = 'RPGLBOT'
