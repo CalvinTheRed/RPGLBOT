@@ -16,3 +16,4 @@ out/
 ### RPGLBOT ###
 .env
 logs/
+saves/
