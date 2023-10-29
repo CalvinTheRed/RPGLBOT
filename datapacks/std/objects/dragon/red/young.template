@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Young Red Dragon",
+  "description": "A young red dragon.",
+  "tags": [
+    "dragon"
+  ],
+  "ability_scores": {
+    "str": 23,
+    "dex": 10,
+    "con": 21,
+    "int": 14,
+    "wis": 11,
+    "cha": 19
+  },
+  "health_data": {
+    "base": 93,
+    "current": 178,
+    "temporary": 0
+  },
+  "classes": [
+    {
+      "id": "std:monster/dragon/red/young",
+      "level": 17,
+      "choices": { }
+    }
+  ],
+  "races": [
+    "std:dragon/red"
+  ],
+  "proficiency_bonus": 4,
+  "challenge_rating": 10
+}

@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Potion of Healing",
+  "description": "This potion heals a creature for 2d4+2 hit points when consumed.",
+  "tags": [
+    "potion_of_healing"
+  ],
+  "weight": 1,
+  "cost": 50,
+  "events": {
+    "multiple_hands": [
+      "std:item/potion/potion_of_healing/drink",
+      "std:common/improvised_melee",
+      "std:common/improvised_thrown"
+    ],
+    "one_hand": [
+      "std:item/potion/potion_of_healing/drink",
+      "std:common/improvised_melee",
+      "std:common/improvised_thrown"
+    ],
+    "special": [ ]
+  }
+}

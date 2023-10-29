@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Magic Missile",
+  "description": "You shoot darts of magical force at targets within range.",
+  "area_of_effect": {
+
+  },
+  "subevents": [
+    {
+      "subevent": "deal_damage",
+      "tags": [ "spell" ],
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "force",
+          "dice": [
+            { "count": 1, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 1
+        }
+      ]
+    }
+  ]
+}

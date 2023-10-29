@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Robe of Stars",
+  "description": "A weak magical enchantment which helps protect you from harm.",
+  "subevent_filters": {
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": {
+              "bonus_formula": "range",
+              "dice": [ ],
+              "bonus": 1
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

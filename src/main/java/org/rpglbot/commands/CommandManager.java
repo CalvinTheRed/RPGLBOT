@@ -4,8 +4,11 @@ import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import org.rpgl.core.RPGLFactory;
+import org.rpgl.core.RPGLObject;
 import org.rpgl.uuidtable.UUIDTable;
 
 import java.io.File;
@@ -18,11 +21,18 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getChannel().getName().equals("rpgl-stuff")) {
-            switch(event.getFullCommandName()) {
-                case "test" -> slashTest(event);
+            String command = event.getFullCommandName();
+            switch(command) {
                 case "new" -> slashNew(event);
                 case "save" -> slashSave(event);
                 case "load" -> slashLoad(event);
+                case "spawn" -> {
+                    try {
+                        slashSpawn(event);
+                    } catch (NullPointerException e) {
+                        event.reply("SPAWN requires an id").queue();
+                    }
+                }
             }
         }
     }
@@ -30,7 +40,10 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onGuildReady(GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("test", "a test command"));
+        commandData.add(Commands.slash("echo", "echoes a message")
+                .addOption(OptionType.STRING, "message", "message to be echoed"));
+        commandData.add(Commands.slash("spawn", "spawns an RPGLObject")
+                .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned"));
         commandData.add(Commands.slash("new", "start a new adventure"));
         commandData.add(Commands.slash("save", "save your adventure for later"));
         commandData.add(Commands.slash("load", "load your previous adventure"));
@@ -40,15 +53,12 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("test", "a test command"));
         commandData.add(Commands.slash("new", "start a new adventure"));
         commandData.add(Commands.slash("save", "save your adventure for later"));
         commandData.add(Commands.slash("load", "load your previous adventure"));
+        commandData.add(Commands.slash("spawn", "spawns an RPGLObject")
+                .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned"));
         event.getJDA().updateCommands().addCommands(commandData).queue();
-    }
-
-    private static void slashTest(SlashCommandInteractionEvent event) {
-        event.reply("Hello world!").queue();
     }
 
     private static void slashNew(SlashCommandInteractionEvent event) {
@@ -79,5 +89,11 @@ public class CommandManager extends ListenerAdapter {
             System.out.println(e.getMessage());
             event.reply("Failed to load. Did you save an adventure before?").queue();
         }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private static void slashSpawn(SlashCommandInteractionEvent event) {
+        RPGLObject object = RPGLFactory.newObject(event.getOption("id").getAsString());
+        event.reply("Spawned " + object.getName()).queue();
     }
 }

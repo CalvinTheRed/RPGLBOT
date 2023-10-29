@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Fireball",
+  "description": "Hurl a mighty fireball at your foes!",
+  "area_of_effect": {
+
+  },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "count": 1,
+      "minimum_potency": 3,
+      "scale": [
+        {
+          "field": "subevents[0].damage[0].dice[0].count",
+          "magnitude": 1
+        }
+      ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "saving_throw",
+      "tags": [ "spell" ],
+      "difficulty_class_ability": "int",
+      "save_ability": "dex",
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "fire",
+          "dice": [
+            { "count": 8, "size": 6, "determined": [ 3 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "damage_on_pass": "half",
+      "determined": [ 10 ]
+    }
+  ]
+}

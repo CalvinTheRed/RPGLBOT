@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Young Red Dragon",
+  "description": "The class description of what it means to be a young red dragon.",
+  "subclass_level": 0,
+  "ability_score_increases": [ ],
+  "multiclassing_requirements": [ ],
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/hit_die/d10": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "starting_features": {
+    "effects": [
+      "std:resource/take/claw_attack",
+      "std:resource/take/bite_attack"
+    ],
+    "events": [
+      "std:object/dragon/red/young/breath",
+      "std:object/dragon/red/young/claw",
+      "std:object/dragon/red/young/bite",
+      "std:object/dragon/red/young/multiattack"
+    ]
+  }
+}

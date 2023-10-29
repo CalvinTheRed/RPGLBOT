@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Breath Attack",
+  "description": "This resource allows you to make an attack using a breath weapon.",
+  "tags": [
+    "breath_attack"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "start_turn"
+      ],
+      "chance": 33,
+      "required_generator": {
+        "dice": [ ],
+        "bonus": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Metal Shield",
+  "description": "A metal shield.",
+  "tags": [
+    "metal",
+    "shield"
+  ],
+  "weight": 6,
+  "cost": 10,
+  "armor_class_bonus": 2
+}

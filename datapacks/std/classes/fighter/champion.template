@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Champion",
+  "description": "A Fighter subclass.",
+  "features": {
+    "3": {
+      "gain": {
+        "effects": [
+          "std:class/fighter/champion/improved_critical"
+        ]
+      }
+    },
+    "7": {
+      "gain": {
+        "effects": [
+          "std:class/fighter/champion/remarkable_athlete"
+        ]
+      }
+    },
+    "15": {
+      "gain": {
+        "effects": [
+          "std:class/fighter/champion/superior_critical"
+        ]
+      },
+      "loss": {
+        "effects": [
+          "std:class/fighter/champion/improved_critical"
+        ]
+      }
+    },
+    "18": {
+      "gain": {
+        "effects": [
+          "std:class/fighter/champion/survivor"
+        ]
+      }
+    }
+  }
+}

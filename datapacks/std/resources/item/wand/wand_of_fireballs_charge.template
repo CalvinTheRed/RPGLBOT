@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Wand of Fireballs charge",
+  "description": "This resource allows you to use a Wand of Fireballs.",
+  "tags": [
+    "wand_of_fireballs_charge"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
+  ]
+}

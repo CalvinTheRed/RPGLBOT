@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Attack",
+  "description": "You make a melee attack using an improvised weapon.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "weapon_attack" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_ability": "str",
+      "attack_type": "melee",
+      "tags": [
+        "improvised"
+      ],
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "bludgeoning",
+          "dice": [
+            { "count": 1, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}

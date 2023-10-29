@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Dodge",
+  "description": "Duck and weave...",
+  "area_of_effect": { },
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "effect": "std:common/dodge"
+    }
+  ]
+}

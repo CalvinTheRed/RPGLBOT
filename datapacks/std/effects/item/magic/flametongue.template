@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Flametongue Weapon",
+  "description": "Attacks made with your Flametongue weapon deal 2d6 additional fire damage on a hit.",
+  "subevent_filters": {
+    "damage_collection": [
+      {
+        "conditions": [
+          {
+            "condition": "origin_items_match"
+          },
+          {
+            "condition": "origin_item_has_tag",
+            "origin_item": "subevent",
+            "tag": "flametongue"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "base_damage_collection"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_damage",
+            "damage": [
+              {
+                "damage_formula": "range",
+                "damage_type": "fire",
+                "dice": [ { "count": 2, "size": 6, "determined": [ 3 ] } ],
+                "bonus": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "get_events": [
+      {
+        "conditions": [
+          {
+            "condition": "invert",
+            "invert": {
+              "condition": "origin_item_has_tag",
+              "origin_item": "effect",
+              "tag": "flametongue"
+            }
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_event",
+            "event": "std:item/magic/flametongue/activate"
+          }
+        ]
+      },
+      {
+        "conditions": [
+          {
+            "condition": "origin_item_has_tag",
+            "origin_item": "effect",
+            "tag": "flametongue"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_event",
+            "event": "std:item/magic/flametongue/deactivate"
+          }
+        ]
+      }
+    ]
+  }
+}

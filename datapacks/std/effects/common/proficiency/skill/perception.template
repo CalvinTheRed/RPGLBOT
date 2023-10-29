@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Proficiency (Perception)",
+  "description": "You have proficiency in skill checks made using Perception.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "perception"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_proficiency"
+          }
+        ]
+      }
+    ]
+  }
+}

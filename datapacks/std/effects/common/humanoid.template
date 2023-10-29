@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Humanoid",
+  "description": "This effect indicates that an object is a humanoid.",
+  "subevent_filters": {
+    "get_object_tags": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_object_tag",
+            "tag": "humanoid"
+          }
+        ]
+      }
+    ]
+  }
+}

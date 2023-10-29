@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Knight",
+  "description": "A knight.",
+  "tags": [
+    "humanoid"
+  ],
+  "ability_scores": {
+    "str": 16,
+    "dex": 11,
+    "con": 14,
+    "int": 11,
+    "wis": 11,
+    "cha": 15
+  },
+  "health_data": {
+    "base": 36,
+    "current": 52,
+    "temporary": 0
+  },
+  "equipped_items": {
+    "mainhand": "std:weapon/melee/martial/longsword",
+    "offhand": "std:armor/shield/metal",
+    "armor": "std:armor/heavy/plate"
+  },
+  "inventory": [
+    "std:weapon/ranged/martial/heavy_crossbow"
+  ],
+  "events": [
+
+  ],
+  "effects": [
+
+  ],
+  "classes": [
+    {
+      "id": "std:common/base",
+      "level": 1,
+      "choices": { }
+    },
+    {
+      "id": "std:common/hit_die/d8",
+      "level": 8,
+      "choices": { }
+    }
+  ],
+  "races": [
+    "std:human"
+  ],
+  "resources": [ ],
+  "proficiency_bonus": 2,
+  "challenge_rating": 3
+}

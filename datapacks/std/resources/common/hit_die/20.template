@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Hit Die (1d20)",
+  "description": "This resource Represents your body's ability to heal itself, and can be used to heal during rests.",
+  "tags": [
+    "hit_die"
+  ],
+  "potency": 20,
+  "refresh_criterion": [ ]
+}

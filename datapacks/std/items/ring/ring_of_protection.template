@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Ring of Protection",
+  "description": "A ring enchanted to protect its wearer.",
+  "tags": [
+    "ring_of_protection"
+  ],
+  "weight": 1,
+  "cost": 2500,
+  "events": {
+    "multiple_hands": [
+      "std:common/improvised_melee",
+      "std:common/improvised_thrown"
+    ],
+    "one_hand": [
+      "std:common/improvised_melee",
+      "std:common/improvised_thrown"
+    ],
+    "special": [ ]
+  },
+  "equipped_effects": [
+    "std:item/ring/ring_of_protection"
+  ]
+}

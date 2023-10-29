@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Attack",
+  "description": "You make a thrown attack using a dagger.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "weapon_attack" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_ability": "str",
+      "attack_type": "thrown",
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "piercing",
+          "dice": [
+            { "count": 1, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}

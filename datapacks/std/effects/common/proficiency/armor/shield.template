@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Shield Proficiency",
+  "description": "You are proficient in the use of shields.",
+  "subevent_filters": { }
+}

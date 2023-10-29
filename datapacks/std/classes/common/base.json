@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Base",
+  "description": "This meta-class is the base of all classes, and provides actions, bonus actions, and proficiency bonus scaling. All classes should contribute to this class at a rate of 1:1.",
+  "features": {
+    "1": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:common/action/01",
+            "count": 1
+          },
+          {
+            "resource": "std:common/bonus_action/01",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "5": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:common/action/05",
+            "count": 1
+          },
+          {
+            "resource": "std:common/bonus_action/05",
+            "count": 1
+          }
+        ]
+      },
+      "lose": {
+        "resources": [
+          "std:common/action/01",
+          "std:common/bonus_action/01"
+        ]
+      }
+    },
+    "11": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:common/action/11",
+            "count": 1
+          },
+          {
+            "resource": "std:common/bonus_action/11",
+            "count": 1
+          }
+        ]
+      },
+      "lose": {
+        "resources": [
+          "std:common/action/05",
+          "std:common/bonus_action/05"
+        ]
+      }
+    },
+    "17": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:common/action/17",
+            "count": 1
+          },
+          {
+            "resource": "std:common/bonus_action/17",
+            "count": 1
+          }
+        ]
+      },
+      "lose": {
+        "resources": [
+          "std:common/action/11",
+          "std:common/bonus_action/11"
+        ]
+      }
+    }
+  }
+}

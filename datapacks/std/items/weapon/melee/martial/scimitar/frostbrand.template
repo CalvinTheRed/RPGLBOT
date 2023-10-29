@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Frostbrand",
+  "description": "A legendary scimitar wielded by Drizzt Do'Urden.",
+  "tags": [
+    "scimitar",
+    "metal",
+    "magic",
+    "martial_melee",
+    "finesse",
+    "weapon"
+  ],
+  "weight": 3,
+  "cost": 10000,
+  "events": {
+    "multiple_hands": [
+      "std:item/weapon/melee/martial/scimitar/frostbrand/melee",
+      "std:common/improvised_thrown"
+    ],
+    "one_hand": [
+      "std:item/weapon/melee/martial/scimitar/frostbrand/melee",
+      "std:common/improvised_thrown"
+    ],
+    "special": [ ]
+  },
+  "equipped_effects": [
+    "std:common/damage/resistance/cold",
+    "std:common/damage/resistance/fire"
+  ],
+  "attack_bonus": 3,
+  "damage_bonus": 3
+}

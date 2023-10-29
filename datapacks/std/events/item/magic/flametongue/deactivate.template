@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Flametongue Command Word",
+  "description": "Deactivate your Flametongue weapon.",
+  "area_of_effect": {
+
+  },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "remove_origin_item_tag",
+      "tag": "flametongue"
+    }
+  ]
+}

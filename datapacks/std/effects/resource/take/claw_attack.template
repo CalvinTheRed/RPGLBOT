@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Remove Temporary Claw Attack",
+  "description": "This effect removes any temporary claw attack resources from the target at the ends of its turns.",
+  "subevent_filters": {
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "subevent_has_tag",
+            "tag": "end_turn"
+          },
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "take_resource",
+            "resource": "claw_attack"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Potion of Healing",
+  "description": "Heal a creature for 2d4+2 hit points.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "heal",
+      "tags": [ "potion_of_healing" ],
+      "healing": [
+        {
+          "healing_formula": "range",
+          "dice": [
+            { "count": 2, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "subevent": "destroy_origin_item"
+    }
+  ]
+}

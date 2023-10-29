@@ -23,7 +23,7 @@ public class RPGLBot {
                 .setActivity(Activity.customStatus("Slinging Spells"))
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
-        bot.addEventListener(new MyListener(), new CommandManager());
+        bot.addEventListener(/*new MyListener(),*/ new CommandManager());
     }
 
 }

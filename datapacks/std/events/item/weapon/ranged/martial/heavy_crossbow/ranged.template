@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Attack",
+  "description": "You make a melee attack using a heavy crossbow.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "weapon_attack" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_ability": "dex",
+      "attack_type": "ranged",
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "piercing",
+          "dice": [
+            { "count": 1, "size": 10, "determined": [ 5 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}

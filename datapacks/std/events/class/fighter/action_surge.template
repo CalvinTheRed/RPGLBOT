@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Action Surge",
+  "description": "Regain use of your action.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action_surge_charge" ],
+      "count": 1
+    },
+    {
+      "resource_tags": [ "action_surge_limiter" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "refresh_resource",
+      "tags": [ "second_wind" ],
+      "resource_tag": "action",
+      "selection_mode": "low_first"
+    }
+  ]
+}

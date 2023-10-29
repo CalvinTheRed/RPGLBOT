@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Dodge",
+  "description": "You are dodging.",
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_disadvantage"
+          }
+        ]
+      }
+    ],
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "dex"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "start_turn"
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}

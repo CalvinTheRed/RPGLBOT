@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Repeat Save (Wrathful Smite)",
+  "description": "As an action, you can make a Wisdom check against the caster's spell save DC to steel your resolve and end this spell.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "ability_save",
+      "tags": [
+        "wrathful_smite",
+        "fear",
+        "spell"
+      ],
+      "ability": "wis",
+      "difficulty_class_ability": "cha",
+      "pass": [
+        {
+          "subevent": "remove_effect",
+          "effect_tags": [
+            "wrathful_smite",
+            "fear"
+          ]
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}

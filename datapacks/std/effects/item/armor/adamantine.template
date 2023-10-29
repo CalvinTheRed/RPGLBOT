@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Adamantine Armor",
+  "description": "Adamantine armor turns critical hits scored against the wearer into normal hits.",
+  "subevent_filters": {
+    "critical_damage_confirmation": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "cancel_subevent"
+          }
+        ]
+      }
+    ]
+  }
+}

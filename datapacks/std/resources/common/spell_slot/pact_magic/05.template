@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Spell Slot (Pact Magic)",
+  "description": "This resource allows you to cast spells and use certain Invocations.",
+  "tags": [
+    "spell_slot",
+    "pact_spell_slot"
+  ],
+  "potency": 5,
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "short_rest"
+      ]
+    },
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
+  ]
+}

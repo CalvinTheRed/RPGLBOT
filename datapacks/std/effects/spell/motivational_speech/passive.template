@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Motivational Speech",
+  "description": "Creatures with this effect have advantage on wis saving throws and gain advantage on the next attack roll they make when they are hit by an attack.",
+  "subevent_filters": {
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "check_roll_ability",
+            "ability": "wis"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ],
+    "damage_delivery": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "attack_roll"
+          }
+        ],
+        "functions": [
+          {
+            "function": "invoke_subevent",
+            "subevent": {
+              "subevent": "give_effect",
+              "effect": "std:spell/motivational_speech/active"
+            },
+            "source": {
+              "from": "effect",
+              "object": "source"
+            },
+            "targets": [
+              {
+                "from": "effect",
+                "object": "target"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "reduced_to_zero_temporary_hit_points"
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Fighting Style (archery)",
+  "description": "You gain a +2 bonus to ranged attack rolls.",
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "ranged"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus_formula": "range",
+            "dice": [ ],
+            "bonus": 2
+          }
+        ]
+      }
+    ]
+  }
+}

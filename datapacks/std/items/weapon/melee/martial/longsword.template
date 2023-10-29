@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Longsword",
+  "description": "A longsword.",
+  "tags": [
+    "longsword",
+    "metal",
+    "martial_melee",
+    "versatile",
+    "weapon"
+  ],
+  "weight": 3,
+  "cost": 15,
+  "events": {
+    "multiple_hands": [
+      "std:item/weapon/melee/martial/longsword/versatile",
+      "std:common/improvised_thrown"
+    ],
+    "one_hand": [
+      "std:item/weapon/melee/martial/longsword/melee",
+      "std:common/improvised_thrown"
+    ],
+    "special": [ ]
+  },
+  "equipped_effects": [ ],
+  "attack_bonus": 0,
+  "damage_bonus": 0
+}

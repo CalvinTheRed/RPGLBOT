@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Action Surge Limiter",
+  "description": "This resource Ensures you can only use your Action Surge feature once per turn.",
+  "tags": [
+    "action_surge_limiter"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "start_turn"
+      ]
+    }
+  ]
+}

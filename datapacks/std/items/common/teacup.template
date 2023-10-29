@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Teacup",
+  "description": "A teacup.",
+  "tags": [
+    "light"
+  ],
+  "weight": 0,
+  "cost": 0
+}

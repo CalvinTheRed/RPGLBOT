@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Action",
+  "description": "This resource allows you to take actions on your turn.",
+  "potency": 1,
+  "tags": [
+    "action"
+  ]
+}

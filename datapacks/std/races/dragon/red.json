@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Red Dragon",
+  "description": "A red dragon.",
+  "features": {
+    "1": {
+      "gain": {
+        "effects": [
+          "std:common/proficiency/save/dexterity",
+          "std:common/proficiency/save/constitution",
+          "std:common/proficiency/save/wisdom",
+          "std:common/proficiency/save/charisma",
+          "std:common/damage/immunity/fire",
+          "std:common/proficiency/skill/perception",
+          "std:common/proficiency/skill/stealth"
+        ],
+        "resources": [
+          {
+            "resource": "std:object/common/breath_attack/33",
+            "count": 1
+          }
+        ]
+      }
+    }
+  }
+}

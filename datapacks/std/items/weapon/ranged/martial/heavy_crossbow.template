@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Heavy Crossbow",
+  "description": "A heavy crossbow.",
+  "tags": [
+    "heavy_crossbow",
+    "heavy",
+    "martial_ranged",
+    "two_handed",
+    "weapon"
+  ],
+  "weight": 18,
+  "cost": 50,
+  "events": {
+    "multiple_hands": [
+      "std:item/weapon/ranged/martial/heavy_crossbow/ranged",
+      "std:common/improvised_melee",
+      "std:common/improvised_thrown"
+    ],
+    "one_hand": [
+      "std:common/improvised_melee",
+      "std:common/improvised_thrown"
+    ],
+    "special": [ ]
+  },
+  "equipped_effects": [ ],
+  "attack_bonus": 0,
+  "damage_bonus": 0
+}

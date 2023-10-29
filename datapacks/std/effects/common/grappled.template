@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Grappled",
+  "description": "You are grappled.",
+  "subevent_filters": { }
+}

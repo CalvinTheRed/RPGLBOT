@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Remove Temporary Bite Attack",
+  "description": "This effect removes any temporary bite attack resources from the target at the ends of its turns.",
+  "subevent_filters": {
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "subevent_has_tag",
+            "tag": "end_turn"
+          },
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "take_resource",
+            "resource": "bite_attack"
+          }
+        ]
+      }
+    ]
+  }
+}

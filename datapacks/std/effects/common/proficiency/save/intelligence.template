@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Saving Throw Proficiency (INT)",
+  "description": "You have proficiency in saving throws made using INT.",
+  "subevent_filters": {
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "int"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": {
+              "bonus_formula": "proficiency",
+              "object": {
+                "source": "effect",
+                "object": "target"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

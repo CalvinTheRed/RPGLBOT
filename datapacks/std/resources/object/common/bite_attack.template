@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Bite Attack",
+  "description": "This resource allows you to make an attack using a bite.",
+  "potency": 1,
+  "tags": [
+    "bite_attack"
+  ]
+}

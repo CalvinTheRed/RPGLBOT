@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Action Surge Charge",
+  "description": "This resource allows you to use your Action Surge feature.",
+  "tags": [
+    "action_surge_charge"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "short_rest"
+      ]
+    }
+  ]
+}

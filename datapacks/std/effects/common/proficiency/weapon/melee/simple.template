@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Proficiency (simple melee)",
+  "description": "You have proficiency in attacks made using simple melee weapons.",
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "simple_melee"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "melee"
+              },
+              {
+                "condition": "all",
+                "conditions": [
+                  {
+                    "condition": "subevent_has_tag",
+                    "tag": "throwable"
+                  },
+                  {
+                    "condition": "subevent_has_tag",
+                    "tag": "thrown"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus_formula": "proficiency",
+            "object": {
+              "source": "effect",
+              "object": "target"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

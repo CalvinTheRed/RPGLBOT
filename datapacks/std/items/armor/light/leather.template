@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Leather Armor",
+  "description": "A suit of leather armor.",
+  "tags": [
+    "armor",
+    "light_armor"
+  ],
+  "weight": 10,
+  "cost": 10,
+  "armor_class_base": 11
+}

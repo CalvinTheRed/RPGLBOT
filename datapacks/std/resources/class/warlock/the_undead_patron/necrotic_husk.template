@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Necrotic Husk",
+  "description": "This resource allows Warlocks of The Undead to use their Necrotic Husk feature.",
+  "tags": [
+    "necrotic_husk"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ],
+      "required_generator": {
+        "dice": [
+          { "count": 2, "size": 4, "determined":  [ 2 ] }
+        ],
+        "bonus": 0
+      }
+    }
+  ]
+}

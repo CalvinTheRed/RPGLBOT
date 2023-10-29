@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Bonus Action",
+  "description": "This resource allows you to take bonus actions on your turn.",
+  "potency": 2,
+  "tags": [
+    "bonus_action"
+  ]
+}

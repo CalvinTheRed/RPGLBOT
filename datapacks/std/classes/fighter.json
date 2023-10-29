@@ -1,0 +1,165 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Fighter",
+  "description": "The Fighter class.",
+  "subclass_level": 3,
+  "ability_score_increases": [ 4, 6, 8, 12, 14, 16, 19 ],
+  "multiclassing_requirements": [
+    {
+      "ability": [ "str", "dex" ],
+      "minimum_score": 13
+    }
+  ],
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/hit_die/d10": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "starting_features": {
+    "effects": [
+      "std:common/proficiency/save/strength",
+      "std:common/proficiency/save/constitution",
+      "std:common/proficiency/armor/heavy",
+      {
+        "name": "Skill Proficiencies",
+        "count": 2,
+        "options": [
+          "std:common/proficiency/skill/acrobatics",
+          "std:common/proficiency/skill/animal_handling",
+          "std:common/proficiency/skill/athletics",
+          "std:common/proficiency/skill/history",
+          "std:common/proficiency/skill/insight",
+          "std:common/proficiency/skill/intimidation",
+          "std:common/proficiency/skill/perception",
+          "std:common/proficiency/skill/survival"
+        ]
+      }
+    ]
+  },
+  "features": {
+    "1": {
+      "gain": {
+        "effects": [
+          "std:common/proficiency/armor/light",
+          "std:common/proficiency/armor/medium",
+          "std:common/proficiency/armor/shield",
+          "std:common/proficiency/weapon/melee/martial",
+          "std:common/proficiency/weapon/melee/simple",
+          "std:common/proficiency/weapon/ranged/martial",
+          "std:common/proficiency/weapon/ranged/simple",
+          {
+            "name": "Fighting Style",
+            "count": 1,
+            "options": [
+              "std:class/common/fighting_style/archery",
+              "std:class/common/fighting_style/defense",
+              "std:class/common/fighting_style/great_weapon_fighting",
+              "std:class/common/fighting_style/thrown_weapon_fighting"
+            ]
+          }
+        ],
+        "events": [
+          "std:class/fighter/second_wind"
+        ],
+        "resources": [
+          {
+            "resource": "std:class/fighter/second_wind_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "2": {
+      "gain": {
+        "events": [
+          "std:class/fighter/action_surge"
+        ],
+        "resources": [
+          {
+            "resource": "std:class/fighter/action_surge_charge",
+            "count": 1
+          },
+          {
+            "resource": "std:class/fighter/action_surge_limiter",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "5": {
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/1"
+        ]
+      }
+    },
+    "9": {
+      "gain": {
+        "effects": [
+          "std:class/fighter/indomitable"
+        ],
+        "resources": [
+          {
+            "resource": "std:class/fighter/indomitable_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "11": {
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/2"
+        ]
+      },
+      "lose": {
+        "events": [
+          "std:class/common/extra_attack/1"
+        ]
+      }
+    },
+    "13": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:class/fighter/indomitable_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "17": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:class/fighter/action_surge_charge",
+            "count": 1
+          },
+          {
+            "resource": "std:class/fighter/indomitable_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "20": {
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/3"
+        ]
+      },
+      "lose": {
+        "events": [
+          "std:class/common/extra_attack/2"
+        ]
+      }
+    }
+  }
+}

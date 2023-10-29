@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Robe of Stars",
+  "description": "You cast Magic Missile as a 5th level spell.",
+  "area_of_effect": {
+
+  },
+  "subevents": [
+    {
+      "subevent": "deal_damage",
+      "tags": [
+        "spell",
+        "magic_missile"
+      ],
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "force",
+          "dice": [
+            { "count": 1, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 1
+        }
+      ]
+    }
+  ]
+}

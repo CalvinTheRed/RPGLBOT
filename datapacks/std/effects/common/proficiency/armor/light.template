@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Light Armor Proficiency",
+  "description": "You are proficient in the use of light armor.",
+  "subevent_filters": { }
+}

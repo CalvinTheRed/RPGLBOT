@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Proficiency (Animal Handling)",
+  "description": "You have proficiency in skill checks made using Animal Handling.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "animal_handling"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_proficiency"
+          }
+        ]
+      }
+    ]
+  }
+}

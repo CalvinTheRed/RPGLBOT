@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Wrathful Smite",
+  "description": "You are scary boi.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ],
+      "count": 1
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "count": 1,
+      "minimum_potency": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "effect": "std:spell/wrathful_smite/passive"
+    }
+  ]
+}

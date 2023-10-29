@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Battle Ready",
+  "description": "When you attack with a magic weapon, you can use your Intelligence modifier, instead of Strength or Dexterity modifier, for the attack and damage rolls..",
+  "subevent_filters": {
+    "attack_ability_collection": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "origin_item_has_tag",
+            "origin_item": "subevent",
+            "tag": "magic"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_attack_ability",
+            "ability": "int"
+          }
+        ]
+      }
+    ]
+  }
+}

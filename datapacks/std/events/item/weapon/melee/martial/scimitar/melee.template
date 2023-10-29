@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Attack",
+  "description": "You make a melee attack using a scimitar.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "weapon_attack" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_ability": "str",
+      "attack_type": "melee",
+      "damage": [
+        {
+          "damage_formula": "range",
+          "damage_type": "slashing",
+          "dice": [
+            { "count": 1, "size": 6, "determined": [ 3 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}

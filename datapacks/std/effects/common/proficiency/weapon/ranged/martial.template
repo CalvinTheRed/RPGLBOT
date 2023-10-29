@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Proficiency (martial ranged)",
+  "description": "You have proficiency in attacks made using martial ranged weapons.",
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "martial_ranged"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "ranged"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus_formula": "proficiency",
+            "object": {
+              "source": "effect",
+              "object": "target"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

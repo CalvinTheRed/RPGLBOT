@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Second Wind",
+  "description": "Recover a small amount of hit points quickly in combat.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ],
+      "count": 1
+    },
+    {
+      "resource_tags": [ "second_wind_charge" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "heal",
+      "tags": [ "second_wind" ],
+      "healing": [
+        {
+          "healing_formula": "range",
+          "dice": [
+            { "count": 1, "size": 10, "determined": [ 5 ] }
+          ],
+          "bonus": 0
+        },
+        {
+          "healing_formula": "level",
+          "class": "std:fighter",
+          "object": {
+            "from": "subevent",
+            "object": "source"
+          }
+        }
+      ]
+    }
+  ]
+}

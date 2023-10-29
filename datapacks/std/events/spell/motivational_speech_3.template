@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Motivational Speech",
+  "description": "You inspire confidence in your allies.",
+  "area_of_effect": { },
+  "subevents": [
+    {
+      "subevent": "give_temporary_hit_points",
+      "tags": [ "spell" ],
+      "temporary_hit_points": [
+        {
+          "temporary_hit_points_formula": "range",
+          "dice": [ ],
+          "bonus": 5
+        }
+      ],
+      "rider_effects": [
+        "std:motivational_speech_effect_passive"
+      ]
+    }
+  ]
+}

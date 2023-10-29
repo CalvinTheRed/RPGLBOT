@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Dagger",
+  "description": "A dagger.",
+  "tags": [
+    "dagger",
+    "finesse",
+    "light",
+    "metal",
+    "simple_melee",
+    "throwable",
+    "weapon"
+  ],
+  "weight": 1,
+  "cost": 2,
+  "events": {
+    "multiple_hands": [
+      "std:item/weapon/melee/simple/dagger/melee",
+      "std:item/weapon/melee/simple/dagger/thrown"
+    ],
+    "one_hand": [
+      "std:item/weapon/melee/simple/dagger/melee",
+      "std:item/weapon/melee/simple/dagger/thrown"
+    ],
+    "special": [ ]
+  },
+  "equipped_effects": [ ],
+  "attack_bonus": 0,
+  "damage_bonus": 0
+}

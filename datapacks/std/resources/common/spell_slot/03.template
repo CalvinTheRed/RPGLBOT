@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Spell Slot",
+  "description": "This resource allows you to cast spells.",
+  "tags": [
+    "spell_slot"
+  ],
+  "potency": 3,
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
+  ]
+}
