@@ -40,13 +40,11 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onGuildReady(GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("echo", "echoes a message")
-                .addOption(OptionType.STRING, "message", "message to be echoed"));
-        commandData.add(Commands.slash("spawn", "spawns an RPGLObject")
-                .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned"));
         commandData.add(Commands.slash("new", "start a new adventure"));
         commandData.add(Commands.slash("save", "save your adventure for later"));
         commandData.add(Commands.slash("load", "load your previous adventure"));
+        commandData.add(Commands.slash("spawn", "spawns an RPGLObject")
+                .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true));
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
@@ -57,7 +55,7 @@ public class CommandManager extends ListenerAdapter {
         commandData.add(Commands.slash("save", "save your adventure for later"));
         commandData.add(Commands.slash("load", "load your previous adventure"));
         commandData.add(Commands.slash("spawn", "spawns an RPGLObject")
-                .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned"));
+                .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true));
         event.getJDA().updateCommands().addCommands(commandData).queue();
     }
 
