@@ -43,11 +43,15 @@
         "functions": [
           {
             "function": "add_bonus",
-            "bonus_formula": "proficiency",
-            "object": {
-              "source": "effect",
-              "object": "target"
-            }
+            "bonus": [
+              {
+                "formula": "proficiency",
+                "object": {
+                  "source": "effect",
+                  "object": "target"
+                }
+              }
+            ]
           }
         ]
       }

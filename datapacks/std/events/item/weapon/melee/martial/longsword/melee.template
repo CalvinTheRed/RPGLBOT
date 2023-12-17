@@ -18,7 +18,7 @@
       "attack_type": "melee",
       "damage": [
         {
-          "damage_formula": "range",
+          "formula": "range",
           "damage_type": "slashing",
           "dice": [
             { "count": 1, "size": 8, "determined": [ 4 ] }

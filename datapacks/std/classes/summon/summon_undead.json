@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Summon Undead",
+  "description": "The class description of what it means to be a creature summoned ia Summon Undead.",
+  "subclass_level": 0,
+  "ability_score_increases": [ ],
+  "multiclassing_requirements": [ ],
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "starting_features": {
+    "effects": [
+      "std:common/damage/immunity/necrotic",
+      "std:common/damage/immunity/poison"
+    ]
+  },
+  "features": {
+    "4": {
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/1"
+        ]
+      }
+    },
+    "6": {
+      "lose": {
+        "events": [
+          "std:class/common/extra_attack/1"
+        ]
+      },
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/2"
+        ]
+      }
+    },
+    "8": {
+      "lose": {
+        "events": [
+          "std:class/common/extra_attack/2"
+        ]
+      },
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/3"
+        ]
+      }
+    }
+  }
+}

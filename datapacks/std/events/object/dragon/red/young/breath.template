@@ -24,7 +24,7 @@
       "save_ability": "dex",
       "damage": [
         {
-          "damage_formula": "range",
+          "formula": "range",
           "damage_type": "fire",
           "dice": [
             { "count": 16, "size": 6, "determined": [ 3 ] }

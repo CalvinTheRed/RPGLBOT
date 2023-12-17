@@ -21,9 +21,13 @@
         "functions": [
           {
             "function": "add_bonus",
-            "bonus_formula": "range",
-            "dice": [ ],
-            "bonus": 2
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [ ],
+                "bonus": 2
+              }
+            ]
           }
         ]
       }

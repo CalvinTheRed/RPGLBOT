@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Grave Bolt",
+  "description": "A death-empowered ranged attack used by the undead.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "weapon_attack" ],
+      "count": 1,
+      "minimum_potency": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_type": "ranged",
+      "attack_ability": "int",
+      "use_origin_attack_ability": true,
+      "bonuses": [
+        {
+          "formula": "proficiency",
+          "object": {
+            "from": "subevent",
+            "object": "source"
+          }
+        }
+      ],
+      "tags": [ "grave_bolt" ],
+      "damage": [
+        {
+          "formula": "range",
+          "damage_type": "necrotic",
+          "dice": [
+            { "count": 2, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 3
+        }
+      ],
+      "withhold_damage_modifier": true,
+      "determined": [ 10 ]
+    }
+  ]
+}

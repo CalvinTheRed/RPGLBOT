@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Upcasting Manager",
+  "description": "The creature is more powerful when summoned with higher level spell slots.",
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "grave_bolt"
+          }
+        ],
+        "functions": [ ]
+      }
+    ],
+    "damage_collection": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "grave_bolt"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "base_damage_collection"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_damage",
+            "damage": [
+              {
+                "formula": "level",
+                "damage_type": "necrotic",
+                "class": "std:summon/summon_undead",
+                "object": {
+                  "from": "subevent",
+                  "object": "source"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "calculate_base_armor_class": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "set_base",
+            "base": {
+              "formula": "number",
+              "number": 11
+            }
+          },
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "level",
+                "class": "std:summon/summon_undead",
+                "object": {
+                  "from": "subevent",
+                  "object": "target"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

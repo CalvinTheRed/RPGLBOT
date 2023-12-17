@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Undead Summon (Skeletal)",
+  "description": "A summoned undead companion.",
+  "tags": [
+    "undead",
+    "summon",
+    "summon_undead"
+  ],
+  "ability_scores": {
+    "str": 12,
+    "dex": 16,
+    "con": 15,
+    "int": 4,
+    "wis": 10,
+    "cha": 9
+  },
+  "health_data": {
+    "base": 14,
+    "current": 14,
+    "temporary": 0
+  },
+  "classes": [
+    {
+      "id": "std:summon/summon_undead",
+      "level": 3,
+      "choices": { }
+    }
+  ],
+  "races": [
+    "std:summon/summon_undead/skeletal"
+  ],
+  "proficiency_bonus": 0,
+  "challenge_rating": 0
+}

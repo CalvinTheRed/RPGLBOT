@@ -21,7 +21,7 @@
       ],
       "damage": [
         {
-          "damage_formula": "range",
+          "formula": "range",
           "damage_type": "bludgeoning",
           "dice": [
             { "count": 1, "size": 4, "determined": [ 2 ] }

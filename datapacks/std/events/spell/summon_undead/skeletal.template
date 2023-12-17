@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Summon Undead (Skeletal)",
+  "description": "Summons an undead companion.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ],
+      "count": 1
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "count": 1,
+      "minimum_potency": 3,
+      "scale": [
+        {
+          "field": "subevents[0].object_bonuses[0].bonus",
+          "magnitude": 1
+        },
+        {
+          "field": "subevents[0].object_bonuses[1].bonus",
+          "magnitude": 8
+        },
+        {
+          "field": "subevents[0].object_bonuses[2].bonus",
+          "magnitude": 10
+        }
+      ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "spawn_object",
+      "tags": [ "spell" ],
+      "object_id": "std:summon/summon_undead/skeletal",
+      "controlled_by": "source",
+      "object_bonuses": [
+        {
+          "field": "classes[0].level",
+          "bonus": 0
+        },
+        {
+          "field": "health_data.base",
+          "bonus": 0
+        },
+        {
+          "field": "health_data.current",
+          "bonus": 0
+        }
+      ],
+      "extend_proficiency_bonus": true
+    }
+  ]
+}

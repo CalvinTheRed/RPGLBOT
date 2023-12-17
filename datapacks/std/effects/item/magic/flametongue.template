@@ -26,7 +26,7 @@
             "function": "add_damage",
             "damage": [
               {
-                "damage_formula": "range",
+                "formula": "range",
                 "damage_type": "fire",
                 "dice": [ { "count": 2, "size": 6, "determined": [ 3 ] } ],
                 "bonus": 0

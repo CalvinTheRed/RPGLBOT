@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Weapon Attack",
+  "description": "This resource allows you to make a single weapon attack.",
+  "potency": 1,
+  "tags": [
+    "weapon_attack"
+  ]
+}

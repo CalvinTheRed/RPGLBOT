@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Extra Attack",
+  "description": "You can make 2 weapon attacks using your action.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_resource",
+      "resource": "common/weapon_attack",
+      "count": 3
+    }
+  ]
+}

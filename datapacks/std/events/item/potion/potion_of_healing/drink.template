@@ -17,7 +17,7 @@
       "tags": [ "potion_of_healing" ],
       "healing": [
         {
-          "healing_formula": "range",
+          "formula": "range",
           "dice": [
             { "count": 2, "size": 4, "determined": [ 2 ] }
           ],

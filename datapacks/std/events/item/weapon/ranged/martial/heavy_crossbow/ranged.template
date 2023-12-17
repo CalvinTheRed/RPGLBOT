@@ -18,7 +18,7 @@
       "attack_type": "ranged",
       "damage": [
         {
-          "damage_formula": "range",
+          "formula": "range",
           "damage_type": "piercing",
           "dice": [
             { "count": 1, "size": 10, "determined": [ 5 ] }

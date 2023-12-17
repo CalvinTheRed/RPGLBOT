@@ -71,7 +71,7 @@
             "function": "add_damage",
             "damage": [
               {
-                "damage_formula": "range",
+                "formula": "range",
                 "damage_type": "psychic",
                 "dice": [
                   { "count": 1, "size": 6, "determined": [ 3 ] }
