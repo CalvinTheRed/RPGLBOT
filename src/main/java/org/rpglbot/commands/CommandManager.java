@@ -32,6 +32,7 @@ public class CommandManager extends ListenerAdapter {
         if (event.getChannel().getName().equals("rpgl-stuff")) {
             String command = event.getFullCommandName();
             switch(command) {
+                case "as" -> slashAs(event);
                 case "help" -> {
                     try {
                         slashHelp(event);
@@ -57,6 +58,11 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onGuildReady(GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>() {{
+
+            this.add(Commands.slash("as", "cause one of your RPGLObjects to do something")
+                    .addOption(OptionType.STRING, "my_object", "the object you want to cause to act", true, true)
+                    .addOption(OptionType.STRING, "my_event", "the act you want your object to take", true, true)
+                    .addOption(OptionType.STRING, "target_object", "an object you want to target with your action", true, true));
 
             this.add(Commands.slash("help", "displays template data for a specified DatapackContent")
                     .addOption(OptionType.STRING, "data_type", "the type of the DatapackContent to be queried", true, true)
@@ -85,6 +91,11 @@ public class CommandManager extends ListenerAdapter {
     public void onReady(ReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>() {{
 
+            this.add(Commands.slash("as", "cause one of your RPGLObjects to do something")
+                    .addOption(OptionType.STRING, "my_object", "the object you want to cause to act", true, true)
+                    .addOption(OptionType.STRING, "my_event", "the act you want your object to take", true, true)
+                    .addOption(OptionType.STRING, "target_object", "an object you want to target with your action", true, true));
+
             this.add(Commands.slash("help", "displays template data for a specified DatapackContent")
                     .addOption(OptionType.STRING, "data_type", "the type of the DatapackContent to be queried", true, true)
                     .addOption(OptionType.STRING, "id", "the id of the DatapackContent to be queried", true, true));
@@ -106,6 +117,10 @@ public class CommandManager extends ListenerAdapter {
 
         }};
         event.getJDA().updateCommands().addCommands(commandData).queue();
+    }
+
+    private static void slashAs(SlashCommandInteractionEvent event) {
+
     }
 
     private static void slashNew(SlashCommandInteractionEvent event) {

@@ -3,6 +3,9 @@ package org.rpglbot.commands;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
+import org.rpgl.core.RPGLObject;
+import org.rpgl.uuidtable.UUIDTable;
+import org.rpglbot.RPGLClient;
 
 import java.io.File;
 import java.util.List;
@@ -34,6 +37,9 @@ public class CommandCompleter extends ListenerAdapter {
             case "data_type" -> autocompleteDataTypeOption(event);
             case "save_name" -> autocompleteSaveNameOption(event);
             case "scope" -> autocompleteScopeOption(event);
+            case "my_object" -> autocompleteMyObjectsOption(event);
+            case "my_event" -> autocompleteMyEventsOption(event);
+            case "target_object" -> autocompleteTargetObjectOption(event);
         }
     }
 
@@ -65,6 +71,40 @@ public class CommandCompleter extends ListenerAdapter {
                 .filter(dataType -> dataType.startsWith(value))
                 .map(dataType -> new Command.Choice(dataType, dataType))
                 .toList();
+        event.replyChoices(options).queue();
+    }
+
+    private void autocompleteMyObjectsOption(CommandAutoCompleteInteractionEvent event) {
+        String userId = event.getUser().getName();
+        String value = event.getFocusedOption().getValue();
+        List<Command.Choice> options = UUIDTable.getObjectsByUserId(userId).stream()
+                .filter(object -> object.getName().startsWith(value))
+                .map(object -> new Command.Choice(object.getName(), object.getUuid()))
+                .toList();
+        event.replyChoices(options).queue();
+    }
+
+    private void autocompleteTargetObjectOption(CommandAutoCompleteInteractionEvent event) {
+        String value = event.getFocusedOption().getValue();
+        List<Command.Choice> options = UUIDTable.getObjects().stream()
+                .filter(object -> object.getName().startsWith(value))
+                .map(object -> new Command.Choice(object.getName(), object.getUuid()))
+                .toList();
+        event.replyChoices(options).queue();
+    }
+
+    private void autocompleteMyEventsOption(CommandAutoCompleteInteractionEvent event) {
+        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
+        String value = event.getFocusedOption().getValue();
+        List<Command.Choice> options;
+        try {
+            options = object.getEventObjects(RPGLClient.getContext()).stream()
+                    .filter(rpglEvent -> rpglEvent.getName().startsWith(value))
+                    .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
+                    .toList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         event.replyChoices(options).queue();
     }
 
