@@ -39,6 +39,7 @@ public class CommandCompleter extends ListenerAdapter {
             case "scope" -> autocompleteScopeOption(event);
             case "my_object" -> autocompleteMyObjectsOption(event);
             case "my_event" -> autocompleteMyEventsOption(event);
+            case "my_resources" -> autocompleteMyResourcesOption(event);
             case "target_object" -> autocompleteTargetObjectOption(event);
         }
     }
@@ -101,6 +102,21 @@ public class CommandCompleter extends ListenerAdapter {
             options = object.getEventObjects(RPGLClient.getContext()).stream()
                     .filter(rpglEvent -> rpglEvent.getName().startsWith(value))
                     .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
+                    .toList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        event.replyChoices(options).queue();
+    }
+
+    private void autocompleteMyResourcesOption(CommandAutoCompleteInteractionEvent event) {
+        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
+        String value = event.getFocusedOption().getValue();
+        List<Command.Choice> options;
+        try {
+            options = object.getResourceObjects().stream()
+                    .filter(resource -> resource.getName().startsWith(value) && !resource.getExhausted())
+                    .map(resource -> new Command.Choice(resource.getName(), resource.getUuid()))
                     .toList();
         } catch (Exception e) {
             throw new RuntimeException(e);
