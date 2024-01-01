@@ -3,8 +3,11 @@ package org.rpglbot.commands;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
+import org.rpgl.core.RPGLFactory;
 import org.rpgl.core.RPGLObject;
 import org.rpgl.datapack.DatapackLoader;
+import org.rpgl.json.JsonArray;
+import org.rpgl.json.JsonObject;
 import org.rpgl.uuidtable.UUIDTable;
 import org.rpglbot.RPGLClient;
 
@@ -123,9 +126,22 @@ public class CommandCompleter extends ListenerAdapter {
         int lastDelimiter = value.lastIndexOf(',');
         String lockedResources = value.substring(0, Math.max(lastDelimiter, 0));
         String focusedResource = value.substring(Math.max(lastDelimiter + 1, 0));
+
+        // find resource tags required
+        JsonArray costArray = RPGLFactory.newEvent(Objects.requireNonNull(event.getOption("my_event")).getAsString()).getCost();
+        int numLockedResources = "".equals(lockedResources) ? 0 : lockedResources.split(",").length;
+        int costIndex = 0;
+        JsonObject cost;
+        do {
+            cost = costArray.getJsonObject(costIndex++);
+            numLockedResources -= Objects.requireNonNullElse(cost.getInteger("count"), 1); // <-- should be a RPGL thing...
+        } while (numLockedResources >= 0 && costIndex < costArray.size());
+        JsonArray resourceTags = cost.getJsonArray("resource_tags");
+
         List<Command.Choice> options = object.getResourceObjects().stream()
                 .filter(resource -> resource.getName().startsWith(focusedResource)
-                        &&!resource.getExhausted()
+                        && !resource.getExhausted()
+                        && resource.getTags().containsAny(resourceTags.asList())
                         && !lockedResources.contains(resource.getUuid()))
                 .map(resource -> lockedResources.equals("")
                         ? new Command.Choice(resource.getUuid(), resource.getUuid())
