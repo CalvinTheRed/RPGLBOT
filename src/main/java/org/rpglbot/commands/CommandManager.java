@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 public class CommandManager extends ListenerAdapter {
 
@@ -145,19 +146,29 @@ public class CommandManager extends ListenerAdapter {
         RPGLEvent rpglEvent = RPGLFactory.newEvent(Objects.requireNonNull(event.getOption("my_event")).getAsString());
         RPGLObject target = UUIDTable.getObject(Objects.requireNonNull(event.getOption("target_object")).getAsString());
         RPGLResource resource = UUIDTable.getResource(Objects.requireNonNull(event.getOption("my_resources")).getAsString());
+        CustomContext context = (CustomContext) RPGLClient.getContext();
+        context.clearMessages();
 
         source.invokeEvent(new RPGLObject[]{ target }, rpglEvent, List.of(resource), RPGLClient.getContext());
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String message : ((CustomContext) RPGLClient.getContext()).getMessages()) {
-            stringBuilder.append(message).append('\n');
+        stringBuilder
+                .append(source.getName())
+                .append(" uses ")
+                .append(rpglEvent.getName())
+                .append(" on ")
+                .append(target.getName());
+
+        Stack<String> messages = context.getMessages();
+        while (!messages.isEmpty()) {
+            stringBuilder.append('\n').append(messages.pop());
         }
         event.reply(stringBuilder.toString()).queue();
     }
 
     private static void slashRename(SlashCommandInteractionEvent event) {
         RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
-        String newName = event.getOption("new_name").getAsString();
+        String newName = Objects.requireNonNull(event.getOption("new_name")).getAsString();
         String oldName = object.getName();
         object.setName(newName);
         event.reply(String.format("Renamed %s to %s!", oldName, newName)).queue();

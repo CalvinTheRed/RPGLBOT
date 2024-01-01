@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Natural Armor",
+  "description": "You have a natural armor class of 18.",
+  "subevent_filters": {
+    "calculate_base_armor_class": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "set_base",
+            "base": {
+              "formula": "number",
+              "number": 18
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

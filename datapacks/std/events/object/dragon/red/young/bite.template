@@ -21,7 +21,7 @@
       "damage": [
         {
           "formula": "range",
-          "damage_type": "slashing",
+          "damage_type": "piercing",
           "dice": [
             { "count": 2, "size": 10, "determined": [ 5 ] }
           ],

@@ -4,18 +4,15 @@ import org.rpgl.core.RPGLContext;
 import org.rpgl.core.RPGLObject;
 import org.rpgl.json.JsonObject;
 import org.rpgl.subevent.AttackRoll;
-import org.rpgl.subevent.DamageAffinity;
 import org.rpgl.subevent.DamageDelivery;
 import org.rpgl.subevent.Subevent;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class CustomContext extends RPGLContext {
 
-    private final List<String> messages = new LinkedList<>();
+    private final Stack<String> messages = new Stack<>();
 
     @Override
     public boolean isObjectsTurn(RPGLObject object) {
@@ -39,7 +36,15 @@ public class CustomContext extends RPGLContext {
                             .append(numDamageTypes > 1 ? ", " : " ");
                     numDamageTypes--;
                 }
-                stringBuilder.append("damage!");
+                stringBuilder.append("damage!\n");
+
+                JsonObject targetHealthData = damageDelivery.getTarget().getHealthData();
+                int current = targetHealthData.getInteger("current");
+                int temporary = targetHealthData.getInteger("temporary");
+                stringBuilder.append("Health: ").append(current);
+                if (temporary > 0) {
+                    stringBuilder.append(" (+").append(temporary).append(")");
+                }
                 messages.add(stringBuilder.toString());
             }
             case "attack_roll" -> {
@@ -57,14 +62,7 @@ public class CustomContext extends RPGLContext {
                 } else if (attackRoll.getBase() == 1) {
                     stringBuilder.append(" (CRITICAL MISS)");
                 } else if (attackRoll.get() >= attackRoll.getTargetArmorClass()) {
-                    stringBuilder.append(" (HIT)\nHealth: ");
-                    JsonObject targetHealthData = attackRoll.getTarget().getHealthData();
-                    int current = targetHealthData.getInteger("current");
-                    int temporary = targetHealthData.getInteger("temporary");
-                    stringBuilder.append(current);
-                    if (temporary > 0) {
-                        stringBuilder.append(" (+").append(temporary).append(")");
-                    }
+                    stringBuilder.append(" (HIT)");
                 } else {
                     stringBuilder.append(" (MISS)");
                 }
@@ -73,9 +71,11 @@ public class CustomContext extends RPGLContext {
         }
     }
 
-    public List<String> getMessages() {
-        List<String> messages = new ArrayList<>(this.messages);
+    public Stack<String> getMessages() {
+        return this.messages;
+    }
+
+    public void clearMessages() {
         this.messages.clear();
-        return messages;
     }
 }

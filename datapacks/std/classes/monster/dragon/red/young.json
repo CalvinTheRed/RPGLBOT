@@ -20,7 +20,8 @@
   "starting_features": {
     "effects": [
       "std:resource/take/claw_attack",
-      "std:resource/take/bite_attack"
+      "std:resource/take/bite_attack",
+      "std:common/natural_armor/18"
     ],
     "events": [
       "std:object/dragon/red/young/breath",
