@@ -74,7 +74,7 @@ public class CommandManager extends ListenerAdapter {
             this.add(Commands.slash("as", "cause one of your RPGLObjects to do something")
                     .addOption(OptionType.STRING, "my_object", "the object you want to cause to act", true, true)
                     .addOption(OptionType.STRING, "my_event", "the act you want your object to take", true, true)
-                    .addOption(OptionType.STRING, "target_object", "an object you want to target with your action", true, true)
+                    .addOption(OptionType.STRING, "targets", "an object you want to target with your action", true, true)
                     .addOption(OptionType.STRING, "my_resources", "the resources you want to spend to act", true, true));
 
             this.add(Commands.slash("help", "displays template data for a specified DatapackContent")
@@ -111,7 +111,7 @@ public class CommandManager extends ListenerAdapter {
             this.add(Commands.slash("as", "cause one of your RPGLObjects to do something")
                     .addOption(OptionType.STRING, "my_object", "the object you want to cause to act", true, true)
                     .addOption(OptionType.STRING, "my_event", "the act you want your object to take", true, true)
-                    .addOption(OptionType.STRING, "target_object", "an object you want to target with your action", true, true)
+                    .addOption(OptionType.STRING, "targets", "an object you want to target with your action", true, true)
                     .addOption(OptionType.STRING, "my_resources", "the resources you want to spend to act", true, true));
 
             this.add(Commands.slash("help", "displays template data for a specified DatapackContent")
@@ -144,20 +144,31 @@ public class CommandManager extends ListenerAdapter {
     private static void slashAs(SlashCommandInteractionEvent event) throws Exception {
         RPGLObject source = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
         RPGLEvent rpglEvent = RPGLFactory.newEvent(Objects.requireNonNull(event.getOption("my_event")).getAsString());
-        RPGLObject target = UUIDTable.getObject(Objects.requireNonNull(event.getOption("target_object")).getAsString());
+        String[] targetUuids = Objects.requireNonNull(event.getOption("targets")).getAsString().split(",");
+        RPGLObject[] targets = new RPGLObject[targetUuids.length];
+        for (int i = 0; i < targets.length; i++) {
+            targets[i] = UUIDTable.getObject(targetUuids[i]);
+        }
         RPGLResource resource = UUIDTable.getResource(Objects.requireNonNull(event.getOption("my_resources")).getAsString());
         CustomContext context = (CustomContext) RPGLClient.getContext();
         context.clearMessages();
 
-        source.invokeEvent(new RPGLObject[]{ target }, rpglEvent, List.of(resource), RPGLClient.getContext());
+        source.invokeEvent(targets, rpglEvent, List.of(resource), RPGLClient.getContext());
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append(source.getName())
                 .append(" uses ")
                 .append(rpglEvent.getName())
-                .append(" on ")
-                .append(target.getName());
+                .append(" on ");
+        for (int i = 0; i < targets.length; i++) {
+            stringBuilder.append(targets[i].getName());
+            if (i < targets.length - 1) {
+                stringBuilder.append(", ");
+            } else {
+                stringBuilder.append("!");
+            }
+        }
 
         Stack<String> messages = context.getMessages();
         while (!messages.isEmpty()) {

@@ -41,7 +41,7 @@ public class CommandCompleter extends ListenerAdapter {
             case "my_object" -> autocompleteMyObjectsOption(event);
             case "my_event" -> autocompleteMyEventsOption(event);
             case "my_resources" -> autocompleteMyResourcesOption(event);
-            case "target_object" -> autocompleteTargetObjectOption(event);
+            case "targets" -> autocompleteTargetObjectOption(event);
         }
     }
 
@@ -88,9 +88,18 @@ public class CommandCompleter extends ListenerAdapter {
 
     private void autocompleteTargetObjectOption(CommandAutoCompleteInteractionEvent event) {
         String value = event.getFocusedOption().getValue();
+        int lastDelimiter = value.lastIndexOf(',');
+        String lockedTargets = value.substring(0, Math.max(lastDelimiter, 0));
+        String focusedTarget = value.substring(Math.max(lastDelimiter + 1, 0));
         List<Command.Choice> options = UUIDTable.getObjects().stream()
-                .filter(object -> object.getName().startsWith(value))
-                .map(object -> new Command.Choice(object.getName(), object.getUuid()))
+                .filter(object -> object.getName().startsWith(focusedTarget) && !lockedTargets.contains(object.getUuid()))
+                .map(object -> lockedTargets.equals("")
+                        ? new Command.Choice(
+                                object.getUuid(),
+                                object.getUuid())
+                        : new Command.Choice(
+                                lockedTargets + "," + object.getUuid(),
+                                lockedTargets + "," + object.getUuid()))
                 .toList();
         event.replyChoices(options).queue();
     }

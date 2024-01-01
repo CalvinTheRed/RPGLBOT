@@ -2,8 +2,10 @@ package org.rpglbot;
 
 import org.rpgl.core.RPGLContext;
 import org.rpgl.core.RPGLObject;
+import org.rpgl.json.JsonArray;
 import org.rpgl.json.JsonObject;
 import org.rpgl.subevent.AttackRoll;
+import org.rpgl.subevent.DamageAffinity;
 import org.rpgl.subevent.DamageDelivery;
 import org.rpgl.subevent.Subevent;
 
@@ -23,30 +25,6 @@ public class CustomContext extends RPGLContext {
     public void viewCompletedSubevent(Subevent subevent) {
         StringBuilder stringBuilder = new StringBuilder();
         switch (subevent.getSubeventId()) {
-            case "damage_delivery" -> {
-                DamageDelivery damageDelivery = (DamageDelivery) subevent;
-                stringBuilder.append(damageDelivery.getTarget().getName()).append(" takes ");
-                JsonObject damage = damageDelivery.getDamage();
-                int numDamageTypes = damage.asMap().size();
-                for (Map.Entry<String, ?> damageEntry : damage.asMap().entrySet()) {
-                    stringBuilder
-                            .append(damage.getInteger(damageEntry.getKey()))
-                            .append(" ")
-                            .append(damageEntry.getKey())
-                            .append(numDamageTypes > 1 ? ", " : " ");
-                    numDamageTypes--;
-                }
-                stringBuilder.append("damage!\n");
-
-                JsonObject targetHealthData = damageDelivery.getTarget().getHealthData();
-                int current = targetHealthData.getInteger("current");
-                int temporary = targetHealthData.getInteger("temporary");
-                stringBuilder.append("Health: ").append(current);
-                if (temporary > 0) {
-                    stringBuilder.append(" (+").append(temporary).append(")");
-                }
-                messages.add(stringBuilder.toString());
-            }
             case "attack_roll" -> {
                 AttackRoll attackRoll = (AttackRoll) subevent;
                 stringBuilder
@@ -66,6 +44,40 @@ public class CustomContext extends RPGLContext {
                 } else {
                     stringBuilder.append(" (MISS)");
                 }
+                messages.add(stringBuilder.toString());
+            }
+            case "damage_affinity" -> {
+                DamageAffinity damageAffinity = (DamageAffinity) subevent;
+                RPGLObject target = damageAffinity.getTarget();
+                JsonArray affinities = damageAffinity.json.getJsonArray("affinities"); // <-- magic string here
+                for (int i = 0; i < affinities.size(); i++) {
+                    String damageType = affinities.getJsonObject(i).getString("damage_type");
+                    if (!damageAffinity.isImmune(damageType)) {
+                        if (damageAffinity.isResistant(damageType)) {
+                            messages.add(String.format("%s is resistant to %s!", target.getName(), damageType));
+                        }
+                        if (damageAffinity.isVulnerable(damageType)) {
+                            messages.add(String.format("%s is vulnerable to %s!", target.getName(), damageType));
+                        }
+                    } else {
+                        messages.add(String.format("%s is immune to %s!", target.getName(), damageType));
+                    }
+                }
+            }
+            case "damage_delivery" -> {
+                DamageDelivery damageDelivery = (DamageDelivery) subevent;
+                stringBuilder.append(damageDelivery.getTarget().getName()).append(" takes ");
+                JsonObject damage = damageDelivery.getDamage();
+                int numDamageTypes = damage.asMap().size();
+                for (Map.Entry<String, ?> damageEntry : damage.asMap().entrySet()) {
+                    stringBuilder
+                            .append(damage.getInteger(damageEntry.getKey()))
+                            .append(" ")
+                            .append(damageEntry.getKey())
+                            .append(numDamageTypes > 1 ? ", " : " ");
+                    numDamageTypes--;
+                }
+                stringBuilder.append("damage!\n");
                 messages.add(stringBuilder.toString());
             }
         }
