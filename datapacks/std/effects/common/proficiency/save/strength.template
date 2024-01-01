@@ -25,7 +25,7 @@
               {
                 "formula": "proficiency",
                 "object": {
-                  "source": "effect",
+                  "from": "effect",
                   "object": "target"
                 }
               }

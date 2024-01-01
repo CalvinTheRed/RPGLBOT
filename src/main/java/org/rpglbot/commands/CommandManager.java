@@ -144,16 +144,22 @@ public class CommandManager extends ListenerAdapter {
     private static void slashAs(SlashCommandInteractionEvent event) throws Exception {
         RPGLObject source = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
         RPGLEvent rpglEvent = RPGLFactory.newEvent(Objects.requireNonNull(event.getOption("my_event")).getAsString());
+
         String[] targetUuids = Objects.requireNonNull(event.getOption("targets")).getAsString().split(",");
         RPGLObject[] targets = new RPGLObject[targetUuids.length];
         for (int i = 0; i < targets.length; i++) {
             targets[i] = UUIDTable.getObject(targetUuids[i]);
         }
-        RPGLResource resource = UUIDTable.getResource(Objects.requireNonNull(event.getOption("my_resources")).getAsString());
+
+        String[] resourceUuids = Objects.requireNonNull(event.getOption("my_resources")).getAsString().split(",");
+        RPGLResource[] resources = new RPGLResource[resourceUuids.length];
+        for (int i = 0; i < resources.length; i++) {
+            resources[i] = UUIDTable.getResource(resourceUuids[i]);
+        }
+
         CustomContext context = (CustomContext) RPGLClient.getContext();
         context.clearMessages();
-
-        source.invokeEvent(targets, rpglEvent, List.of(resource), RPGLClient.getContext());
+        source.invokeEvent(targets, rpglEvent, List.of(resources), context);
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder

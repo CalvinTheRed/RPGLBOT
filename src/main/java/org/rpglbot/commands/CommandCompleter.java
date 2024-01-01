@@ -94,9 +94,7 @@ public class CommandCompleter extends ListenerAdapter {
         List<Command.Choice> options = UUIDTable.getObjects().stream()
                 .filter(object -> object.getName().startsWith(focusedTarget) && !lockedTargets.contains(object.getUuid()))
                 .map(object -> lockedTargets.equals("")
-                        ? new Command.Choice(
-                                object.getUuid(),
-                                object.getUuid())
+                        ? new Command.Choice(object.getUuid(), object.getUuid())
                         : new Command.Choice(
                                 lockedTargets + "," + object.getUuid(),
                                 lockedTargets + "," + object.getUuid()))
@@ -122,15 +120,19 @@ public class CommandCompleter extends ListenerAdapter {
     private void autocompleteMyResourcesOption(CommandAutoCompleteInteractionEvent event) {
         RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
         String value = event.getFocusedOption().getValue();
-        List<Command.Choice> options;
-        try {
-            options = object.getResourceObjects().stream()
-                    .filter(resource -> resource.getName().startsWith(value) && !resource.getExhausted())
-                    .map(resource -> new Command.Choice(resource.getName(), resource.getUuid()))
-                    .toList();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        int lastDelimiter = value.lastIndexOf(',');
+        String lockedResources = value.substring(0, Math.max(lastDelimiter, 0));
+        String focusedResource = value.substring(Math.max(lastDelimiter + 1, 0));
+        List<Command.Choice> options = object.getResourceObjects().stream()
+                .filter(resource -> resource.getName().startsWith(focusedResource)
+                        &&!resource.getExhausted()
+                        && !lockedResources.contains(resource.getUuid()))
+                .map(resource -> lockedResources.equals("")
+                        ? new Command.Choice(resource.getUuid(), resource.getUuid())
+                        : new Command.Choice(
+                                lockedResources + "," + resource.getUuid(),
+                                lockedResources + "," + resource.getUuid()))
+                .toList();
         event.replyChoices(options).queue();
     }
 
