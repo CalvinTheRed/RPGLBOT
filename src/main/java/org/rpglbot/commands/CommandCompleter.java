@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInterac
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import org.rpgl.core.RPGLObject;
+import org.rpgl.datapack.DatapackLoader;
 import org.rpgl.uuidtable.UUIDTable;
 import org.rpglbot.RPGLClient;
 
@@ -126,6 +127,7 @@ public class CommandCompleter extends ListenerAdapter {
 
     private void listRPGLIds(String dataType, CommandAutoCompleteInteractionEvent event) {
         String value = event.getFocusedOption().getValue();
+        List<Command.Choice> options;
         if (value.contains(":")) {
             String[] split = value.split(":");
             int deepestSlashIndex = split.length == 1 ? -1 : split[1].lastIndexOf("/");
@@ -134,12 +136,17 @@ public class CommandCompleter extends ListenerAdapter {
                     dataType,
                     deepestSlashIndex == -1 ? "" : split[1].substring(0, deepestSlashIndex + 1)
             ).replace("/", File.separator);
-            List<Command.Choice> options = Stream.of(Objects.requireNonNull(new File(rootDirPath).listFiles()))
+            options = Stream.of(Objects.requireNonNull(new File(rootDirPath).listFiles()))
                     .filter(file -> fileAsDatapackId(file).startsWith(value))
                     .map(file -> new Command.Choice(fileAsDatapackId(file), fileAsDatapackId(file)))
                     .toList();
-            event.replyChoices(options).queue();
+        } else {
+            options = DatapackLoader.DATAPACKS.keySet().stream()
+                    .filter(datapack -> datapack.startsWith(value))
+                    .map(datapack -> new Command.Choice(datapack + ":", datapack + ":"))
+                    .toList();
         }
+        event.replyChoices(options).queue();
     }
 
     private void listSaves(CommandAutoCompleteInteractionEvent event) {
