@@ -45,6 +45,7 @@ public class CommandCompleter extends ListenerAdapter {
             case "my_event" -> autocompleteMyEventsOption(event);
             case "my_resources" -> autocompleteMyResourcesOption(event);
             case "targets" -> autocompleteTargetObjectOption(event);
+            case "operation" -> autocompleteOperationOption(event);
         }
     }
 
@@ -110,7 +111,7 @@ public class CommandCompleter extends ListenerAdapter {
         String value = event.getFocusedOption().getValue();
         List<Command.Choice> options;
         try {
-            options = object.getEventObjects(RPGLClient.getContext()).stream()
+            options = object.getEventObjects(RPGLClient.CONTEXT).stream()
                     .filter(rpglEvent -> rpglEvent.getName().startsWith(value))
                     .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
                     .toList();
@@ -118,6 +119,13 @@ public class CommandCompleter extends ListenerAdapter {
             throw new RuntimeException(e);
         }
         event.replyChoices(options).queue();
+    }
+
+    private void autocompleteOperationOption(CommandAutoCompleteInteractionEvent event) {
+        event.replyChoices(List.of(
+                new Command.Choice("end", "end"),
+                new Command.Choice("who", "who")
+        )).queue();
     }
 
     private void autocompleteMyResourcesOption(CommandAutoCompleteInteractionEvent event) {

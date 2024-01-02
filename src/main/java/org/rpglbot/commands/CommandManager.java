@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import org.rpgl.core.RPGLContext;
 import org.rpgl.core.RPGLEffectTemplate;
 import org.rpgl.core.RPGLEvent;
 import org.rpgl.core.RPGLEventTemplate;
@@ -27,7 +28,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Stack;
+import java.util.UUID;
 
 public class CommandManager extends ListenerAdapter {
 
@@ -44,6 +47,7 @@ public class CommandManager extends ListenerAdapter {
                         event.reply("Something went wrong!").queue();
                     }
                 }
+                case "fight" -> slashFight(event);
                 case "help" -> {
                     try {
                         slashHelp(event);
@@ -63,6 +67,13 @@ public class CommandManager extends ListenerAdapter {
                         event.reply("SPAWN requires an id").queue();
                     }
                 }
+                case "turn" -> {
+                    try {
+                        slashTurn(event);
+                    } catch (Exception e) {
+                        event.reply("TURN requires an operation (`end` | `who`)").queue();
+                    }
+                }
             }
         }
     }
@@ -76,6 +87,8 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "my_event", "the act you want your object to take", true, true)
                     .addOption(OptionType.STRING, "targets", "an object you want to target with your action", true, true)
                     .addOption(OptionType.STRING, "my_resources", "the resources you want to spend to act", true, true));
+
+            this.add(Commands.slash("fight", "roll everyone's initiative"));
 
             this.add(Commands.slash("help", "displays template data for a specified DatapackContent")
                     .addOption(OptionType.STRING, "data_type", "the type of the DatapackContent to be queried", true, true)
@@ -99,6 +112,9 @@ public class CommandManager extends ListenerAdapter {
 
             this.add(Commands.slash("spawn", "spawns an RPGLObject")
                     .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true));
+
+            this.add(Commands.slash("turn", "interact with the turn order")
+                    .addOption(OptionType.STRING, "operation", "end | who", true, true));
 
         }};
         event.getGuild().updateCommands().addCommands(commandData).queue();
@@ -114,6 +130,8 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "targets", "an object you want to target with your action", true, true)
                     .addOption(OptionType.STRING, "my_resources", "the resources you want to spend to act", true, true));
 
+            this.add(Commands.slash("fight", "roll everyone's initiative"));
+
             this.add(Commands.slash("help", "displays template data for a specified DatapackContent")
                     .addOption(OptionType.STRING, "data_type", "the type of the DatapackContent to be queried", true, true)
                     .addOption(OptionType.STRING, "id", "the id of the DatapackContent to be queried", true, true));
@@ -136,6 +154,9 @@ public class CommandManager extends ListenerAdapter {
 
             this.add(Commands.slash("spawn", "spawns an RPGLObject")
                     .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true));
+
+            this.add(Commands.slash("turn", "interact with the turn order")
+                    .addOption(OptionType.STRING, "operation", "end | who", true, true));
 
         }};
         event.getJDA().updateCommands().addCommands(commandData).queue();
@@ -157,7 +178,7 @@ public class CommandManager extends ListenerAdapter {
             resources[i] = UUIDTable.getResource(resourceUuids[i]);
         }
 
-        CustomContext context = (CustomContext) RPGLClient.getContext();
+        CustomContext context = (CustomContext) RPGLClient.CONTEXT;
         context.clearMessages();
         source.invokeEvent(targets, rpglEvent, List.of(resources), context);
 
@@ -194,7 +215,7 @@ public class CommandManager extends ListenerAdapter {
     private static void slashNew(SlashCommandInteractionEvent event) {
         event.reply("Starting new adventure!").queue();
         UUIDTable.clear();
-        RPGLClient.clearContext();
+        RPGLClient.CONTEXT.clear();
         OptionMapping saveNameOption = event.getOption("save_name");
         String saveName = saveNameOption == null ? null : saveNameOption.getAsString();
         if (saveName == null) {
@@ -242,7 +263,7 @@ public class CommandManager extends ListenerAdapter {
             UUIDTable.clear();
             UUIDTable.loadFromDirectory(new File("saves" + File.separator + saveName));
             for (RPGLObject object : UUIDTable.getObjects()) {
-                RPGLClient.addContextObject(object);
+                RPGLClient.CONTEXT.add(object);
             }
             event.reply("Loaded as " + saveName).queue();
         } catch (IOException e) {
@@ -255,7 +276,7 @@ public class CommandManager extends ListenerAdapter {
     @SuppressWarnings("ConstantConditions")
     private static void slashSpawn(SlashCommandInteractionEvent event) {
         RPGLObject object = RPGLFactory.newObject(event.getOption("id").getAsString(), event.getUser().getName());
-        RPGLClient.getContext().add(object);
+        RPGLClient.CONTEXT.add(object);
         event.reply("Spawned " + object.getName()).queue();
     }
 
@@ -266,24 +287,84 @@ public class CommandManager extends ListenerAdapter {
         switch(dataType) {
             case "effect": {
                 RPGLEffectTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getEffectTemplate(splitId[1]);
-                event.reply("HELP for effect " + id + ":\n\n" + template.toString()).queue();
+                event.reply("HELP for effect " + id + ":\n\n" + template.prettyPrint()).queue();
             }
             case "event": {
                 RPGLEventTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getEventTemplate(splitId[1]);
-                event.reply("HELP for event " + " " + id + ":\n\n" + template.toString()).queue();
+                event.reply("HELP for event " + " " + id + ":\n\n" + template.prettyPrint()).queue();
             }
             case "item": {
                 RPGLItemTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getItemTemplate(splitId[1]);
-                event.reply("HELP for item " + " " + id + ":\n\n" + template.toString()).queue();
+                event.reply("HELP for item " + " " + id + ":\n\n" + template.prettyPrint()).queue();
             }
             case "object": {
                 RPGLObjectTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getObjectTemplate(splitId[1]);
-                event.reply("HELP for object " + " " + id + ":\n\n" + template.toString()).queue();
+                event.reply("HELP for object " + " " + id + ":\n\n" + template.prettyPrint()).queue();
             }
             case "resource": {
                 RPGLResourceTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getResourceTemplate(splitId[1]);
-                event.reply("HELP for resource " + " " + id + ":\n\n" + template.toString()).queue();
+                event.reply("HELP for resource " + " " + id + ":\n\n" + template.prettyPrint()).queue();
             }
         }
+    }
+
+    private static void slashFight(SlashCommandInteractionEvent event) {
+        RPGLClient.clearTurnOrder();
+        RPGLContext context = RPGLClient.CONTEXT;
+        List<RPGLObject> objects = context.getContextObjects();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Rolling for initiative!\n");
+        for (RPGLObject object : objects) {
+            try {
+                stringBuilder.append(object.getName()).append(": ");
+                double initiative = object.abilityCheck("dex", null, context);
+                stringBuilder.append((int) initiative).append('\n');
+                initiative += ((double) object.getAbilityScoreFromAbilityName("dex", context) + new Random().nextDouble()) / 100.0;
+                RPGLClient.assignInitiative(initiative, object);
+            } catch (Exception e) {
+                stringBuilder.append("ERROR\n");
+                System.out.println(e.getMessage());
+            }
+        }
+
+        RPGLObject firstTurn = RPGLClient.currentTurnObject();
+        stringBuilder.append("First up is ").append(firstTurn.getName()).append('!');
+        event.reply(stringBuilder.toString()).queue();
+    }
+
+    private static void slashTurn(SlashCommandInteractionEvent event) throws Exception {
+        String operation = Objects.requireNonNull(event.getOption("operation")).getAsString();
+
+        switch(operation) {
+            case "end" -> endTurn(event);
+            case "who" -> whoseTurn(event);
+        }
+    }
+
+    private static void endTurn(SlashCommandInteractionEvent event) throws Exception {
+        RPGLObject currentObject = RPGLClient.currentTurnObject();
+        if (currentObject != null) {
+            currentObject.invokeInfoSubevent(RPGLClient.CONTEXT, "end_turn");
+
+            RPGLObject nextObject = RPGLClient.nextTurnObject();
+            nextObject.invokeInfoSubevent(RPGLClient.CONTEXT, "start_turn");
+
+            event.reply(currentObject.getName() + " ends its turn.\n\nNext up is " + nextObject.getName() + '!').queue();
+        }
+        event.reply("You are not in combat.").queue();
+    }
+
+    private static void whoseTurn(SlashCommandInteractionEvent event) {
+        RPGLObject currentTurnObject = RPGLClient.currentTurnObject();
+        String reply;
+        if (currentTurnObject != null) {
+            reply = String.format("It is %s's turn! (controlled by %s)",
+                    currentTurnObject.getName(),
+                    currentTurnObject.getUserId()
+            );
+        } else {
+            reply = "You are not in combat.";
+        }
+        event.reply(reply).queue();
     }
 }

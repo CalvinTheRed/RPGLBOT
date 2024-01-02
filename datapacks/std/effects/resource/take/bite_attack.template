@@ -20,8 +20,21 @@
         ],
         "functions": [
           {
-            "function": "take_resource",
-            "resource": "bite_attack"
+            "function": "invoke_subevent",
+            "source": {
+              "from": "effect",
+              "object": "target"
+            },
+            "targets": [
+              {
+                "from": "effect",
+                "object": "target"
+              }
+            ],
+            "subevent": {
+              "subevent": "take_resource",
+              "resource_tag": "bite_attack"
+            }
           }
         ]
       }

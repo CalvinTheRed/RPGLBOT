@@ -7,14 +7,18 @@ import org.rpgl.core.RPGLObject;
 import org.rpgl.datapack.DatapackLoader;
 
 import java.io.File;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class RPGLClient {
 
     public static final Dotenv CONFIG = Dotenv.configure().load();
+    public static final RPGLContext CONTEXT = new CustomContext();
 
     private static String loadedSave = getDefaultSaveName();
-    private static RPGLContext context = new CustomContext();
+    private static final Map<Double, RPGLObject> TURN_ORDER = new HashMap<>();
+
+    private static double currentInitiative = Double.MAX_VALUE;
 
     public static void init() {
         DatapackLoader.loadDatapacks(new File("datapacks"));
@@ -33,20 +37,41 @@ public final class RPGLClient {
         RPGLClient.loadedSave = loadedSave;
     }
 
-    public static RPGLContext getContext() {
-        return context;
+    public static void clearTurnOrder() {
+        TURN_ORDER.clear();
+        currentInitiative = Double.MAX_VALUE;
     }
 
-    public static void clearContext() {
-        context = new CustomContext();
+    public static void assignInitiative(double initiative, RPGLObject object) {
+        TURN_ORDER.put(initiative, object);
     }
 
-    public static void addContextObject(RPGLObject object) {
-        context.add(object);
+    public static RPGLObject currentTurnObject() {
+        if (!TURN_ORDER.isEmpty()) {
+            Object[] sorted = TURN_ORDER.keySet().stream().sorted().toArray();
+            int index = sorted.length - 1;
+            while (index >= 0 && (Double) sorted[index] > currentInitiative) {
+                index--;
+            }
+            currentInitiative = (Double) sorted[index];
+            return TURN_ORDER.get((Double) sorted[index]);
+        }
+        return null;
     }
 
-    public static List<RPGLObject> getContextObjects() {
-        return context.getContextObjects();
+    public static RPGLObject nextTurnObject() {
+        Object[] sorted = TURN_ORDER.keySet().stream().sorted().toArray();
+        if (currentInitiative == (Double) sorted[0]) {
+            // loop back to the top of initiative
+            currentInitiative = (Double) sorted[sorted.length - 1];
+        } else {
+            int index = sorted.length - 1;
+            while (index >= 0 && (Double) sorted[index] >= currentInitiative) {
+                index--;
+            }
+            currentInitiative = (Double) sorted[index];
+        }
+        return TURN_ORDER.get(currentInitiative);
     }
 
 }
