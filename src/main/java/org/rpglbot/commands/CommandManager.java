@@ -19,6 +19,7 @@ import org.rpgl.core.RPGLObjectTemplate;
 import org.rpgl.core.RPGLResource;
 import org.rpgl.core.RPGLResourceTemplate;
 import org.rpgl.datapack.DatapackLoader;
+import org.rpgl.json.JsonArray;
 import org.rpgl.json.JsonObject;
 import org.rpgl.uuidtable.UUIDTable;
 import org.rpglbot.CustomContext;
@@ -343,12 +344,45 @@ public class CommandManager extends ListenerAdapter {
     private static void slashInspect(SlashCommandInteractionEvent event) throws Exception {
         RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("target")).getAsString());
         StringBuilder stringBuilder = new StringBuilder();
+
+        // Name
+        stringBuilder.append(object.getName()).append('\n');
+
+        // AC
+        stringBuilder.append("`AC: ").append(object.getBaseArmorClass(RPGLClient.CONTEXT)).append("`\n");
+
+        // Health
         JsonObject healthData = object.getHealthData();
-        stringBuilder.append(object.getName()).append("\n`Health: ").append(healthData.getInteger("current"));
+        stringBuilder.append("`Health: ").append(healthData.getInteger("current"));
         if (healthData.getInteger("temporary") > 0) {
             stringBuilder.append(" (+").append(healthData.getInteger("temporary")).append(')');
         }
-        stringBuilder.append(" / ").append(object.getMaximumHitPoints(RPGLClient.CONTEXT)).append('`');
+        stringBuilder.append(" / ").append(object.getMaximumHitPoints(RPGLClient.CONTEXT)).append("`\n");
+
+        // Equipped Items
+        JsonObject equippedItems = object.getEquippedItems();
+        if (!equippedItems.asMap().isEmpty()) {
+            stringBuilder.append("Equipment:\n");
+            equippedItems.asMap().keySet().stream().sorted().forEach(inventorySlot -> stringBuilder
+                    .append('`')
+                    .append(inventorySlot)
+                    .append(": ")
+                    .append(UUIDTable.getItem(equippedItems.getString(inventorySlot)).getName())
+                    .append("`\n")
+            );
+        }
+
+        // Inventory (if userid matches user invoking command)
+        if (Objects.equals(object.getUserId(), event.getUser().getName())) {
+            JsonArray inventory = object.getInventory();
+            if (!inventory.asList().isEmpty()) {
+                stringBuilder.append("Inventory:\n");
+                for (int i = 0; i < inventory.size(); i++) {
+                    stringBuilder.append('`').append(UUIDTable.getItem(inventory.getString(i)).getName()).append("`\n");
+                }
+            }
+        }
+
         event.reply(stringBuilder.toString()).queue();
     }
 
