@@ -67,6 +67,13 @@ public class CommandCompleter extends ListenerAdapter {
     }
 
     private void autocompleteItemOption(CommandAutoCompleteInteractionEvent event) {
+        switch (event.getName()) {
+            case "equip" -> listItemsInInventory(event);
+            case "give" -> autocompleteIdOption(event);
+        }
+    }
+
+    private void listItemsInInventory(CommandAutoCompleteInteractionEvent event) {
         event.replyChoices(UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString())
                 .getInventory().asList().stream().map(uuid -> new Command.Choice(
                         UUIDTable.getItem((String) uuid).getName(),
@@ -78,6 +85,7 @@ public class CommandCompleter extends ListenerAdapter {
         switch (event.getName()) {
             case "help" -> listRPGLIds(Objects.requireNonNull(event.getOption("data_type")).getAsString(), event);
             case "spawn" -> listRPGLIds("object", event);
+            case "give" -> listRPGLIds("item", event);
         }
     }
 

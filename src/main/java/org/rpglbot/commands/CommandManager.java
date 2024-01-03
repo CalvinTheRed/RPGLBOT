@@ -45,6 +45,7 @@ public class CommandManager extends ListenerAdapter {
                     case "as" -> slashAs(event);
                     case "equip" -> slashEquip(event);
                     case "fight" -> slashFight(event);
+                    case "give" -> slashGive(event);
                     case "help" -> slashHelp(event);
                     case "inspect" -> slashInspect(event);
                     case "list" -> slashList(event);
@@ -87,6 +88,10 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "my_object", "the object you want to equip an item", true, true)
                     .addOption(OptionType.STRING, "item", "which item to equip", true, true)
                     .addOption(OptionType.STRING, "slot", "which inventory slot to put the item", true, true));
+
+            this.add(Commands.slash("give", "give an item to an object")
+                    .addOption(OptionType.STRING, "target", "the object getting the item", true, true)
+                    .addOption(OptionType.STRING, "item", "the item to give", true, true));
 
             this.add(Commands.slash("list", "list objects in a specified scope")
                     .addOption(OptionType.STRING, "scope", "the scope of which objects to list", true, true));
@@ -146,6 +151,10 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "item", "which item to equip", true, true)
                     .addOption(OptionType.STRING, "slot", "which inventory slot to put the item", true, true));
 
+            this.add(Commands.slash("give", "give an item to an object")
+                    .addOption(OptionType.STRING, "target", "the object getting the item", true, true)
+                    .addOption(OptionType.STRING, "item", "the item to give", true, true));
+
             this.add(Commands.slash("list", "list objects in a specified scope")
                     .addOption(OptionType.STRING, "scope", "the scope of which objects to list", true, true));
 
@@ -178,6 +187,13 @@ public class CommandManager extends ListenerAdapter {
 
         }};
         event.getJDA().updateCommands().addCommands(commandData).queue();
+    }
+
+    private static void slashGive(SlashCommandInteractionEvent event) {
+        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("target")).getAsString());
+        RPGLItem item = RPGLFactory.newItem(Objects.requireNonNull(event.getOption("item")).getAsString());
+        object.giveItem(item.getUuid());
+        event.reply(String.format("Gave %s to %s", item.getName(), object.getName())).queue();
     }
 
     private static void slashAs(SlashCommandInteractionEvent event) throws Exception {
@@ -261,11 +277,11 @@ public class CommandManager extends ListenerAdapter {
         StringBuilder replyBuilder = new StringBuilder();
         List<RPGLObject> objects = List.of();
         switch (scope) {
-            case "all" -> objects = List.of();
+            case "all" -> objects = UUIDTable.getObjects();
             case "mine" -> objects = UUIDTable.getObjectsByUserId(event.getUser().getName());
         }
         for (RPGLObject object : objects) {
-            replyBuilder.append("[").append(object.getUuid().split("-")[0]).append("] ").append(object.getName()).append("\n");
+            replyBuilder.append("`[").append(object.getUuid().split("-")[0]).append("]` ").append(object.getName()).append("\n");
         }
         String reply = replyBuilder.toString();
         if (Objects.equals("", reply)) {
@@ -360,7 +376,7 @@ public class CommandManager extends ListenerAdapter {
         event.reply(stringBuilder.toString()).setEphemeral(true).queue();
     }
 
-    private static void slashFight(SlashCommandInteractionEvent event) {
+    private static void slashFight(SlashCommandInteractionEvent event) throws Exception {
         RPGLClient.clearTurnOrder();
         RPGLContext context = RPGLClient.CONTEXT;
         List<RPGLObject> objects = context.getContextObjects();
@@ -379,7 +395,8 @@ public class CommandManager extends ListenerAdapter {
             }
         }
 
-        RPGLObject firstTurn = RPGLClient.currentTurnObject();
+        RPGLObject firstTurn = Objects.requireNonNull(RPGLClient.currentTurnObject());
+        firstTurn.invokeInfoSubevent(RPGLClient.CONTEXT, "start_turn");
         stringBuilder.append("First up is ").append(firstTurn.getName()).append('!');
         event.reply(stringBuilder.toString()).queue();
     }
@@ -473,9 +490,8 @@ public class CommandManager extends ListenerAdapter {
     }
 
     private static void longRest(SlashCommandInteractionEvent event) throws Exception {
-        List<RPGLObject> objects = UUIDTable.getObjectsByUserId(event.getUser().getName());
         StringBuilder stringBuilder = new StringBuilder();
-        for (RPGLObject object : objects) {
+        for (RPGLObject object : UUIDTable.getObjectsByUserId(event.getUser().getName())) {
             object.invokeInfoSubevent(RPGLClient.CONTEXT, "long_rest");
             stringBuilder.append(object.getName()).append(" takes a long rest.");
             object.getHealthData().putInteger("current", object.getMaximumHitPoints(RPGLClient.CONTEXT));
@@ -484,9 +500,8 @@ public class CommandManager extends ListenerAdapter {
     }
 
     private static void shortRest(SlashCommandInteractionEvent event) throws Exception {
-        List<RPGLObject> objects = UUIDTable.getObjectsByUserId(event.getUser().getName());
         StringBuilder stringBuilder = new StringBuilder();
-        for (RPGLObject object : objects) {
+        for (RPGLObject object : UUIDTable.getObjectsByUserId(event.getUser().getName())) {
             object.invokeInfoSubevent(RPGLClient.CONTEXT, "short_rest");
             stringBuilder.append(object.getName()).append(" takes a short rest.");
             // TODO something about spending hit dice here.
