@@ -38,9 +38,11 @@ public class CommandCompleter extends ListenerAdapter {
         String focusedOption = event.getFocusedOption().getName();
         switch (focusedOption) {
             case "id" -> autocompleteIdOption(event);
+            case "item" -> autocompleteItemOption(event);
             case "data_type" -> autocompleteDataTypeOption(event);
             case "save_name" -> autocompleteSaveNameOption(event);
             case "scope" -> autocompleteScopeOption(event);
+            case "slot" -> autocompleteSlotOption(event);
             case "my_object" -> autocompleteMyObjectsOption(event);
             case "my_event" -> autocompleteMyEventsOption(event);
             case "my_resources" -> autocompleteMyResourcesOption(event);
@@ -50,11 +52,26 @@ public class CommandCompleter extends ListenerAdapter {
         }
     }
 
+    private void autocompleteSlotOption(CommandAutoCompleteInteractionEvent event) {
+        switch (event.getName()) {
+            case "equip" -> listOrdinaryEquipmentSlots(event);
+            case "unequip" -> listActiveEquipmentSlots(event);
+        }
+    }
+
     private void autocompleteDurationOption(CommandAutoCompleteInteractionEvent event) {
         event.replyChoices(List.of(
                 new Command.Choice("long", "long"),
                 new Command.Choice("short", "short")
         )).queue();
+    }
+
+    private void autocompleteItemOption(CommandAutoCompleteInteractionEvent event) {
+        event.replyChoices(UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString())
+                .getInventory().asList().stream().map(uuid -> new Command.Choice(
+                        UUIDTable.getItem((String) uuid).getName(),
+                        (String) uuid
+                )).toList()).queue();
     }
 
     private void autocompleteIdOption(CommandAutoCompleteInteractionEvent event) {
@@ -190,6 +207,22 @@ public class CommandCompleter extends ListenerAdapter {
                     .toList();
         }
         event.replyChoices(options).queue();
+    }
+
+    private void listOrdinaryEquipmentSlots(CommandAutoCompleteInteractionEvent event) {
+        event.replyChoices(List.of(
+                new Command.Choice("armor", "armor"),
+                new Command.Choice("mainhand", "mainhand"),
+                new Command.Choice("offhand", "offhand")
+        )).queue();
+    }
+
+    private void listActiveEquipmentSlots(CommandAutoCompleteInteractionEvent event) {
+        event.replyChoices(UUIDTable
+                .getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString())
+                .getEquippedItems().asMap().keySet().stream().filter(Objects::nonNull).map(
+                        slot -> new Command.Choice(slot, slot)
+                ).toList()).queue();
     }
 
     private void listSaves(CommandAutoCompleteInteractionEvent event) {

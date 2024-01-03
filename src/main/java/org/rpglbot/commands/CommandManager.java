@@ -13,6 +13,7 @@ import org.rpgl.core.RPGLEffectTemplate;
 import org.rpgl.core.RPGLEvent;
 import org.rpgl.core.RPGLEventTemplate;
 import org.rpgl.core.RPGLFactory;
+import org.rpgl.core.RPGLItem;
 import org.rpgl.core.RPGLItemTemplate;
 import org.rpgl.core.RPGLObject;
 import org.rpgl.core.RPGLObjectTemplate;
@@ -42,6 +43,7 @@ public class CommandManager extends ListenerAdapter {
             try {
                 switch(command) {
                     case "as" -> slashAs(event);
+                    case "equip" -> slashEquip(event);
                     case "fight" -> slashFight(event);
                     case "help" -> slashHelp(event);
                     case "inspect" -> slashInspect(event);
@@ -53,6 +55,7 @@ public class CommandManager extends ListenerAdapter {
                     case "save" -> slashSave(event);
                     case "spawn" -> slashSpawn(event);
                     case "turn" -> slashTurn(event);
+                    case "unequip" -> slashUnequip(event);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -80,6 +83,11 @@ public class CommandManager extends ListenerAdapter {
             this.add(Commands.slash("inspect", "inspect an object in the game")
                     .addOption(OptionType.STRING, "target", "an object to inspect", true, true));
 
+            this.add(Commands.slash("equip", "equip an item")
+                    .addOption(OptionType.STRING, "my_object", "the object you want to equip an item", true, true)
+                    .addOption(OptionType.STRING, "item", "which item to equip", true, true)
+                    .addOption(OptionType.STRING, "slot", "which inventory slot to put the item", true, true));
+
             this.add(Commands.slash("list", "list objects in a specified scope")
                     .addOption(OptionType.STRING, "scope", "the scope of which objects to list", true, true));
 
@@ -105,6 +113,10 @@ public class CommandManager extends ListenerAdapter {
 
             this.add(Commands.slash("turn", "interact with the turn order")
                     .addOption(OptionType.STRING, "operation", "end | who", true, true));
+
+            this.add(Commands.slash("unequip", "equip an item")
+                    .addOption(OptionType.STRING, "my_object", "the object you want to unequip an item", true, true)
+                    .addOption(OptionType.STRING, "slot", "which inventory slot to unequip", true, true));
 
         }};
         event.getGuild().updateCommands().addCommands(commandData).queue();
@@ -129,6 +141,11 @@ public class CommandManager extends ListenerAdapter {
             this.add(Commands.slash("inspect", "inspect an object in the game")
                     .addOption(OptionType.STRING, "target", "an object to inspect", true, true));
 
+            this.add(Commands.slash("equip", "equip an item")
+                    .addOption(OptionType.STRING, "my_object", "the object you want to equip an item", true, true)
+                    .addOption(OptionType.STRING, "item", "which item to equip", true, true)
+                    .addOption(OptionType.STRING, "slot", "which inventory slot to put the item", true, true));
+
             this.add(Commands.slash("list", "list objects in a specified scope")
                     .addOption(OptionType.STRING, "scope", "the scope of which objects to list", true, true));
 
@@ -154,6 +171,10 @@ public class CommandManager extends ListenerAdapter {
 
             this.add(Commands.slash("turn", "interact with the turn order")
                     .addOption(OptionType.STRING, "operation", "end | who", true, true));
+
+            this.add(Commands.slash("unequip", "equip an item")
+                    .addOption(OptionType.STRING, "my_object", "the object you want to unequip an item", true, true)
+                    .addOption(OptionType.STRING, "slot", "which inventory slot to unequip", true, true));
 
         }};
         event.getJDA().updateCommands().addCommands(commandData).queue();
@@ -252,6 +273,34 @@ public class CommandManager extends ListenerAdapter {
         } else {
             event.reply(reply).queue();
         }
+    }
+
+    private static void slashEquip(SlashCommandInteractionEvent event) {
+        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
+        RPGLItem item = UUIDTable.getItem(Objects.requireNonNull(event.getOption("item")).getAsString());
+        String inventorySlot = Objects.requireNonNull(event.getOption("slot")).getAsString();
+        object.equipItem(item.getUuid(), inventorySlot);
+        event.reply(String.format("%s equipped %s in its %s slot",
+                object.getName(),
+                item.getName(),
+                inventorySlot
+        )).queue();
+    }
+
+    private static void slashUnequip(SlashCommandInteractionEvent event) throws Exception {
+        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
+        String inventorySlot = Objects.requireNonNull(event.getOption("slot")).getAsString();
+        String reply;
+        if (object.getEquippedItems().asMap().containsKey(inventorySlot)) {
+            object.unequipItem(inventorySlot, false, RPGLClient.CONTEXT);
+            reply = String.format("%s emptied %s",
+                    object.getName(),
+                    inventorySlot
+            );
+        } else {
+            reply = String.format("%s does not have an item equipped in its %s slot", object.getName(), inventorySlot);
+        }
+        event.reply(reply).queue();
     }
 
     private static void slashLoad(SlashCommandInteractionEvent event) {
