@@ -285,28 +285,30 @@ public class CommandManager extends ListenerAdapter {
         String dataType = Objects.requireNonNull(event.getOption("data_type")).getAsString();
         String id = Objects.requireNonNull(event.getOption("id")).getAsString();
         String[] splitId = id.split(":");
-        switch(dataType) {
-            case "effect": {
+        StringBuilder stringBuilder = new StringBuilder();
+        switch (dataType) {
+            case "effect" -> {
                 RPGLEffectTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getEffectTemplate(splitId[1]);
-                event.reply("HELP for effect " + id + ":\n\n" + template.prettyPrint()).queue();
+                stringBuilder.append("```").append(template.prettyPrint()).append("```");
             }
-            case "event": {
+            case "event" -> {
                 RPGLEventTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getEventTemplate(splitId[1]);
-                event.reply("HELP for event " + " " + id + ":\n\n" + template.prettyPrint()).queue();
+                stringBuilder.append("```").append(template.prettyPrint()).append("```");
             }
-            case "item": {
+            case "item" -> {
                 RPGLItemTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getItemTemplate(splitId[1]);
-                event.reply("HELP for item " + " " + id + ":\n\n" + template.prettyPrint()).queue();
+                stringBuilder.append("```").append(template.prettyPrint()).append("```");
             }
-            case "object": {
+            case "object" -> {
                 RPGLObjectTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getObjectTemplate(splitId[1]);
-                event.reply("HELP for object " + " " + id + ":\n\n" + template.prettyPrint()).queue();
+                stringBuilder.append("```").append(template.prettyPrint()).append("```");
             }
-            case "resource": {
+            case "resource" -> {
                 RPGLResourceTemplate template = DatapackLoader.DATAPACKS.get(splitId[0]).getResourceTemplate(splitId[1]);
-                event.reply("HELP for resource " + " " + id + ":\n\n" + template.prettyPrint()).queue();
+                stringBuilder.append("```").append(template.prettyPrint()).append("```");
             }
         }
+        event.reply(stringBuilder.toString()).setEphemeral(true).queue();
     }
 
     private static void slashFight(SlashCommandInteractionEvent event) {
@@ -383,7 +385,7 @@ public class CommandManager extends ListenerAdapter {
             }
         }
 
-        event.reply(stringBuilder.toString()).queue();
+        event.reply(stringBuilder.toString()).setEphemeral(true).queue();
     }
 
     private static void slashTurn(SlashCommandInteractionEvent event) throws Exception {
@@ -418,7 +420,7 @@ public class CommandManager extends ListenerAdapter {
         } else {
             reply = "You are not in combat.";
         }
-        event.reply(reply).queue();
+        event.reply(reply).setEphemeral(true).queue();
     }
 
     private static void longRest(SlashCommandInteractionEvent event) throws Exception {
@@ -429,7 +431,7 @@ public class CommandManager extends ListenerAdapter {
             stringBuilder.append(object.getName()).append(" takes a long rest.");
             object.getHealthData().putInteger("current", object.getMaximumHitPoints(RPGLClient.CONTEXT));
         }
-        event.reply(stringBuilder.toString()).queue();
+        event.reply(stringBuilder.toString()).setEphemeral(true).queue();
     }
 
     private static void shortRest(SlashCommandInteractionEvent event) throws Exception {
@@ -440,7 +442,7 @@ public class CommandManager extends ListenerAdapter {
             stringBuilder.append(object.getName()).append(" takes a short rest.");
             // TODO something about spending hit dice here.
         }
-        event.reply(stringBuilder.toString()).queue();
+        event.reply(stringBuilder.toString()).setEphemeral(true).queue();
     }
 
 }
