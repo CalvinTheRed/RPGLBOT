@@ -7,6 +7,7 @@ import org.rpgl.json.JsonObject;
 import org.rpgl.subevent.AttackRoll;
 import org.rpgl.subevent.DamageAffinity;
 import org.rpgl.subevent.DamageDelivery;
+import org.rpgl.subevent.HealingDelivery;
 import org.rpgl.subevent.Subevent;
 
 import java.util.Map;
@@ -78,6 +79,15 @@ public class CustomContext extends RPGLContext {
                     numDamageTypes--;
                 }
                 stringBuilder.append("damage!\n");
+                messages.add(stringBuilder.toString());
+            }
+            case "healing_delivery" -> {
+                HealingDelivery healingDelivery = (HealingDelivery) subevent;
+                stringBuilder
+                        .append(healingDelivery.getTarget().getName())
+                        .append(" heals for ")
+                        .append(healingDelivery.getHealing())
+                        .append(" hit points!");
                 messages.add(stringBuilder.toString());
             }
         }

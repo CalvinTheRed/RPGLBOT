@@ -19,6 +19,7 @@ import org.rpgl.core.RPGLObjectTemplate;
 import org.rpgl.core.RPGLResource;
 import org.rpgl.core.RPGLResourceTemplate;
 import org.rpgl.datapack.DatapackLoader;
+import org.rpgl.json.JsonObject;
 import org.rpgl.uuidtable.UUIDTable;
 import org.rpglbot.CustomContext;
 import org.rpglbot.RPGLClient;
@@ -30,7 +31,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Stack;
-import java.util.UUID;
 
 public class CommandManager extends ListenerAdapter {
 
@@ -38,42 +38,24 @@ public class CommandManager extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getChannel().getName().equals("rpgl-stuff")) {
             String command = event.getFullCommandName();
-            switch(command) {
-                case "as" -> {
-                    try {
-                        slashAs(event);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        event.reply("Something went wrong!").queue();
-                    }
+            try {
+                switch(command) {
+                    case "as" -> slashAs(event);
+                    case "fight" -> slashFight(event);
+                    case "help" -> slashHelp(event);
+                    case "inspect" -> slashInspect(event);
+                    case "list" -> slashList(event);
+                    case "load" -> slashLoad(event);
+                    case "new" -> slashNew(event);
+                    case "rename" -> slashRename(event);
+                    case "rest" -> slashRest(event);
+                    case "save" -> slashSave(event);
+                    case "spawn" -> slashSpawn(event);
+                    case "turn" -> slashTurn(event);
                 }
-                case "fight" -> slashFight(event);
-                case "help" -> {
-                    try {
-                        slashHelp(event);
-                    } catch (NullPointerException e) {
-                        event.reply("HELP requires an id").queue();
-                    }
-                }
-                case "list" -> slashList(event);
-                case "load" -> slashLoad(event);
-                case "new" -> slashNew(event);
-                case "rename" -> slashRename(event);
-                case "save" -> slashSave(event);
-                case "spawn" -> {
-                    try {
-                        slashSpawn(event);
-                    } catch (NullPointerException e) {
-                        event.reply("SPAWN requires an id").queue();
-                    }
-                }
-                case "turn" -> {
-                    try {
-                        slashTurn(event);
-                    } catch (Exception e) {
-                        event.reply("TURN requires an operation (`end` | `who`)").queue();
-                    }
-                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.reply("Something went wrong!").queue();
             }
         }
     }
@@ -94,6 +76,9 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "data_type", "the type of the DatapackContent to be queried", true, true)
                     .addOption(OptionType.STRING, "id", "the id of the DatapackContent to be queried", true, true));
 
+            this.add(Commands.slash("inspect", "inspect an object in the game")
+                    .addOption(OptionType.STRING, "target", "an object to inspect", true, true));
+
             this.add(Commands.slash("list", "list objects in a specified scope")
                     .addOption(OptionType.STRING, "scope", "the scope of which objects to list", true, true));
 
@@ -107,11 +92,15 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "my_object", "the object you want to rename", true, true)
                     .addOption(OptionType.STRING, "new_name", "the new name for the object", true));
 
+            this.add(Commands.slash("rest", "take a rest")
+                    .addOption(OptionType.STRING, "duration", "the duration of your rest", true, true));
+
             this.add(Commands.slash("save", "save your adventure for later")
-                    .addOption(OptionType.STRING, "save_name", "the target save file"));
+                    .addOption(OptionType.STRING, "save_name", "the target save file", true, true));
 
             this.add(Commands.slash("spawn", "spawns an RPGLObject")
-                    .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true));
+                    .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true)
+                    .addOption(OptionType.STRING, "name", "the name of the object"));
 
             this.add(Commands.slash("turn", "interact with the turn order")
                     .addOption(OptionType.STRING, "operation", "end | who", true, true));
@@ -136,6 +125,9 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "data_type", "the type of the DatapackContent to be queried", true, true)
                     .addOption(OptionType.STRING, "id", "the id of the DatapackContent to be queried", true, true));
 
+            this.add(Commands.slash("inspect", "inspect an object in the game")
+                    .addOption(OptionType.STRING, "target", "an object to inspect", true, true));
+
             this.add(Commands.slash("list", "list objects in a specified scope")
                     .addOption(OptionType.STRING, "scope", "the scope of which objects to list", true, true));
 
@@ -149,11 +141,15 @@ public class CommandManager extends ListenerAdapter {
                     .addOption(OptionType.STRING, "my_object", "the object you want to rename", true, true)
                     .addOption(OptionType.STRING, "new_name", "the new name for the object", true));
 
+            this.add(Commands.slash("rest", "take a rest")
+                    .addOption(OptionType.STRING, "duration", "the duration of your rest", true, true));
+
             this.add(Commands.slash("save", "save your adventure for later")
-                    .addOption(OptionType.STRING, "save_name", "the target save file"));
+                    .addOption(OptionType.STRING, "save_name", "the target save file", true, true));
 
             this.add(Commands.slash("spawn", "spawns an RPGLObject")
-                    .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true));
+                    .addOption(OptionType.STRING, "id", "the id of the RPGLObject to be spawned", true, true)
+                    .addOption(OptionType.STRING, "name", "the name of the object"));
 
             this.add(Commands.slash("turn", "interact with the turn order")
                     .addOption(OptionType.STRING, "operation", "end | who", true, true));
@@ -276,6 +272,10 @@ public class CommandManager extends ListenerAdapter {
     @SuppressWarnings("ConstantConditions")
     private static void slashSpawn(SlashCommandInteractionEvent event) {
         RPGLObject object = RPGLFactory.newObject(event.getOption("id").getAsString(), event.getUser().getName());
+        OptionMapping nameOption = event.getOption("name");
+        if (nameOption != null) {
+            object.setName(nameOption.getAsString());
+        }
         RPGLClient.CONTEXT.add(object);
         event.reply("Spawned " + object.getName()).queue();
     }
@@ -332,9 +332,28 @@ public class CommandManager extends ListenerAdapter {
         event.reply(stringBuilder.toString()).queue();
     }
 
+    private static void slashRest(SlashCommandInteractionEvent event) throws Exception {
+        String duration = Objects.requireNonNull(event.getOption("duration")).getAsString();
+        switch (duration) {
+            case "long" -> longRest(event);
+            case "short" -> shortRest(event);
+        }
+    }
+
+    private static void slashInspect(SlashCommandInteractionEvent event) throws Exception {
+        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("target")).getAsString());
+        StringBuilder stringBuilder = new StringBuilder();
+        JsonObject healthData = object.getHealthData();
+        stringBuilder.append(object.getName()).append("\n`Health: ").append(healthData.getInteger("current"));
+        if (healthData.getInteger("temporary") > 0) {
+            stringBuilder.append(" (+").append(healthData.getInteger("temporary")).append(')');
+        }
+        stringBuilder.append(" / ").append(object.getMaximumHitPoints(RPGLClient.CONTEXT)).append('`');
+        event.reply(stringBuilder.toString()).queue();
+    }
+
     private static void slashTurn(SlashCommandInteractionEvent event) throws Exception {
         String operation = Objects.requireNonNull(event.getOption("operation")).getAsString();
-
         switch(operation) {
             case "end" -> endTurn(event);
             case "who" -> whoseTurn(event);
@@ -367,4 +386,27 @@ public class CommandManager extends ListenerAdapter {
         }
         event.reply(reply).queue();
     }
+
+    private static void longRest(SlashCommandInteractionEvent event) throws Exception {
+        List<RPGLObject> objects = UUIDTable.getObjectsByUserId(event.getUser().getName());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (RPGLObject object : objects) {
+            object.invokeInfoSubevent(RPGLClient.CONTEXT, "long_rest");
+            stringBuilder.append(object.getName()).append(" takes a long rest.");
+            object.getHealthData().putInteger("current", object.getMaximumHitPoints(RPGLClient.CONTEXT));
+        }
+        event.reply(stringBuilder.toString()).queue();
+    }
+
+    private static void shortRest(SlashCommandInteractionEvent event) throws Exception {
+        List<RPGLObject> objects = UUIDTable.getObjectsByUserId(event.getUser().getName());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (RPGLObject object : objects) {
+            object.invokeInfoSubevent(RPGLClient.CONTEXT, "short_rest");
+            stringBuilder.append(object.getName()).append(" takes a short rest.");
+            // TODO something about spending hit dice here.
+        }
+        event.reply(stringBuilder.toString()).queue();
+    }
+
 }

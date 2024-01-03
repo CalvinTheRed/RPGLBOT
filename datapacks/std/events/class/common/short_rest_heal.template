@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Short Rest Healing",
+  "description": "Recover hit points using hit dice during a short rest.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "hit_die" ],
+      "count": 1,
+      "minimum_potency": 6,
+      "scale": [
+        {
+          "field": "subevents[0].healing[0].dice[0].size",
+          "magnitude": 1
+        }
+      ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "heal",
+      "healing": [
+        {
+          "formula": "range",
+          "dice": [
+            { "count": 1, "size": 6, "determined": [ ] }
+          ],
+          "bonus": 0
+        },
+        {
+          "formula": "modifier",
+          "ability": "con",
+          "object": {
+            "from": "subevent",
+            "object": "source"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -8,5 +8,12 @@
     "hit_die"
   ],
   "potency": 8,
-  "refresh_criterion": [ ]
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
+  ]
 }

@@ -44,9 +44,17 @@ public class CommandCompleter extends ListenerAdapter {
             case "my_object" -> autocompleteMyObjectsOption(event);
             case "my_event" -> autocompleteMyEventsOption(event);
             case "my_resources" -> autocompleteMyResourcesOption(event);
-            case "targets" -> autocompleteTargetObjectOption(event);
+            case "target", "targets" -> autocompleteTargetObjectOption(event);
             case "operation" -> autocompleteOperationOption(event);
+            case "duration" -> autocompleteDurationOption(event);
         }
+    }
+
+    private void autocompleteDurationOption(CommandAutoCompleteInteractionEvent event) {
+        event.replyChoices(List.of(
+                new Command.Choice("long", "long"),
+                new Command.Choice("short", "short")
+        )).queue();
     }
 
     private void autocompleteIdOption(CommandAutoCompleteInteractionEvent event) {
@@ -67,7 +75,7 @@ public class CommandCompleter extends ListenerAdapter {
 
     private void autocompleteSaveNameOption(CommandAutoCompleteInteractionEvent event) {
         switch (event.getName()) {
-            case "load" -> listSaves(event);
+            case "load", "save" -> listSaves(event);
         }
     }
 
