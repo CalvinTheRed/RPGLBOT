@@ -92,7 +92,7 @@ public class CommandCompleter extends ListenerAdapter {
     private void autocompleteDataTypeOption(CommandAutoCompleteInteractionEvent event) {
         String value = event.getFocusedOption().getValue();
         List<Command.Choice> options = Stream.of("effect", "event", "item", "object", "resource")
-                .filter(dataType -> dataType.startsWith(value))
+                .filter(dataType -> dataType.toUpperCase().startsWith(value.toUpperCase()))
                 .map(dataType -> new Command.Choice(dataType, dataType))
                 .toList();
         event.replyChoices(options).queue();
@@ -107,7 +107,7 @@ public class CommandCompleter extends ListenerAdapter {
     private void autocompleteScopeOption(CommandAutoCompleteInteractionEvent event) {
         String value = event.getFocusedOption().getValue();
         List<Command.Choice> options = Stream.of("all", "mine")
-                .filter(dataType -> dataType.startsWith(value))
+                .filter(dataType -> dataType.toUpperCase().startsWith(value.toUpperCase()))
                 .map(dataType -> new Command.Choice(dataType, dataType))
                 .toList();
         event.replyChoices(options).queue();
@@ -117,7 +117,7 @@ public class CommandCompleter extends ListenerAdapter {
         String userId = event.getUser().getName();
         String value = event.getFocusedOption().getValue();
         List<Command.Choice> options = UUIDTable.getObjectsByUserId(userId).stream()
-                .filter(object -> object.getName().startsWith(value))
+                .filter(object -> object.getName().toUpperCase().startsWith(value.toUpperCase()))
                 .map(object -> new Command.Choice(object.getName(), object.getUuid()))
                 .toList();
         event.replyChoices(options).queue();
@@ -129,7 +129,7 @@ public class CommandCompleter extends ListenerAdapter {
         String lockedTargets = value.substring(0, Math.max(lastDelimiter, 0));
         String focusedTarget = value.substring(Math.max(lastDelimiter + 1, 0));
         List<Command.Choice> options = UUIDTable.getObjects().stream()
-                .filter(object -> object.getName().startsWith(focusedTarget) && !lockedTargets.contains(object.getUuid()))
+                .filter(object -> object.getName().toUpperCase().startsWith(focusedTarget.toUpperCase()) && !lockedTargets.contains(object.getUuid()))
                 .map(object -> lockedTargets.equals("")
                         ? new Command.Choice(object.getUuid(), object.getUuid())
                         : new Command.Choice(
@@ -145,7 +145,7 @@ public class CommandCompleter extends ListenerAdapter {
         List<Command.Choice> options;
         try {
             options = object.getEventObjects(RPGLClient.CONTEXT).stream()
-                    .filter(rpglEvent -> rpglEvent.getName().startsWith(value))
+                    .filter(rpglEvent -> rpglEvent.getName().toUpperCase().startsWith(value.toUpperCase()))
                     .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
                     .toList();
         } catch (Exception e) {
@@ -180,7 +180,7 @@ public class CommandCompleter extends ListenerAdapter {
         JsonArray resourceTags = cost.getJsonArray("resource_tags");
 
         List<Command.Choice> options = object.getResourceObjects().stream()
-                .filter(resource -> resource.getName().startsWith(focusedResource)
+                .filter(resource -> resource.getName().toUpperCase().startsWith(focusedResource.toUpperCase())
                         && !resource.getExhausted()
                         && resource.getTags().containsAny(resourceTags.asList())
                         && !lockedResources.contains(resource.getUuid()))
@@ -205,12 +205,12 @@ public class CommandCompleter extends ListenerAdapter {
                     deepestSlashIndex == -1 ? "" : split[1].substring(0, deepestSlashIndex + 1)
             ).replace("/", File.separator);
             options = Stream.of(Objects.requireNonNull(new File(rootDirPath).listFiles()))
-                    .filter(file -> fileAsDatapackId(file).startsWith(value))
+                    .filter(file -> fileAsDatapackId(file).toUpperCase().startsWith(value.toUpperCase()))
                     .map(file -> new Command.Choice(fileAsDatapackId(file), fileAsDatapackId(file)))
                     .toList();
         } else {
             options = DatapackLoader.DATAPACKS.keySet().stream()
-                    .filter(datapack -> datapack.startsWith(value))
+                    .filter(datapack -> datapack.toUpperCase().startsWith(value.toUpperCase()))
                     .map(datapack -> new Command.Choice(datapack + ":", datapack + ":"))
                     .toList();
         }
