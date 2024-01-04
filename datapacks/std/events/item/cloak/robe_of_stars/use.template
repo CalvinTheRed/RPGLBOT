@@ -7,6 +7,14 @@
   "area_of_effect": {
 
   },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "robe_of_stars_charge" ]
+    }
+  ],
   "subevents": [
     {
       "subevent": "deal_damage",

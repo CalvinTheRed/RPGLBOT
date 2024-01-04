@@ -21,6 +21,7 @@
     "special": [ ]
   },
   "equipped_effects": [
-    "std:item/ring/ring_of_protection"
+    "std:item/common/armor_class/plus_1",
+    "std:item/common/saving_throws/plus_1"
   ]
 }

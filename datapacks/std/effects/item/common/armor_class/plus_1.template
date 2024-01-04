@@ -2,10 +2,10 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Robe of Stars",
-  "description": "A weak magical enchantment which helps protect you from harm.",
+  "name": "Protective Enchantment",
+  "description": "You gain a +1 bonus to armor class.",
   "subevent_filters": {
-    "saving_throw": [
+    "calculate_base_armor_class": [
       {
         "conditions": [
           {

@@ -23,6 +23,13 @@
     ]
   },
   "equipped_effects": [
-    "std:item/cloak/robe_of_stars"
+    "std:item/common/armor_class/plus_1",
+    "std:item/common/saving_throws/plus_1"
+  ],
+  "equipped_resources": [
+    {
+      "resource": "std:item/cloak/robe_of_stars_charge",
+      "count": 6
+    }
   ]
 }

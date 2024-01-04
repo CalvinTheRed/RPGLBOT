@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Robe of Stars Charge",
+  "description": "This resource allows creatures to use the special action granted by a Cloak of Stars.",
+  "tags": [
+    "robe_of_stars_charge"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ],
+      "chance": 50,
+      "required_generator": {
+        "dice": [ ],
+        "bonus": 1
+      }
+    }
+  ]
+}
