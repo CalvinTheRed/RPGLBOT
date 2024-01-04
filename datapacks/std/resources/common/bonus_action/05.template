@@ -7,5 +7,25 @@
   "potency": 2,
   "tags": [
     "bonus_action"
+  ],
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "start_turn"
+      ]
+    },
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "short_rest"
+      ]
+    },
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
   ]
 }
