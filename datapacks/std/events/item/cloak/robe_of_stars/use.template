@@ -27,9 +27,9 @@
           "formula": "range",
           "damage_type": "force",
           "dice": [
-            { "count": 1, "size": 4, "determined": [ 2 ] }
+            { "count": 7, "size": 4, "determined": [ 2 ] }
           ],
-          "bonus": 1
+          "bonus": 7
         }
       ]
     }
