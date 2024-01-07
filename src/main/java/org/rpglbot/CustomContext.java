@@ -12,6 +12,7 @@ import org.rpgl.subevent.SavingThrow;
 import org.rpgl.subevent.Subevent;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 
 public class CustomContext extends RPGLContext {
@@ -20,7 +21,7 @@ public class CustomContext extends RPGLContext {
 
     @Override
     public boolean isObjectsTurn(RPGLObject object) {
-        return false;
+        return Objects.equals(object, RPGLClient.currentTurnObject());
     }
 
     @Override

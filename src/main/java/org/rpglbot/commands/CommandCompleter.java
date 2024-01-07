@@ -3,7 +3,7 @@ package org.rpglbot.commands;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
-import org.rpgl.core.RPGLFactory;
+import org.rpgl.core.RPGLEvent;
 import org.rpgl.core.RPGLObject;
 import org.rpgl.datapack.DatapackLoader;
 import org.rpgl.json.JsonArray;
@@ -34,167 +34,161 @@ public class CommandCompleter extends ListenerAdapter {
     }
 
     @Override
-    public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent event) {
-        String focusedOption = event.getFocusedOption().getName();
-        switch (focusedOption) {
-            case "id" -> autocompleteIdOption(event);
-            case "item" -> autocompleteItemOption(event);
-            case "data_type" -> autocompleteDataTypeOption(event);
-            case "save_name" -> autocompleteSaveNameOption(event);
-            case "scope" -> autocompleteScopeOption(event);
-            case "slot" -> autocompleteSlotOption(event);
-            case "my_object" -> autocompleteMyObjectsOption(event);
-            case "my_event" -> autocompleteMyEventsOption(event);
-            case "my_resources" -> autocompleteMyResourcesOption(event);
-            case "target", "targets" -> autocompleteTargetObjectOption(event);
-            case "operation" -> autocompleteOperationOption(event);
-            case "duration" -> autocompleteDurationOption(event);
+    public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent e) {
+        String focusedOption = e.getFocusedOption().getName();
+        try {
+            switch (focusedOption) {
+                case "id" -> autocompleteIdOption(e);
+                case "item" -> autocompleteItemOption(e);
+                case "data_type" -> autocompleteDataTypeOption(e);
+                case "save_name" -> autocompleteSaveNameOption(e);
+                case "scope" -> autocompleteScopeOption(e);
+                case "slot" -> autocompleteSlotOption(e);
+                case "my_object" -> autocompleteMyObjectsOption(e);
+                case "event" -> autocompleteEventOption(e);
+                case "resource" -> autocompleteResourceOption(e);
+                case "target" -> autocompleteTargetObjectOption(e);
+                case "operation" -> autocompleteOperationOption(e);
+                case "duration" -> autocompleteDurationOption(e);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
-    private void autocompleteSlotOption(CommandAutoCompleteInteractionEvent event) {
-        switch (event.getName()) {
-            case "equip" -> listOrdinaryEquipmentSlots(event);
-            case "unequip" -> listActiveEquipmentSlots(event);
+    private void autocompleteSlotOption(CommandAutoCompleteInteractionEvent e) {
+        switch (e.getName()) {
+            case "equip" -> listOrdinaryEquipmentSlots(e);
+            case "unequip" -> listActiveEquipmentSlots(e);
         }
     }
 
-    private void autocompleteDurationOption(CommandAutoCompleteInteractionEvent event) {
-        event.replyChoices(List.of(
+    private void autocompleteDurationOption(CommandAutoCompleteInteractionEvent e) {
+        e.replyChoices(List.of(
                 new Command.Choice("long", "long"),
                 new Command.Choice("short", "short")
         )).queue();
     }
 
-    private void autocompleteItemOption(CommandAutoCompleteInteractionEvent event) {
-        switch (event.getName()) {
-            case "equip" -> listItemsInInventory(event);
-            case "give" -> autocompleteIdOption(event);
+    private void autocompleteItemOption(CommandAutoCompleteInteractionEvent e) {
+        switch (e.getName()) {
+            case "equip" -> listItemsInInventory(e);
+            case "give" -> autocompleteIdOption(e);
         }
     }
 
-    private void listItemsInInventory(CommandAutoCompleteInteractionEvent event) {
-        event.replyChoices(UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString())
+    private void listItemsInInventory(CommandAutoCompleteInteractionEvent e) {
+        e.replyChoices(UUIDTable.getObject(Objects.requireNonNull(e.getOption("my_object")).getAsString())
                 .getInventory().asList().stream().map(uuid -> new Command.Choice(
                         UUIDTable.getItem((String) uuid).getName(),
                         (String) uuid
                 )).toList()).queue();
     }
 
-    private void autocompleteIdOption(CommandAutoCompleteInteractionEvent event) {
-        switch (event.getName()) {
-            case "help" -> listRPGLIds(Objects.requireNonNull(event.getOption("data_type")).getAsString(), event);
-            case "spawn" -> listRPGLIds("object", event);
-            case "give" -> listRPGLIds("item", event);
+    private void autocompleteIdOption(CommandAutoCompleteInteractionEvent e) {
+        switch (e.getName()) {
+            case "help" -> listRPGLIds(Objects.requireNonNull(e.getOption("data_type")).getAsString(), e);
+            case "spawn" -> listRPGLIds("object", e);
+            case "give" -> listRPGLIds("item", e);
         }
     }
 
-    private void autocompleteDataTypeOption(CommandAutoCompleteInteractionEvent event) {
-        String value = event.getFocusedOption().getValue();
+    private void autocompleteDataTypeOption(CommandAutoCompleteInteractionEvent e) {
+        String value = e.getFocusedOption().getValue();
         List<Command.Choice> options = Stream.of("effect", "event", "item", "object", "resource")
                 .filter(dataType -> dataType.toUpperCase().startsWith(value.toUpperCase()))
                 .map(dataType -> new Command.Choice(dataType, dataType))
                 .toList();
-        event.replyChoices(options).queue();
+        e.replyChoices(options).queue();
     }
 
-    private void autocompleteSaveNameOption(CommandAutoCompleteInteractionEvent event) {
-        switch (event.getName()) {
-            case "load", "save" -> listSaves(event);
+    private void autocompleteSaveNameOption(CommandAutoCompleteInteractionEvent e) {
+        switch (e.getName()) {
+            case "load", "save" -> listSaves(e);
         }
     }
 
-    private void autocompleteScopeOption(CommandAutoCompleteInteractionEvent event) {
-        String value = event.getFocusedOption().getValue();
+    private void autocompleteScopeOption(CommandAutoCompleteInteractionEvent e) {
+        String value = e.getFocusedOption().getValue();
         List<Command.Choice> options = Stream.of("all", "mine")
                 .filter(dataType -> dataType.toUpperCase().startsWith(value.toUpperCase()))
                 .map(dataType -> new Command.Choice(dataType, dataType))
                 .toList();
-        event.replyChoices(options).queue();
+        e.replyChoices(options).queue();
     }
 
-    private void autocompleteMyObjectsOption(CommandAutoCompleteInteractionEvent event) {
-        String userId = event.getUser().getName();
-        String value = event.getFocusedOption().getValue();
+    private void autocompleteMyObjectsOption(CommandAutoCompleteInteractionEvent e) {
+        String userId = e.getUser().getName();
+        String value = e.getFocusedOption().getValue();
         List<Command.Choice> options = UUIDTable.getObjectsByUserId(userId).stream()
                 .filter(object -> object.getName().toUpperCase().startsWith(value.toUpperCase()))
                 .map(object -> new Command.Choice(object.getName(), object.getUuid()))
                 .toList();
-        event.replyChoices(options).queue();
+        e.replyChoices(options).queue();
     }
 
-    private void autocompleteTargetObjectOption(CommandAutoCompleteInteractionEvent event) {
-        String value = event.getFocusedOption().getValue();
-        int lastDelimiter = value.lastIndexOf(',');
-        String lockedTargets = value.substring(0, Math.max(lastDelimiter, 0));
-        String focusedTarget = value.substring(Math.max(lastDelimiter + 1, 0));
+    private void autocompleteTargetObjectOption(CommandAutoCompleteInteractionEvent e) {
+        String value = e.getFocusedOption().getValue();
         List<Command.Choice> options = UUIDTable.getObjects().stream()
-                .filter(object -> object.getName().toUpperCase().startsWith(focusedTarget.toUpperCase()) && !lockedTargets.contains(object.getUuid()))
-                .map(object -> lockedTargets.equals("")
-                        ? new Command.Choice(object.getUuid(), object.getUuid())
-                        : new Command.Choice(
-                                lockedTargets + "," + object.getUuid(),
-                                lockedTargets + "," + object.getUuid()))
+                .filter(object -> object.getName().toUpperCase().startsWith(value.toUpperCase())
+                        && !RPGLClient.getTargets().contains(object))
+                .map(object -> new Command.Choice(object.getName(), object.getUuid()))
                 .toList();
-        event.replyChoices(options).queue();
+        e.replyChoices(options).queue();
     }
 
-    private void autocompleteMyEventsOption(CommandAutoCompleteInteractionEvent event) {
-        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
-        String value = event.getFocusedOption().getValue();
-        List<Command.Choice> options;
-        try {
-            options = object.getEventObjects(RPGLClient.CONTEXT).stream()
+    private void autocompleteEventOption(CommandAutoCompleteInteractionEvent e) throws Exception {
+        RPGLObject object = RPGLClient.currentTurnObject();
+        if (object != null && Objects.equals(object.getUserId(), e.getUser().getName())) {
+            String value = e.getFocusedOption().getValue();
+            List<Command.Choice> options = object.getEventObjects(RPGLClient.CONTEXT).stream()
                     .filter(rpglEvent -> rpglEvent.getName().toUpperCase().startsWith(value.toUpperCase()))
                     .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
                     .toList();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.replyChoices(options).queue();
         }
-        event.replyChoices(options).queue();
     }
 
-    private void autocompleteOperationOption(CommandAutoCompleteInteractionEvent event) {
-        event.replyChoices(List.of(
+    private void autocompleteOperationOption(CommandAutoCompleteInteractionEvent e) {
+        e.replyChoices(List.of(
                 new Command.Choice("end", "end"),
                 new Command.Choice("who", "who")
         )).queue();
     }
 
-    private void autocompleteMyResourcesOption(CommandAutoCompleteInteractionEvent event) {
-        RPGLObject object = UUIDTable.getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString());
-        String value = event.getFocusedOption().getValue();
-        int lastDelimiter = value.lastIndexOf(',');
-        String lockedResources = value.substring(0, Math.max(lastDelimiter, 0));
-        String focusedResource = value.substring(Math.max(lastDelimiter + 1, 0));
+    private void autocompleteResourceOption(CommandAutoCompleteInteractionEvent e) {
+        String value = e.getFocusedOption().getValue();
 
         // find resource tags required
-        JsonArray costArray = RPGLFactory.newEvent(Objects.requireNonNull(event.getOption("my_event")).getAsString()).getCost();
-        int numLockedResources = "".equals(lockedResources) ? 0 : lockedResources.split(",").length;
-        int costIndex = 0;
-        JsonObject cost;
-        do {
-            cost = costArray.getJsonObject(costIndex++);
-            numLockedResources -= Objects.requireNonNullElse(cost.getInteger("count"), 1); // <-- should be a RPGL thing...
-        } while (numLockedResources >= 0 && costIndex < costArray.size());
-        JsonArray resourceTags = cost.getJsonArray("resource_tags");
+        RPGLEvent event = RPGLClient.getEvent();
+        if (event != null) {
+            JsonArray costArray = event.getCost();
+            int numSelectedResources = RPGLClient.getResources().size();
+            int costIndex = 0;
+            JsonObject cost;
+            do {
+                cost = costArray.getJsonObject(costIndex++);
+                numSelectedResources -= Objects.requireNonNullElse(cost.getInteger("count"), 1); // <-- should be a RPGL thing...
+            } while (numSelectedResources >= 0 && costIndex < costArray.size());
+            JsonArray resourceTags = cost.getJsonArray("resource_tags");
 
-        List<Command.Choice> options = object.getResourceObjects().stream()
-                .filter(resource -> resource.getName().toUpperCase().startsWith(focusedResource.toUpperCase())
-                        && !resource.getExhausted()
-                        && resource.getTags().containsAny(resourceTags.asList())
-                        && !lockedResources.contains(resource.getUuid()))
-                .map(resource -> lockedResources.equals("")
-                        ? new Command.Choice(resource.getUuid(), resource.getUuid())
-                        : new Command.Choice(
-                                lockedResources + "," + resource.getUuid(),
-                                lockedResources + "," + resource.getUuid()))
-                .toList();
-        event.replyChoices(options).queue();
+            // compile options
+            RPGLObject object = RPGLClient.currentTurnObject();
+            if (object != null) {
+                List<Command.Choice> options = object.getResourceObjects().stream()
+                        .filter(resource -> resource.getName().toUpperCase().startsWith(value.toUpperCase())
+                                && !resource.getExhausted()
+                                && resource.getTags().containsAny(resourceTags.asList())
+                                && !RPGLClient.getResources().contains(resource))
+                        .map(resource -> new Command.Choice(resource.getName(), resource.getUuid()))
+                        .toList();
+                e.replyChoices(options).queue();
+            }
+        }
     }
 
-    private void listRPGLIds(String dataType, CommandAutoCompleteInteractionEvent event) {
-        String value = event.getFocusedOption().getValue();
+    private void listRPGLIds(String dataType, CommandAutoCompleteInteractionEvent e) {
+        String value = e.getFocusedOption().getValue();
         List<Command.Choice> options;
         if (value.contains(":")) {
             String[] split = value.split(":");
@@ -214,20 +208,20 @@ public class CommandCompleter extends ListenerAdapter {
                     .map(datapack -> new Command.Choice(datapack + ":", datapack + ":"))
                     .toList();
         }
-        event.replyChoices(options).queue();
+        e.replyChoices(options).queue();
     }
 
-    private void listOrdinaryEquipmentSlots(CommandAutoCompleteInteractionEvent event) {
-        event.replyChoices(List.of(
+    private void listOrdinaryEquipmentSlots(CommandAutoCompleteInteractionEvent e) {
+        e.replyChoices(List.of(
                 new Command.Choice("armor", "armor"),
                 new Command.Choice("mainhand", "mainhand"),
                 new Command.Choice("offhand", "offhand")
         )).queue();
     }
 
-    private void listActiveEquipmentSlots(CommandAutoCompleteInteractionEvent event) {
-        event.replyChoices(UUIDTable
-                .getObject(Objects.requireNonNull(event.getOption("my_object")).getAsString())
+    private void listActiveEquipmentSlots(CommandAutoCompleteInteractionEvent e) {
+        e.replyChoices(UUIDTable
+                .getObject(Objects.requireNonNull(e.getOption("my_object")).getAsString())
                 .getEquippedItems().asMap().keySet().stream().filter(Objects::nonNull).map(
                         slot -> new Command.Choice(slot, slot)
                 ).toList()).queue();

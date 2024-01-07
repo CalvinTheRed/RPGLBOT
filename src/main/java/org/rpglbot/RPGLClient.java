@@ -3,11 +3,15 @@ package org.rpglbot;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.rpgl.core.RPGLContext;
 import org.rpgl.core.RPGLCore;
+import org.rpgl.core.RPGLEvent;
 import org.rpgl.core.RPGLObject;
+import org.rpgl.core.RPGLResource;
 import org.rpgl.datapack.DatapackLoader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class RPGLClient {
@@ -17,8 +21,11 @@ public final class RPGLClient {
 
     private static String loadedSave = getDefaultSaveName();
     private static final Map<Double, RPGLObject> TURN_ORDER = new HashMap<>();
-
     private static double currentInitiative = Double.MAX_VALUE;
+
+    private static RPGLEvent event;
+    private static final List<RPGLObject> targets = new ArrayList<>();
+    private static final List<RPGLResource> resources = new ArrayList<>();
 
     public static void init() {
         DatapackLoader.loadDatapacks(new File("datapacks"));
@@ -72,6 +79,40 @@ public final class RPGLClient {
             currentInitiative = (Double) sorted[index];
         }
         return TURN_ORDER.get(currentInitiative);
+    }
+
+    public static void setEvent(RPGLEvent event) {
+        RPGLClient.event = event;
+        clearTargets();
+        clearResources();
+    }
+
+    public static RPGLEvent getEvent() {
+        return event;
+    }
+
+    public static void addTarget(RPGLObject object) {
+        targets.add(object);
+    }
+
+    public static List<RPGLObject> getTargets() {
+        return targets;
+    }
+
+    public static void clearTargets() {
+        targets.clear();
+    }
+
+    public static void addResource(RPGLResource resource) {
+        resources.add(resource);
+    }
+
+    public static List<RPGLResource> getResources() {
+        return resources;
+    }
+
+    public static void clearResources() {
+        resources.clear();
     }
 
 }
