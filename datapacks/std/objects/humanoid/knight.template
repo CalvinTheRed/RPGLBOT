@@ -4,9 +4,7 @@
   },
   "name": "Knight",
   "description": "A knight.",
-  "tags": [
-    "humanoid"
-  ],
+  "tags": [ ],
   "ability_scores": {
     "str": 16,
     "dex": 11,
@@ -28,20 +26,11 @@
   "inventory": [
     "std:weapon/ranged/martial/heavy_crossbow"
   ],
-  "events": [
-
-  ],
-  "effects": [
-
-  ],
+  "events": [ ],
+  "effects": [ ],
   "classes": [
     {
-      "id": "std:common/base",
-      "level": 1,
-      "choices": { }
-    },
-    {
-      "id": "std:common/hit_die/d8",
+      "id": "std:npc/knight",
       "level": 8,
       "choices": { }
     }

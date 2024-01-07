@@ -8,7 +8,8 @@
     "1": {
       "gain": {
         "events": [
-          "std:class/common/short_rest_heal"
+          "std:class/common/short_rest_heal",
+          "std:common/dodge"
         ],
         "resources": [
           {

@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Knight",
+  "description": "The Knight NPC class.",
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/hit_die/d8": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "features": {
+    "1": {
+      "gain": {
+        "effects": [
+          "std:common/proficiency/save/wisdom",
+          "std:common/proficiency/save/constitution",
+          "std:common/proficiency/armor/light",
+          "std:common/proficiency/armor/medium",
+          "std:common/proficiency/armor/heavy",
+          "std:common/proficiency/armor/shield",
+          "std:common/proficiency/weapon/melee/martial",
+          "std:common/proficiency/weapon/melee/simple",
+          "std:common/proficiency/weapon/ranged/martial",
+          "std:common/proficiency/weapon/ranged/simple",
+          "std:common/brave"
+        ],
+        "events": [
+          "std:class/common/extra_attack/1"
+        ],
+        "resources": [ ]
+      }
+    }
+  }
+}
