@@ -5,6 +5,12 @@
   "name": "Dodge",
   "description": "Duck and weave...",
   "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ],
+      "count": 1
+    }
+  ],
   "subevents": [
     {
       "subevent": "give_effect",

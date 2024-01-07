@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
+  "name": "Improvised Melee",
   "description": "You make a melee attack using an improvised weapon.",
   "area_of_effect": { },
   "cost": [

@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
+  "name": "Frostbrand (Melee)",
   "description": "You make a melee attack using a frostbrand.",
   "area_of_effect": { },
   "cost": [

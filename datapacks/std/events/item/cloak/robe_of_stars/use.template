@@ -4,15 +4,15 @@
   },
   "name": "Robe of Stars",
   "description": "You cast Magic Missile as a 5th level spell.",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "action" ]
+      "resource_tags": [ "action" ],
+      "count": 1
     },
     {
-      "resource_tags": [ "robe_of_stars_charge" ]
+      "resource_tags": [ "robe_of_stars_charge" ],
+      "count": 1
     }
   ],
   "subevents": [

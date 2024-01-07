@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
+  "name": "Scimitar (Melee)",
   "description": "You make a melee attack using a scimitar.",
   "area_of_effect": { },
   "cost": [

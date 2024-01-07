@@ -5,6 +5,23 @@
   "name": "Motivational Speech",
   "description": "You inspire confidence in your allies.",
   "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ],
+      "count": 1
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "count": 1,
+      "minimum_potency": 3,
+      "scale": [
+        {
+          "field": "subevents[0].temporary_hit_points[0].bonus",
+          "magnitude": 5
+        }
+      ]
+    }
+  ],
   "subevents": [
     {
       "subevent": "give_temporary_hit_points",

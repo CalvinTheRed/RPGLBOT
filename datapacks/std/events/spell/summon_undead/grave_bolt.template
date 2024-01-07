@@ -8,8 +8,7 @@
   "cost": [
     {
       "resource_tags": [ "action", "weapon_attack" ],
-      "count": 1,
-      "minimum_potency": 1
+      "count": 1
     }
   ],
   "subevents": [

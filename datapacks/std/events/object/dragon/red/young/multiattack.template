@@ -4,9 +4,7 @@
   },
   "name": "Multiattack",
   "description": "The dragon makes three attacks: one with its bite and two with its claws.",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
       "resource_tags": [ "action" ],
@@ -16,12 +14,12 @@
   "subevents": [
     {
       "subevent": "give_resource",
-      "resource": "std:common/claw_attack",
+      "resource": "std:object/common/claw_attack",
       "count": 2
     },
     {
       "subevent": "give_resource",
-      "resource": "std:common/bite_attack"
+      "resource": "std:object/common/bite_attack"
     }
   ]
 }

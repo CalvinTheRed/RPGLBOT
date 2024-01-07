@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
+  "name": "Greatsword (Melee)",
   "description": "You make a melee attack using a greatsword.",
   "area_of_effect": { },
   "cost": [

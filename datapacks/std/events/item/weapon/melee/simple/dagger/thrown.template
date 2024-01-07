@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
+  "name": "Dagger (Thrown)",
   "description": "You make a thrown attack using a dagger.",
   "area_of_effect": { },
   "cost": [

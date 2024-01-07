@@ -4,9 +4,7 @@
   },
   "name": "Flametongue Command Word",
   "description": "Deactivate your Flametongue weapon.",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
       "resource_tags": [ "bonus_action" ],

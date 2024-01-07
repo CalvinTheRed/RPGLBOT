@@ -4,9 +4,7 @@
   },
   "name": "Claw",
   "description": "The dragon swipes its claw at a target.",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
       "resource_tags": [ "action", "claw_attack" ],

@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
+  "name": "Dagger (Melee)",
   "description": "You make a melee attack using a dagger.",
   "area_of_effect": { },
   "cost": [

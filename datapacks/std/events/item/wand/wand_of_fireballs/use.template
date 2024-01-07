@@ -4,17 +4,13 @@
   },
   "name": "Wand of Fireballs",
   "description": "Shoot an explosive fireball.",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "action" ],
-      "count": 1
+      "resource_tags": [ "action" ]
     },
     {
-      "resource_tags": [ "wand_of_fireballs_charge" ],
-      "count": 1
+      "resource_tags": [ "wand_of_fireballs_charge" ]
     }
   ],
   "subevents": [

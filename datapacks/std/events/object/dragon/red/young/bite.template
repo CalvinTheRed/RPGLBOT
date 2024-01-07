@@ -4,9 +4,7 @@
   },
   "name": "Bite",
   "description": "The dragon bites a target.",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
       "resource_tags": [ "action", "bite_attack" ],

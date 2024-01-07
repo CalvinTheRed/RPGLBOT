@@ -2,8 +2,8 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Weapon Attack",
-  "description": "You make a melee attack using a heavy crossbow.",
+  "name": "Heavy Crossbow (Ranged)",
+  "description": "You make a ranged attack using a heavy crossbow.",
   "area_of_effect": { },
   "cost": [
     {

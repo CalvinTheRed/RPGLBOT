@@ -4,9 +4,7 @@
   },
   "name": "Fireball",
   "description": "Hurl a mighty fireball at your foes!",
-  "area_of_effect": {
-
-  },
+  "area_of_effect": { },
   "cost": [
     {
       "resource_tags": [ "action" ]
