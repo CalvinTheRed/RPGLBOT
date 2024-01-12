@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Barbarian",
+  "description": "The Barbarian class.",
+  "subclass_level": 3,
+  "ability_score_increases": [ 4, 8, 12, 16, 19 ],
+  "multiclassing_requirements": [
+    {
+      "ability": [ "str" ],
+      "minimum_score": 13
+    }
+  ],
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/hit_die/d12": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "starting_features": {
+    "effects": [
+      "std:common/proficiency/save/strength",
+      "std:common/proficiency/save/constitution",
+      "std:common/proficiency/armor/light",
+      "std:common/proficiency/armor/medium",
+      {
+        "name": "Skill Proficiencies",
+        "count": 2,
+        "options": [
+          "std:common/proficiency/skill/animal_handling",
+          "std:common/proficiency/skill/athletics",
+          "std:common/proficiency/skill/intimidation",
+          "std:common/proficiency/skill/nature",
+          "std:common/proficiency/skill/perception",
+          "std:common/proficiency/skill/survival"
+        ]
+      }
+    ]
+  },
+  "features": {
+    "1": {
+      "gain": {
+        "effects": [
+          "std:common/proficiency/armor/shield",
+          "std:common/proficiency/weapon/melee/martial",
+          "std:common/proficiency/weapon/melee/simple",
+          "std:common/proficiency/weapon/ranged/martial",
+          "std:common/proficiency/weapon/ranged/simple",
+          "std:class/barbarian/unarmored_defense"
+        ],
+        "events": [
+          "std:class/barbarian/rage/plus_2"
+        ],
+        "resources": [
+          {
+            "resource": "std:class/barbarian/rage_charge",
+            "count": 2
+          }
+        ]
+      }
+    },
+    "2": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/danger_sense"
+        ],
+        "events": [
+          "std:class/barbarian/reckless_attack"
+        ],
+        "resources": [
+          {
+            "resource": "std:class/barbarian/reckless_attack_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "3": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:class/barbarian/rage_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "5": {
+      "gain": {
+        "events": [
+          "std:class/common/extra_attack/1"
+        ]
+      }
+    },
+    "6": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:class/barbarian/rage_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "7": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/feral_instinct"
+        ]
+      }
+    },
+    "9": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/brutal_critical/1"
+        ],
+        "events": [
+          "std:class/barbarian/rage/plus_3"
+        ]
+      },
+      "lose": {
+        "events": [
+          "std:class/barbarian/rage/plus_2"
+        ]
+      }
+    },
+    "11": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/relentless_rage"
+        ]
+      }
+    },
+    "12": {
+      "gain": {
+        "resources": [
+          {
+            "resource": "std:class/barbarian/rage_charge",
+            "count": 1
+          }
+        ]
+      }
+    },
+    "13": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/brutal_critical/2"
+        ]
+      },
+      "lose": {
+        "effects": [
+          "std:class/barbarian/brutal_critical/1"
+        ]
+      }
+    },
+    "16": {
+      "gain": {
+        "events": [
+          "std:class/barbarian/rage/plus_4"
+        ]
+      },
+      "lose": {
+        "events": [
+          "std:class/barbarian/rage/plus_3"
+        ]
+      }
+    },
+    "17": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/brutal_critical/3"
+        ],
+        "resources": [
+          {
+            "resource": "std:class/barbarian/rage_charge",
+            "count": 1
+          }
+        ]
+      },
+      "lose": {
+        "effects": [
+          "std:class/barbarian/brutal_critical/2"
+        ]
+      }
+    },
+    "18": {
+      "gain": {
+        "effects": [
+          "std:class/barbarian/indomitable_might"
+        ]
+      }
+    },
+    "20": {
+      "gain": {
+        "events": [
+          "std:class/barbarian/rage/plus_4_unlimited"
+        ]
+      },
+      "lose": {
+        "events": [
+          "std:class/barbarian/rage/plus_4"
+        ],
+        "resources": [
+          "std:class/barbarian/rage_charge"
+        ]
+      }
+    }
+  }
+}

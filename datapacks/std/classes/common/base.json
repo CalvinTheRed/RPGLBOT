@@ -7,6 +7,9 @@
   "features": {
     "1": {
       "gain": {
+        "effects": [
+          "std:resource/take/weapon_attack"
+        ],
         "events": [
           "std:class/common/short_rest_heal",
           "std:common/dodge"

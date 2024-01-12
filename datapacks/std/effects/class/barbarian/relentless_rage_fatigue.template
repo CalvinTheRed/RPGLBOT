@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Relentless Rage Fatigue",
+  "description": "This effect increases the DC of your Relentless Rage saving throw by 5 per instance.",
+  "tags": [
+    "allow_duplicates"
+  ],
+  "subevent_filters": {
+    "calculate_save_difficulty_class": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "relentless_rage_saving_throw"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [ ],
+                "bonus": 5
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "short_rest"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "long_rest"
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}

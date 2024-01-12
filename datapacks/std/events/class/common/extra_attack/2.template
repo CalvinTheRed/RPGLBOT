@@ -14,7 +14,7 @@
   "subevents": [
     {
       "subevent": "give_resource",
-      "resource": "common/weapon_attack",
+      "resource": "std:common/weapon_attack",
       "count": 3
     }
   ]

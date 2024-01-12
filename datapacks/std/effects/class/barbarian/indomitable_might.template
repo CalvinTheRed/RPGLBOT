@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Indomitable Might",
+  "description": "You cannot roll less than your Strength score on a Strength ability check.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "str"
+          }
+        ],
+        "functions": [
+          {
+            "function": "set_minimum",
+            "minimum": {
+              "formula": "ability",
+              "ability": "str",
+              "object": {
+                "from": "effect",
+                "object": "target"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

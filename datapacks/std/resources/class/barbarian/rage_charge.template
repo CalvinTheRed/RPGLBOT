@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Rage Charge",
+  "description": "This resource allows you to use your Rage feature.",
+  "tags": [
+    "barbarian_rage_charge"
+  ],
+  "potency": 1,
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
+  ]
+}

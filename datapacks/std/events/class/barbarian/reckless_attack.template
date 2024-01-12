@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Reckless Attack",
+  "description": "You throw aside all concern for defense to attack with fierce desperation.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "barbarian_reckless_attack_charge" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "effect": "std:class/barbarian/reckless_attack"
+    }
+  ]
+}

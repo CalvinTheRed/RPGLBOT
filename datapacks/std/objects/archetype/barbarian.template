@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Barbarian",
+  "description": "An archetypal Barbarian.",
+  "tags": [ ],
+  "ability_scores": {
+    "str": 24,
+    "dex": 15,
+    "con": 24,
+    "int": 8,
+    "wis": 12,
+    "cha": 10
+  },
+  "health_data": {
+    "base": 126,
+    "current": 1,
+    "temporary": 0
+  },
+  "equipped_items": { },
+  "inventory": [
+    "std:weapon/melee/martial/greatsword"
+  ],
+  "events": [ ],
+  "effects": [ ],
+  "classes": [
+    {
+      "id": "std:barbarian",
+      "level": 20,
+      "choices": {
+        "Skill Proficiencies": [ 1, 2 ]
+      }
+    }
+  ],
+  "races": [
+    "std:human"
+  ],
+  "resources": [ ],
+  "proficiency_bonus": 6,
+  "challenge_rating": 18
+}

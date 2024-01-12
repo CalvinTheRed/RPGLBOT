@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Feral Instinct",
+  "description": "You have advantage on initiative rolls.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "initiative"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ]
+  }
+}

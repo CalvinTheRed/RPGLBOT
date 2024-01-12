@@ -1,15 +1,19 @@
 package org.rpglbot;
 
 import org.rpgl.core.RPGLContext;
+import org.rpgl.core.RPGLEffect;
+import org.rpgl.core.RPGLFactory;
 import org.rpgl.core.RPGLObject;
 import org.rpgl.json.JsonArray;
 import org.rpgl.json.JsonObject;
 import org.rpgl.subevent.AttackRoll;
 import org.rpgl.subevent.DamageAffinity;
 import org.rpgl.subevent.DamageDelivery;
+import org.rpgl.subevent.GiveEffect;
 import org.rpgl.subevent.HealingDelivery;
 import org.rpgl.subevent.SavingThrow;
 import org.rpgl.subevent.Subevent;
+import org.rpgl.uuidtable.UUIDTable;
 
 import java.util.Map;
 import java.util.Objects;
@@ -26,91 +30,13 @@ public class CustomContext extends RPGLContext {
 
     @Override
     public void viewCompletedSubevent(Subevent subevent) {
-        StringBuilder stringBuilder = new StringBuilder();
         switch (subevent.getSubeventId()) {
-            case "attack_roll" -> {
-                AttackRoll attackRoll = (AttackRoll) subevent;
-                int roll = attackRoll.get();
-                int armorClass = attackRoll.getTargetArmorClass();
-                stringBuilder
-                        .append(attackRoll.getSource().getName())
-                        .append(" attacks ")
-                        .append(attackRoll.getTarget().getName())
-                        .append("! ")
-                        .append(roll)
-                        .append(" vs AC ")
-                        .append(armorClass);
-                if (attackRoll.getBase() >= attackRoll.getCriticalHitThreshold()) {
-                    stringBuilder.append(" (CRITICAL HIT)");
-                } else if (attackRoll.getBase() == 1) {
-                    stringBuilder.append(" (CRITICAL MISS)");
-                } else if (roll >= armorClass) {
-                    stringBuilder.append(" (HIT)");
-                } else {
-                    stringBuilder.append(" (MISS)");
-                }
-                messages.add(stringBuilder.toString());
-            }
-            case "saving_throw" -> {
-                SavingThrow savingThrow = (SavingThrow) subevent;
-                int roll = savingThrow.get();
-                int difficultyClass = savingThrow.getSaveDifficultyClass();
-                stringBuilder
-                        .append(savingThrow.getTarget().getName())
-                        .append(" makes a ")
-                        .append(savingThrow.getAbility(RPGLClient.CONTEXT))
-                        .append(" save! ")
-                        .append(roll)
-                        .append(" vs DC ")
-                        .append(difficultyClass)
-                        .append(roll < difficultyClass ? " (FAIL)" : " (PASS)");
-                messages.add(stringBuilder.toString());
-            }
-            case "damage_affinity" -> {
-                DamageAffinity damageAffinity = (DamageAffinity) subevent;
-                RPGLObject target = damageAffinity.getTarget();
-                JsonArray affinities = damageAffinity.json.getJsonArray("affinities"); // <-- magic string here
-                for (int i = 0; i < affinities.size(); i++) {
-                    String damageType = affinities.getJsonObject(i).getString("damage_type");
-                    if (!damageAffinity.isImmune(damageType)) {
-                        if (damageAffinity.isResistant(damageType)) {
-                            messages.add(String.format("%s is resistant to %s!", target.getName(), damageType));
-                        }
-                        if (damageAffinity.isVulnerable(damageType)) {
-                            messages.add(String.format("%s is vulnerable to %s!", target.getName(), damageType));
-                        }
-                    } else {
-                        messages.add(String.format("%s is immune to %s!", target.getName(), damageType));
-                    }
-                }
-            }
-            case "damage_delivery" -> {
-                DamageDelivery damageDelivery = (DamageDelivery) subevent;
-                JsonObject damage = damageDelivery.getDamage();
-                if (!damage.asMap().isEmpty()) {
-                    stringBuilder.append(damageDelivery.getTarget().getName()).append(" takes ");
-                    int numDamageTypes = damage.asMap().size();
-                    for (Map.Entry<String, ?> damageEntry : damage.asMap().entrySet()) {
-                        stringBuilder
-                                .append(damage.getInteger(damageEntry.getKey()))
-                                .append(" ")
-                                .append(damageEntry.getKey())
-                                .append(numDamageTypes > 1 ? ", " : " ");
-                        numDamageTypes--;
-                    }
-                    stringBuilder.append("damage!");
-                    messages.add(stringBuilder.toString());
-                }
-            }
-            case "healing_delivery" -> {
-                HealingDelivery healingDelivery = (HealingDelivery) subevent;
-                stringBuilder
-                        .append(healingDelivery.getTarget().getName())
-                        .append(" heals for ")
-                        .append(healingDelivery.getHealing())
-                        .append(" hit points!");
-                messages.add(stringBuilder.toString());
-            }
+            case "attack_roll" -> viewAttackRoll((AttackRoll) subevent);
+            case "saving_throw" -> viewSavingThrow((SavingThrow) subevent);
+            case "damage_affinity" -> viewDamageAffinity((DamageAffinity) subevent);
+            case "damage_delivery" -> viewDamageDelivery((DamageDelivery) subevent);
+            case "give_effect" -> viewGiveEffect((GiveEffect) subevent);
+            case "healing_delivery" -> viewHealingDelivery((HealingDelivery) subevent);
         }
     }
 
@@ -121,4 +47,92 @@ public class CustomContext extends RPGLContext {
     public void clearMessages() {
         this.messages.clear();
     }
+
+    private void viewAttackRoll(AttackRoll attackRoll) {
+        int roll = attackRoll.get();
+        int armorClass = attackRoll.getTargetArmorClass();
+        String hitOrMiss;
+        if (attackRoll.getBase() >= attackRoll.getCriticalHitThreshold()) {
+            hitOrMiss = "CRITICAL HIT";
+        } else if (attackRoll.getBase() == 1) {
+            hitOrMiss = "CRITICAL MISS";
+        } else if (roll >= armorClass) {
+            hitOrMiss = "HIT";
+        } else {
+            hitOrMiss = "MISS";
+        }
+        messages.add(String.format("%s attacks %s! %s vs AC %s (%s)",
+                attackRoll.getSource().getName(),
+                attackRoll.getTarget().getName(),
+                roll,
+                armorClass,
+                hitOrMiss
+        ));
+    }
+
+    private void viewSavingThrow(SavingThrow savingThrow) {
+        int roll = savingThrow.get();
+        int difficultyClass = savingThrow.getSaveDifficultyClass();
+        messages.add(String.format("%s makes a %s save! %s vs DC %s (%s)",
+                savingThrow.getTarget().getName(),
+                savingThrow.getAbility(RPGLClient.CONTEXT),
+                roll,
+                difficultyClass,
+                roll < difficultyClass ? "FAIL" : "PASS"
+        ));
+    }
+
+    private void viewDamageAffinity(DamageAffinity damageAffinity) {
+        RPGLObject target = damageAffinity.getTarget();
+        JsonArray affinities = damageAffinity.json.getJsonArray("affinities"); // <-- magic string here
+        for (int i = 0; i < affinities.size(); i++) {
+            String damageType = affinities.getJsonObject(i).getString("damage_type");
+            if (!damageAffinity.isImmune(damageType)) {
+                if (damageAffinity.isResistant(damageType)) {
+                    messages.add(String.format("%s is resistant to %s!", target.getName(), damageType));
+                }
+                if (damageAffinity.isVulnerable(damageType)) {
+                    messages.add(String.format("%s is vulnerable to %s!", target.getName(), damageType));
+                }
+            } else {
+                messages.add(String.format("%s is immune to %s!", target.getName(), damageType));
+            }
+        }
+    }
+
+    private void viewDamageDelivery(DamageDelivery damageDelivery) {
+        StringBuilder stringBuilder = new StringBuilder();
+        JsonObject damage = damageDelivery.getDamage();
+        if (!damage.asMap().isEmpty()) {
+            stringBuilder.append(damageDelivery.getTarget().getName()).append(" takes ");
+            int numDamageTypes = damage.asMap().size();
+            for (Map.Entry<String, ?> damageEntry : damage.asMap().entrySet()) {
+                stringBuilder
+                        .append(damage.getInteger(damageEntry.getKey()))
+                        .append(" ")
+                        .append(damageEntry.getKey())
+                        .append(numDamageTypes > 1 ? ", " : " ");
+                numDamageTypes--;
+            }
+            stringBuilder.append("damage!");
+            messages.add(stringBuilder.toString());
+        }
+    }
+
+    private void viewGiveEffect(GiveEffect giveEffect) {
+        RPGLEffect temporaryEffect = RPGLFactory.newEffect(giveEffect.json.getString("effect")); // <--- magic string
+        messages.add(String.format("Applied effect %s to %s!",
+                temporaryEffect.getName(),
+                giveEffect.getTarget().getName()
+        ));
+        UUIDTable.unregister(temporaryEffect.getUuid());
+    }
+
+    private void viewHealingDelivery(HealingDelivery healingDelivery) {
+        messages.add(String.format("%s heals for %s hit points!",
+                healingDelivery.getTarget().getName(),
+                healingDelivery.getHealing()
+        ));
+    }
+
 }

@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Rage",
+  "description": "You are raging.",
+  "subevent_filters": {
+    "damage_collection": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "str"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "melee"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "base_damage_collection"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [ ],
+                "bonus": 4
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "str"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ],
+    "damage_affinity": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_resistance",
+            "damage_type": "bludgeoning"
+          },
+          {
+            "function": "grant_resistance",
+            "damage_type": "piercing"
+          },
+          {
+            "function": "grant_resistance",
+            "damage_type": "slashing"
+          }
+        ]
+      }
+    ],
+    "get_object_tags": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_object_tag",
+            "tag": "raging"
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "short_rest"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "long_rest"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "unconscious"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "killed"
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}

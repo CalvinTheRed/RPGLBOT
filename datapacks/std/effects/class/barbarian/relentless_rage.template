@@ -1,0 +1,128 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Relentless Rage",
+  "description": "You have a chance to stay conscious when you would normally fall unconscious while raging.",
+  "subevent_filters": {
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "reduced_to_zero_hit_points"
+          },
+          {
+            "condition": "invert",
+            "invert": {
+              "condition": "object_has_tag",
+              "object": {
+                "from": "subevent",
+                "object": "target"
+              },
+              "tag": "relentless_rage_fatigue"
+            }
+          }
+        ],
+        "functions": [
+          {
+            "function": "invoke_subevent",
+            "subevent": {
+              "subevent": "saving_throw",
+              "difficulty_class_ability": "con",
+              "save_ability": "con",
+              "tags": [
+                "relentless_rage_saving_throw"
+              ],
+              "pass": [
+                {
+                  "subevent": "heal",
+                  "healing": [
+                    {
+                      "formula": "range",
+                      "dice": [ ],
+                      "bonus": 1
+                    }
+                  ]
+                },
+                {
+                  "subevent": "give_effect",
+                  "effect": "std:class/barbarian/relentless_rage_fatigue"
+                }
+              ]
+            },
+            "source": {
+              "from": "effect",
+              "object": "target"
+            },
+            "targets": [
+              {
+                "from": "effect",
+                "object": "target"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "calculate_save_difficulty_class": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "relentless_rage_saving_throw"
+          }
+        ],
+        "functions": [
+          {
+            "function": "set_base",
+            "base": {
+              "formula": "number",
+              "number": 10
+            }
+          },
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "modifier",
+                "ability": "con",
+                "object": {
+                  "from": "effect",
+                  "object": "target"
+                },
+                "scale": {
+                  "numerator": -1,
+                  "denominator": 1,
+                  "round_up": true
+                }
+              },
+              {
+                "formula": "proficiency",
+                "object": {
+                  "from": "effect",
+                  "object": "target"
+                },
+                "scale": {
+                  "numerator": -1,
+                  "denominator": 1,
+                  "round_up": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

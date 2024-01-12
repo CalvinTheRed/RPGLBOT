@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.rpgl.core.RPGLContext;
+import org.rpgl.core.RPGLEffect;
 import org.rpgl.core.RPGLEffectTemplate;
 import org.rpgl.core.RPGLEvent;
 import org.rpgl.core.RPGLEventTemplate;
@@ -19,6 +20,7 @@ import org.rpgl.core.RPGLObject;
 import org.rpgl.core.RPGLObjectTemplate;
 import org.rpgl.core.RPGLResource;
 import org.rpgl.core.RPGLResourceTemplate;
+import org.rpgl.datapack.DatapackContent;
 import org.rpgl.datapack.DatapackLoader;
 import org.rpgl.json.JsonArray;
 import org.rpgl.json.JsonObject;
@@ -29,6 +31,7 @@ import org.rpglbot.RPGLClient;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -467,7 +470,7 @@ public class CommandManager extends ListenerAdapter {
         for (RPGLObject object : objects) {
             try {
                 stringBuilder.append(object.getName()).append(": ");
-                double initiative = object.abilityCheck("dex", null, context);
+                double initiative = object.abilityCheck("dex", "initiative", context);
                 stringBuilder.append((int) initiative).append('\n');
                 initiative += ((double) object.getAbilityScoreFromAbilityName("dex", context) + new Random().nextDouble()) / 100.0;
                 RPGLClient.assignInitiative(initiative, object);
@@ -522,13 +525,27 @@ public class CommandManager extends ListenerAdapter {
             );
         }
 
-        // Inventory (if userid matches user invoking command)
+        // if userid matches user invoking command
         if (Objects.equals(object.getUserId(), e.getUser().getName())) {
+
+            // Inventory
             JsonArray inventory = object.getInventory();
             if (!inventory.asList().isEmpty()) {
                 stringBuilder.append("Inventory:\n");
                 for (int i = 0; i < inventory.size(); i++) {
                     stringBuilder.append('`').append(UUIDTable.getItem(inventory.getString(i)).getName()).append("`\n");
+                }
+            }
+
+            // Effects
+            List<RPGLEffect> effects = object.getEffectObjects().stream()
+                    .sorted(Comparator.comparing(DatapackContent::getName))
+                    .filter(effect -> effect.hasTag("temporary"))
+                    .toList();
+            if (!effects.isEmpty()) {
+                stringBuilder.append("Effects:\n");
+                for (RPGLEffect effect : effects) {
+                    stringBuilder.append('`').append(effect.getName()).append("`\n");
                 }
             }
         }

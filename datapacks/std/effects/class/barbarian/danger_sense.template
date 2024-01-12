@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Danger Sense",
+  "description": "You have advantage on Dexterity saving throws.",
+  "subevent_filters": {
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "dex"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Brutal Critical",
+  "description": "You deal extra damage when you score a critical hit against a creature with a melee weapon attack.",
+  "subevent_filters": {
+    "critical_hit_damage_collection": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "skill": "melee"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_damage",
+            "bonus": [
+              {
+                "formula": "range",
+                "damage_type": "bludgeoning",
+                "dice": [
+                  { "count": 1, "size": 10, "determined": [ 5 ] }
+                ],
+                "bonus": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

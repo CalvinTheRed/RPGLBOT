@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Unarmored Defense (Barbarian)",
+  "description": "Your AC is equal to 10 plus your Dexterity modifier plus your Constitution modifier.",
+  "subevent_filters": {
+    "calculate_base_armor_class": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "unarmored"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "modifier",
+                "ability": "con",
+                "object": {
+                  "from": "effect",
+                  "object": "target"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

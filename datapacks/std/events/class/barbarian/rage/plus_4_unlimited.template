@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Rage",
+  "description": "You go into a rage.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ],
+      "count": 1
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "effect": "std:class/barbarian/rage/plus_4"
+    }
+  ]
+}

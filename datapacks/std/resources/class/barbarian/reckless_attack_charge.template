@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Reckless Attack Charge",
+  "description": "This resource allows you to use your Reckless Attack feature.",
+  "tags": [
+    "barbarian_reckless_attack_charge"
+  ],
+  "potency": 1,
+  "refresh_criterion": [
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "start_turn"
+      ]
+    },
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "short_rest"
+      ]
+    },
+    {
+      "subevent": "info_subevent",
+      "tags": [
+        "long_rest"
+      ]
+    }
+  ]
+}

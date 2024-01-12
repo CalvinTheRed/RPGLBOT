@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Reckless",
+  "description": "You are attacking recklessly.",
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "source",
+            "effect": "target"
+          },
+          {
+            "condition": "check_ability",
+            "ability": "str"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      },
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "subevent": "target",
+            "effect": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "start_turn"
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}
