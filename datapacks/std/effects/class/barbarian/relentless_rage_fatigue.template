@@ -8,7 +8,7 @@
     "allow_duplicates"
   ],
   "subevent_filters": {
-    "calculate_save_difficulty_class": [
+    "calculate_difficulty_class": [
       {
         "conditions": [
           {
@@ -18,7 +18,7 @@
           },
           {
             "condition": "subevent_has_tag",
-            "tag": "relentless_rage_saving_throw"
+            "tag": "relentless_rage"
           }
         ],
         "functions": [

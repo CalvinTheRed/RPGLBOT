@@ -72,7 +72,7 @@ public class CustomContext extends RPGLContext {
 
     private void viewSavingThrow(SavingThrow savingThrow) {
         int roll = savingThrow.get();
-        int difficultyClass = savingThrow.getSaveDifficultyClass();
+        int difficultyClass = savingThrow.getDifficultyClass();
         messages.add(String.format("%s makes a %s save! %s vs DC %s (%s)",
                 savingThrow.getTarget().getName(),
                 savingThrow.getAbility(RPGLClient.CONTEXT),

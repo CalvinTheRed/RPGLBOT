@@ -34,10 +34,10 @@
             "function": "invoke_subevent",
             "subevent": {
               "subevent": "saving_throw",
-              "difficulty_class_ability": "con",
+              "difficulty_class": 10,
               "save_ability": "con",
               "tags": [
-                "relentless_rage_saving_throw"
+                "relentless_rage"
               ],
               "pass": [
                 {
@@ -64,60 +64,6 @@
               {
                 "from": "effect",
                 "object": "target"
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "calculate_save_difficulty_class": [
-      {
-        "conditions": [
-          {
-            "condition": "objects_match",
-            "subevent": "target",
-            "effect": "target"
-          },
-          {
-            "condition": "subevent_has_tag",
-            "tag": "relentless_rage_saving_throw"
-          }
-        ],
-        "functions": [
-          {
-            "function": "set_base",
-            "base": {
-              "formula": "number",
-              "number": 10
-            }
-          },
-          {
-            "function": "add_bonus",
-            "bonus": [
-              {
-                "formula": "modifier",
-                "ability": "con",
-                "object": {
-                  "from": "effect",
-                  "object": "target"
-                },
-                "scale": {
-                  "numerator": -1,
-                  "denominator": 1,
-                  "round_up": true
-                }
-              },
-              {
-                "formula": "proficiency",
-                "object": {
-                  "from": "effect",
-                  "object": "target"
-                },
-                "scale": {
-                  "numerator": -1,
-                  "denominator": 1,
-                  "round_up": true
-                }
               }
             ]
           }
