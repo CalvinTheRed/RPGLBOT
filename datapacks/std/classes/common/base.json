@@ -8,7 +8,8 @@
     "1": {
       "gain": {
         "effects": [
-          "std:resource/take/weapon_attack"
+          "std:resource/take/extra_attack_resources",
+          "std:common/proficiency/natural_weapons"
         ],
         "events": [
           "std:class/common/short_rest_heal",

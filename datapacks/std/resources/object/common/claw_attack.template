@@ -6,6 +6,7 @@
   "description": "This resource allows you to make an attack using a claw.",
   "potency": 1,
   "tags": [
-    "claw_attack"
+    "claw_attack",
+    "extra_attack_resource"
   ]
 }

@@ -6,6 +6,7 @@
   "description": "This resource allows you to make a single weapon attack.",
   "potency": 1,
   "tags": [
-    "weapon_attack"
+    "weapon_attack",
+    "extra_attack_resource"
   ]
 }
