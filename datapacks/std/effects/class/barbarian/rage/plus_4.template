@@ -14,8 +14,8 @@
             "effect": "target"
           },
           {
-            "condition": "check_ability",
-            "ability": "str"
+            "condition": "subevent_has_tag",
+            "tag": "str"
           },
           {
             "condition": "subevent_has_tag",
@@ -28,8 +28,8 @@
         ],
         "functions": [
           {
-            "function": "add_bonus",
-            "bonus": [
+            "function": "add_damage",
+            "damage": [
               {
                 "formula": "range",
                 "dice": [ ],

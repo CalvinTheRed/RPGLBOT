@@ -14,8 +14,8 @@
             "effect": "target"
           },
           {
-            "condition": "check_ability",
-            "ability": "str"
+            "condition": "subevent_has_tag",
+            "tag": "str"
           },
           {
             "condition": "subevent_has_tag",

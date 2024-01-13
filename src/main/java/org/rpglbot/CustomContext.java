@@ -9,6 +9,7 @@ import org.rpgl.json.JsonObject;
 import org.rpgl.subevent.AttackRoll;
 import org.rpgl.subevent.DamageAffinity;
 import org.rpgl.subevent.DamageDelivery;
+import org.rpgl.subevent.DamageRoll;
 import org.rpgl.subevent.GiveEffect;
 import org.rpgl.subevent.HealingDelivery;
 import org.rpgl.subevent.SavingThrow;
@@ -35,6 +36,7 @@ public class CustomContext extends RPGLContext {
             case "saving_throw" -> viewSavingThrow((SavingThrow) subevent);
             case "damage_affinity" -> viewDamageAffinity((DamageAffinity) subevent);
             case "damage_delivery" -> viewDamageDelivery((DamageDelivery) subevent);
+            case "damage_roll" -> viewDamageRoll((DamageRoll) subevent);
             case "give_effect" -> viewGiveEffect((GiveEffect) subevent);
             case "healing_delivery" -> viewHealingDelivery((HealingDelivery) subevent);
         }
@@ -117,6 +119,42 @@ public class CustomContext extends RPGLContext {
             stringBuilder.append("damage!");
             messages.add(stringBuilder.toString());
         }
+    }
+
+    private void viewDamageRoll(DamageRoll damageRoll) {
+//        // this is where a "name" field might be helpful for display purposes...
+//        StringBuilder stringBuilder = new StringBuilder();
+//        JsonArray damage = damageRoll.getDamage();
+//        for (int i = 0; i < damage.size(); i++) {
+//            JsonObject damageJson = damage.getJsonObject(i);
+//            JsonArray dice = damageJson.getJsonArray("dice");
+//            int bonus = damageJson.getInteger("bonus");
+//            for (int j = 0; j < dice.size(); j++) {
+//                if (j == 0) {
+//                    stringBuilder.append('(');
+//                }
+//                stringBuilder.append(dice.getJsonObject(j).getInteger("roll"));
+//                if (j < dice.size() - 1) {
+//                    stringBuilder.append(" + ");
+//                } else if (bonus > 0) {
+//                    stringBuilder.append(") + ");
+//                } else {
+//                    stringBuilder.append(')');
+//                }
+//            }
+//            if (bonus > 0) {
+//                stringBuilder.append(bonus).append(' ').append(damageJson.getString("damage_type"));
+//            } else if (dice.size() > 0) {
+//                stringBuilder.append(' ').append(damageJson.getString("damage_type"));
+//            }
+//            if (i < damage.size() - 1) {
+//                stringBuilder.append(" + ");
+//            }
+//        }
+//        String message = stringBuilder.toString();
+//        if (!Objects.equals(message, "")) {
+//            messages.add(message);
+//        }
     }
 
     private void viewGiveEffect(GiveEffect giveEffect) {

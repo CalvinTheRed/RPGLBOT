@@ -15,16 +15,15 @@
           },
           {
             "condition": "subevent_has_tag",
-            "skill": "melee"
+            "tag": "melee"
           }
         ],
         "functions": [
           {
             "function": "add_damage",
-            "bonus": [
+            "damage": [
               {
                 "formula": "range",
-                "damage_type": "bludgeoning",
                 "dice": [
                   { "count": 2, "size": 10, "determined": [ 5 ] }
                 ],
