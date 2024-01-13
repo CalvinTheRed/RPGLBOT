@@ -210,11 +210,16 @@ public class CommandManager extends ListenerAdapter {
         return currentTurnObject != null && Objects.equals(currentTurnObject.getUserId(), e.getUser().getName());
     }
 
-    private static void slashAction(SlashCommandInteractionEvent e) {
+    private static void slashAction(SlashCommandInteractionEvent e) throws Exception {
         if (isUsersTurn(e)) {
-            RPGLEvent event = RPGLFactory.newEvent(Objects.requireNonNull(e.getOption("event")).getAsString());
-            // TODO the above event will not preserve origin item and source object
-            RPGLClient.setEvent(event);
+            List<RPGLEvent> events = RPGLClient.currentTurnObject().getEventObjects(RPGLClient.CONTEXT);
+            for (RPGLEvent event : events) {
+                if (Objects.equals(event.getId(), Objects.requireNonNull(e.getOption("event")).getAsString())) {
+                    RPGLClient.setEvent(event);
+                    System.out.println(event.prettyPrint());
+                    break;
+                }
+            }
             e.reply("Action selected: `" + RPGLClient.getEvent().getName() + '`').setEphemeral(true).queue();
         } else {
             e.reply("You cannot use this command unless it is your turn! Did you remember to use `/fight` first?")
