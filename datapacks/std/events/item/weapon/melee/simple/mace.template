@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Mace (Melee)",
+  "description": "You make a melee attack using a mace.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "weapon_attack" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_ability": "str",
+      "attack_type": "melee",
+      "damage": [
+        {
+          "formula": "range",
+          "damage_type": "bludgeoning",
+          "dice": [
+            { "count": 1, "size": 6, "determined": [ 3 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}
