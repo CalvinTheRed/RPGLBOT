@@ -9,7 +9,8 @@
       "gain": {
         "effects": [
           "std:resource/take/extra_attack_resources",
-          "std:common/proficiency/natural_weapons"
+          "std:common/proficiency/natural_weapons",
+          "std:common/proficiency/spell_attacks"
         ],
         "events": [
           "std:class/common/short_rest_heal",
