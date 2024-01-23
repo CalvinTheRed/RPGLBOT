@@ -1,0 +1,272 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Cleric",
+  "description": "The Cleric class.",
+  "subclass_level": 1,
+  "ability_score_increases": [ 4, 8, 12, 16, 19 ],
+  "multiclassing_requirements": [
+    {
+      "ability": [ "wis" ],
+      "minimum_score": 13
+    }
+  ],
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/hit_die/d8": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/spellcaster": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "starting_features": {
+    "effects": [
+      "std:common/proficiency/save/wisdom",
+      "std:common/proficiency/save/charisma",
+      {
+        "name": "Skill Proficiencies",
+        "count": 2,
+        "options": [
+          "std:common/proficiency/skill/history",
+          "std:common/proficiency/skill/insight",
+          "std:common/proficiency/skill/medicine",
+          "std:common/proficiency/skill/persuasion",
+          "std:common/proficiency/skill/religion"
+        ]
+      }
+    ]
+  },
+  "features": {
+    "1": {
+      "gain": {
+        "effects": [
+          "std:common/proficiency/armor/light",
+          "std:common/proficiency/armor/medium",
+          "std:common/proficiency/armor/shield",
+          "std:common/proficiency/weapon/melee/simple",
+          "std:common/proficiency/weapon/ranged/simple"
+        ],
+        "events": [
+          "std:spell/cleric/1/bane",
+          "std:spell/cleric/1/bless",
+          "std:spell/cleric/1/cure_wounds",
+          "std:spell/cleric/1/guiding_bolt",
+          "std:spell/cleric/1/healing_word",
+          "std:spell/cleric/1/inflict_wounds",
+          "std:spell/cleric/1/protection_from_evil_and_good",
+          "std:spell/cleric/1/shield_of_faith"
+        ],
+        "resources": [ ]
+      }
+    },
+    "2": {
+      "gain": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "3": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/2/aid",
+          "std:spell/cleric/2/prayer_of_healing",
+          "std:spell/cleric/2/protection_from_poison",
+          "std:spell/cleric/2/spiritual_weapon"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "5": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/3/aura_of_vitality",
+          "std:spell/cleric/3/beacon_of_hope",
+          "std:spell/cleric/3/dispel_magic",
+          "std:spell/cleric/3/mass_healing_word",
+          "std:spell/cleric/3/motivational_speech",
+          "std:spell/cleric/3/protection_from_energy/acid",
+          "std:spell/cleric/3/protection_from_energy/cold",
+          "std:spell/cleric/3/protection_from_energy/fire",
+          "std:spell/cleric/3/protection_from_energy/lightning",
+          "std:spell/cleric/3/protection_from_energy/thunder"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "6": {
+      "gain": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "7": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/4/aura_of_life",
+          "std:spell/cleric/4/aura_of_purity",
+          "std:spell/cleric/4/death_ward"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "8": {
+      "gain": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "9": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/5/dawn",
+          "std:spell/cleric/5/flame_strike",
+          "std:spell/cleric/5/greater_restoration",
+          "std:spell/cleric/5/holy_weapon",
+          "std:spell/cleric/5/insect_plague",
+          "std:spell/cleric/5/mass_cure_wounds",
+          "std:spell/cleric/5/summon_celestial"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "11": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/6/create_undead",
+          "std:spell/cleric/6/harm",
+          "std:spell/cleric/6/heal",
+          "std:spell/cleric/6/heroes_feast",
+          "std:spell/cleric/6/planar_ally",
+          "std:spell/cleric/6/sunbeam"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "13": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/7/conjure_celestial",
+          "std:spell/cleric/7/divine_word",
+          "std:spell/cleric/7/fire_storm",
+          "std:spell/cleric/7/regenerate"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "14": {
+      "gain": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "15": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/8/earthquake",
+          "std:spell/cleric/8/holy_aura",
+          "std:spell/cleric/8/sunburst"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "17": {
+      "gain": {
+        "effects": [ ],
+        "events": [
+          "std:spell/cleric/9/power_word_heal"
+        ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    },
+    "18": {
+      "gain": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      },
+      "lose": {
+        "effects": [ ],
+        "events": [ ],
+        "resources": [ ]
+      }
+    }
+  }
+}

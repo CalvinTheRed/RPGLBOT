@@ -3,7 +3,7 @@
     "author": "Calvin Withun"
   },
   "name": "Remove Temporary Weapon Attack",
-  "description": "This effect removes any temporary weapon attack resources from the target at the ends of its turns.",
+  "description": "This effect removes any fleeting resources from the target at the ends of its turn to prevent them from carrying over between turns.",
   "subevent_filters": {
     "info_subevent": [
       {

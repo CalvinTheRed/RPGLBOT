@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Cleric",
+  "description": "An archetypal Cleric.",
+  "tags": [ ],
+  "ability_scores": {
+    "str": 14,
+    "dex": 12,
+    "con": 14,
+    "int": 10,
+    "wis": 17,
+    "cha": 8
+  },
+  "health_data": {
+    "base": 20,
+    "current": 28,
+    "temporary": 0
+  },
+  "equipped_items": {
+    "armor": "std:armor/medium/breastplate",
+    "mainhand": "std:weapon/melee/simple/mace",
+    "offhand": "std:armor/shield/metal"
+  },
+  "inventory": [ ],
+  "events": [ ],
+  "effects": [ ],
+  "classes": [
+    {
+      "id": "std:cleric",
+      "level": 4,
+      "choices": {
+        "Skill Proficiencies": [ 1, 2 ]
+      }
+    }
+  ],
+  "races": [
+    "std:human"
+  ],
+  "resources": [ ],
+  "proficiency_bonus": 2,
+  "challenge_rating": 3
+}

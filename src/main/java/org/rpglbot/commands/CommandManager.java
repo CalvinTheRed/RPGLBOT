@@ -212,11 +212,10 @@ public class CommandManager extends ListenerAdapter {
 
     private static void slashAction(SlashCommandInteractionEvent e) throws Exception {
         if (isUsersTurn(e)) {
-            List<RPGLEvent> events = RPGLClient.currentTurnObject().getEventObjects(RPGLClient.CONTEXT);
+            List<RPGLEvent> events = Objects.requireNonNull(RPGLClient.currentTurnObject()).getEventObjects(RPGLClient.CONTEXT);
             for (RPGLEvent event : events) {
                 if (Objects.equals(event.getId(), Objects.requireNonNull(e.getOption("event")).getAsString())) {
                     RPGLClient.setEvent(event);
-                    System.out.println(event.prettyPrint());
                     break;
                 }
             }

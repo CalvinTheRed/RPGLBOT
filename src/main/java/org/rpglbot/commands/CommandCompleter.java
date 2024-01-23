@@ -12,6 +12,7 @@ import org.rpgl.uuidtable.UUIDTable;
 import org.rpglbot.RPGLClient;
 
 import java.io.File;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -144,6 +145,7 @@ public class CommandCompleter extends ListenerAdapter {
             List<Command.Choice> options = object.getEventObjects(RPGLClient.CONTEXT).stream()
                     .filter(rpglEvent -> rpglEvent.getName().toUpperCase().startsWith(value.toUpperCase())
                             || rpglEvent.getId().toUpperCase().startsWith(value.toUpperCase()))
+                    .sorted(Comparator.comparing(RPGLEvent::getName))
                     .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
                     .toList();
             e.replyChoices(options).queue();
@@ -166,11 +168,12 @@ public class CommandCompleter extends ListenerAdapter {
             JsonArray costArray = event.getCost();
             int numSelectedResources = RPGLClient.getResources().size();
             int costIndex = 0;
-            JsonObject cost;
+            JsonObject costIterator;
             do {
-                cost = costArray.getJsonObject(costIndex++);
-                numSelectedResources -= Objects.requireNonNullElse(cost.getInteger("count"), 1); // <-- should be a RPGL thing...
+                costIterator = costArray.getJsonObject(costIndex++);
+                numSelectedResources -= Objects.requireNonNullElse(costIterator.getInteger("count"), 1); // <-- should be a RPGL thing...
             } while (numSelectedResources >= 0 && costIndex < costArray.size());
+            final JsonObject cost = costIterator;
             JsonArray resourceTags = cost.getJsonArray("resource_tags");
 
             // compile options
@@ -180,6 +183,7 @@ public class CommandCompleter extends ListenerAdapter {
                         .filter(resource -> resource.getName().toUpperCase().startsWith(value.toUpperCase())
                                 && !resource.getExhausted()
                                 && resource.getTags().containsAny(resourceTags.asList())
+                                && resource.getPotency() >= cost.getInteger("minimum_potency")
                                 && !RPGLClient.getResources().contains(resource))
                         .map(resource -> new Command.Choice(resource.getName(), resource.getUuid()))
                         .toList();
