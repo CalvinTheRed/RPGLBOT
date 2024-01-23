@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Spiritual Weapon",
+  "description": "Conjure a spiritual weapon to aid you in combat.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "minimum_potency": 2
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "effect": "std:spell/2/spiritual_weapon/wisdom"
+    },
+    {
+      "subevent": "give_resource",
+      "resource": "std:spell/spiritual_weapon_attack",
+      "count": 1
+    }
+  ]
+}

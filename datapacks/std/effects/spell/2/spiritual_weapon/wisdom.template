@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Spiritual Weapon",
+  "description": "You can attack with a spiritual weapon.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "get_events": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_event",
+            "event": "std:spell/spiritual_weapon/wisdom"
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "short_rest"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "long_rest"
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ],
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "initiative"
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}

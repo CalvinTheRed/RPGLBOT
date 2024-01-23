@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Spiritual Weapon Attack",
+  "description": "You attack with a spiritual weapon.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action", "spiritual_weapon_attack" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_type": "melee",
+      "attack_ability": "wis",
+      "tags": [ "spell" ],
+      "damage": [
+        {
+          "formula": "range",
+          "damage_type": "force",
+          "dice": [
+            { "count": 1, "size": 8, "determined": [ 4 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}
