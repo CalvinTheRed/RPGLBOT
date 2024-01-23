@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Aid",
+  "description": "Bolster your allies' hit points.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "minimum_potency": 2
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "effect": "std:spell/2/aid"
+    }
+  ]
+}

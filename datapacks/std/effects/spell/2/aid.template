@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Aided",
+  "description": "Your hit points have been raised.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "calculate_maximum_hit_points": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [ ],
+                "bonus": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
