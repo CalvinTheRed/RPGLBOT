@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Proficiency (Investigation)",
+  "description": "You have proficiency in skill checks made using Investigation.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "investigation"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_proficiency"
+          }
+        ]
+      }
+    ]
+  }
+}
