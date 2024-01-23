@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Protected from Evil and Good",
+  "description": "You have been protected from extraplanar beings.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "aberration"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "celestial"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "elemental"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "fey"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "fiend"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "undead"
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_disadvantage"
+          }
+        ]
+      }
+    ]
+  }
+}
