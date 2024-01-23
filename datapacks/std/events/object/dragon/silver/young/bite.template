@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Bite",
+  "description": "The dragon bites a target.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action", "bite_attack" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "attack_ability": "str",
+      "attack_type": "melee",
+      "tags": [
+        "natural"
+      ],
+      "damage": [
+        {
+          "formula": "range",
+          "damage_type": "piercing",
+          "dice": [
+            { "count": 2, "size": 10, "determined": [ 5 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "determined": [ 10 ]
+    }
+  ]
+}

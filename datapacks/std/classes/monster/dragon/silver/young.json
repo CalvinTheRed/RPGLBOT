@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Young Silver Dragon",
+  "description": "The class description of what it means to be a young silver dragon.",
+  "subclass_level": 0,
+  "ability_score_increases": [ ],
+  "multiclassing_requirements": [ ],
+  "nested_classes": {
+    "std:common/base": {
+      "scale": 1,
+      "round_up": true
+    },
+    "std:common/hit_die/d10": {
+      "scale": 1,
+      "round_up": true
+    }
+  },
+  "starting_features": {
+    "effects": [
+      "std:common/natural_armor/18"
+    ],
+    "events": [
+      "std:object/dragon/silver/young/breath",
+      "std:object/dragon/silver/young/claw",
+      "std:object/dragon/silver/young/bite",
+      "std:object/dragon/silver/young/multiattack"
+    ]
+  }
+}

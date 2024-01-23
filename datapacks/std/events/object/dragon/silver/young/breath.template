@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Cold Breath",
+  "description": "The dragon exhales an icy blast.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "breath_attack" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "saving_throw",
+      "difficulty_class_ability": "con",
+      "save_ability": "con",
+      "damage": [
+        {
+          "formula": "range",
+          "damage_type": "cold",
+          "dice": [
+            { "count": 12, "size": 8, "determined": [ 4 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "damage_on_pass": "half",
+      "determined": [ 1 ]
+    }
+  ]
+}

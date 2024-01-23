@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Silver Dragon",
+  "description": "A silver dragon.",
+  "features": {
+    "1": {
+      "gain": {
+        "effects": [
+          "std:common/proficiency/save/dexterity",
+          "std:common/proficiency/save/constitution",
+          "std:common/proficiency/save/wisdom",
+          "std:common/proficiency/save/charisma",
+          "std:common/damage/immunity/cold",
+          "std:common/proficiency/skill/arcana",
+          "std:common/proficiency/skill/history",
+          "std:common/proficiency/skill/stealth",
+          "std:common/proficiency/skill/expertise/perception"
+        ],
+        "resources": [
+          {
+            "resource": "std:object/common/breath_attack/33",
+            "count": 1
+          }
+        ]
+      }
+    }
+  }
+}
