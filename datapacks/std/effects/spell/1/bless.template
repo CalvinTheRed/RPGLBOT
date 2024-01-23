@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Blessed",
+  "description": "You have been blessed.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [
+                  { "count": 1, "size": 4, "determined": [ 2 ] }
+                ],
+                "bonus": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [
+                  { "count": 1, "size": 4, "determined": [ 2 ] }
+                ],
+                "bonus": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

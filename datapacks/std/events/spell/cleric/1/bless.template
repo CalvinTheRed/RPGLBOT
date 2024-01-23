@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Bless",
+  "description": "Empower your allies' attacks and saves.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "effect": "std:spell/1/bless"
+    }
+  ]
+}
