@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Protected from Poison",
+  "description": "You have limited protection against poisons.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "subevent_has_tag",
+            "tag": "poisonous"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          }
+        ]
+      }
+    ],
+    "damage_affinity": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_resistance",
+            "damage_type": "poison"
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "short_rest"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "long_rest"
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}
