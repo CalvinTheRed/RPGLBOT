@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Motivational Speech",
+  "name": "Motivated (Passive)",
   "description": "Creatures with this effect have advantage on wis saving throws and gain advantage on the next attack roll they make when they are hit by an attack.",
   "subevent_filters": {
     "saving_throw": [
@@ -43,7 +43,7 @@
             "function": "invoke_subevent",
             "subevent": {
               "subevent": "give_effect",
-              "effect": "std:spell/motivational_speech/active"
+              "effect": "std:spell/3/motivational_speech/active"
             },
             "source": {
               "from": "effect",

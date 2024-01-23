@@ -7,12 +7,10 @@
   "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "action" ],
-      "count": 1
+      "resource_tags": [ "action" ]
     },
     {
       "resource_tags": [ "spell_slot" ],
-      "count": 1,
       "minimum_potency": 3,
       "scale": [
         {
@@ -34,7 +32,7 @@
         }
       ],
       "rider_effects": [
-        "std:motivational_speech_effect_passive"
+        "std:spell/3/motivational_speech/passive"
       ]
     }
   ]

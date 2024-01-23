@@ -2,7 +2,7 @@
   "metadata": {
     "author": "Calvin Withun"
   },
-  "name": "Motivational Speech",
+  "name": "Motivated (Active)",
   "description": "The creature has advantage on the next attack roll it makes.",
   "subevent_filters": {
     "attack_roll": [
