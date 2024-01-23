@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Shielded by Faith",
+  "description": "You are being shielded by faith.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "calculate_base_armor_class": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [ ],
+                "bonus": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

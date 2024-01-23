@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Shield of Faith",
+  "description": "Shield your allies with faith.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "effect": "std:spell/1/shield_of_faith"
+    }
+  ]
+}
