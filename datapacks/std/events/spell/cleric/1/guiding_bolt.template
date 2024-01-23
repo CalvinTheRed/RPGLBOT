@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Guiding Bolt",
+  "description": "A flash of light streaks toward a creature of your choice within range.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "minimum_potency": 1,
+      "scale": [
+        {
+          "field": "subevents[0].damage[0].dice[0].count",
+          "magnitude": 1
+        }
+      ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "attack_roll",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "attack_type": "ranged",
+      "attack_ability": "wis",
+      "damage": [
+        {
+          "formula": "range",
+          "damage_type": "radiant",
+          "dice": [
+            { "count": 4, "size": 6, "determined": [ 3 ] }
+          ],
+          "bonus": 0
+        }
+      ],
+      "hit": [
+        {
+          "subevent": "give_effect",
+          "effect": "std:spell/1/guiding_bolt"
+        }
+      ],
+      "withhold_damage_modifier": true,
+      "determined": [ 10 ]
+    }
+  ]
+}

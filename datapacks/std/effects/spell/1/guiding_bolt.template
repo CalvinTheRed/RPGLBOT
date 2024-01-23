@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Glittering",
+  "description": "You are glittering.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_advantage"
+          },
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}
