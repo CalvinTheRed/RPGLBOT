@@ -13,8 +13,8 @@
           "std:common/proficiency/save/wisdom",
           "std:common/proficiency/save/charisma",
           "std:common/damage/immunity/fire",
-          "std:common/proficiency/skill/perception",
-          "std:common/proficiency/skill/stealth"
+          "std:common/proficiency/skill/stealth",
+          "std:common/proficiency/skill/expertise/perception"
         ],
         "resources": [
           {
