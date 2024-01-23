@@ -7,8 +7,7 @@
   "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "action", "claw_attack" ],
-      "count": 1
+      "resource_tags": [ "action", "claw_attack" ]
     }
   ],
   "subevents": [

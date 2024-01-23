@@ -7,12 +7,10 @@
   "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "action_surge_charge" ],
-      "count": 1
+      "resource_tags": [ "action_surge_charge" ]
     },
     {
-      "resource_tags": [ "action_surge_limiter" ],
-      "count": 1
+      "resource_tags": [ "action_surge_limiter" ]
     }
   ],
   "subevents": [

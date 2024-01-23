@@ -8,7 +8,6 @@
   "cost": [
     {
       "resource_tags": [ "hit_die" ],
-      "count": 1,
       "minimum_potency": 6,
       "scale": [
         {

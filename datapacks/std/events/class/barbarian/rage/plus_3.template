@@ -7,12 +7,10 @@
   "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "bonus_action" ],
-      "count": 1
+      "resource_tags": [ "bonus_action" ]
     },
     {
-      "resource_tags": [ "barbarian_rage_charge" ],
-      "count": 1
+      "resource_tags": [ "barbarian_rage_charge" ]
     }
   ],
   "subevents": [

@@ -7,12 +7,10 @@
   "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "bonus_action" ],
-      "count": 1
+      "resource_tags": [ "bonus_action" ]
     },
     {
-      "resource_tags": [ "second_wind_charge" ],
-      "count": 1
+      "resource_tags": [ "second_wind_charge" ]
     }
   ],
   "subevents": [

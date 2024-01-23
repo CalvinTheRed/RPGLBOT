@@ -7,12 +7,10 @@
   "area_of_effect": { },
   "cost": [
     {
-      "resource_tags": [ "action" ],
-      "count": 1
+      "resource_tags": [ "action" ]
     },
     {
-      "resource_tags": [ "breath_attack" ],
-      "count": 1
+      "resource_tags": [ "breath_attack" ]
     }
   ],
   "subevents": [
