@@ -9,7 +9,7 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/01",
+            "resource": "std:common/spell_slot/pact_magic/01",
             "count": 1
           }
         ]
@@ -19,7 +19,7 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/01",
+            "resource": "std:common/spell_slot/pact_magic/01",
             "count": 1
           }
         ]
@@ -29,15 +29,15 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/02",
+            "resource": "std:common/spell_slot/pact_magic/02",
             "count": 2
           }
         ]
       },
       "lose": {
         "resources": [
-          "std:class/common/spell_slot/pact_magic/01",
-          "std:class/common/spell_slot/pact_magic/01"
+          "std:common/spell_slot/pact_magic/01",
+          "std:common/spell_slot/pact_magic/01"
         ]
       }
     },
@@ -45,15 +45,15 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/03",
+            "resource": "std:common/spell_slot/pact_magic/03",
             "count": 2
           }
         ]
       },
       "lose": {
         "resources": [
-          "std:class/common/spell_slot/pact_magic/02",
-          "std:class/common/spell_slot/pact_magic/02"
+          "std:common/spell_slot/pact_magic/02",
+          "std:common/spell_slot/pact_magic/02"
         ]
       }
     },
@@ -61,15 +61,15 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/04",
+            "resource": "std:common/spell_slot/pact_magic/04",
             "count": 2
           }
         ]
       },
       "lose": {
         "resources": [
-          "std:class/common/spell_slot/pact_magic/03",
-          "std:class/common/spell_slot/pact_magic/03"
+          "std:common/spell_slot/pact_magic/03",
+          "std:common/spell_slot/pact_magic/03"
         ]
       }
     },
@@ -77,15 +77,15 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/05",
+            "resource": "std:common/spell_slot/pact_magic/05",
             "count": 2
           }
         ]
       },
       "lose": {
         "resources": [
-          "std:class/common/spell_slot/pact_magic/04",
-          "std:class/common/spell_slot/pact_magic/04"
+          "std:common/spell_slot/pact_magic/04",
+          "std:common/spell_slot/pact_magic/04"
         ]
       }
     },
@@ -93,7 +93,7 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/05",
+            "resource": "std:common/spell_slot/pact_magic/05",
             "count": 1
           }
         ]
@@ -103,7 +103,7 @@
       "gain": {
         "resources": [
           {
-            "resource": "std:class/common/spell_slot/pact_magic/05",
+            "resource": "std:common/spell_slot/pact_magic/05",
             "count": 1
           }
         ]
