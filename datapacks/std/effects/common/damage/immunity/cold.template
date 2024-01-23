@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Cold Immunity",
+  "description": "Creatures with this effect take 0 cold damage.",
+  "subevent_filters": {
+    "damage_affinity": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_immunity",
+            "damage_type": "cold"
+          }
+        ]
+      }
+    ]
+  }
+}

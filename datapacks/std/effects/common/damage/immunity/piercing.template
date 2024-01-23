@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Piercing Immunity",
+  "description": "Creatures with this effect take 0 piercing damage.",
+  "subevent_filters": {
+    "damage_affinity": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_immunity",
+            "damage_type": "piercing"
+          }
+        ]
+      }
+    ]
+  }
+}

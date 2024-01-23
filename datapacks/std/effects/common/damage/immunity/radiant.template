@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Radiant Immunity",
+  "description": "Creatures with this effect take 0 radiant damage.",
+  "subevent_filters": {
+    "damage_affinity": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_immunity",
+            "damage_type": "radiant"
+          }
+        ]
+      }
+    ]
+  }
+}
