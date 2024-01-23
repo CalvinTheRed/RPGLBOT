@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Expertise (History)",
+  "description": "You have expertise in skill checks made using History.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "history"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_expertise"
+          }
+        ]
+      }
+    ]
+  }
+}

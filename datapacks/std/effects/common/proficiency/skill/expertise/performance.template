@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Expertise (Performance)",
+  "description": "You have expertise in skill checks made using Performance.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "performance"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_expertise"
+          }
+        ]
+      }
+    ]
+  }
+}

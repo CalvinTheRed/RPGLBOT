@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Expertise (Survival)",
+  "description": "You have expertise in skill checks made using Survival.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "survival"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_expertise"
+          }
+        ]
+      }
+    ]
+  }
+}

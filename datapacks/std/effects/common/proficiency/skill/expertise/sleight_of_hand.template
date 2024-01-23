@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Skill Expertise (Sleight of Hand)",
+  "description": "You have expertise in skill checks made using Sleight of Hand.",
+  "subevent_filters": {
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "sleight_of_hand"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_expertise"
+          }
+        ]
+      }
+    ]
+  }
+}
