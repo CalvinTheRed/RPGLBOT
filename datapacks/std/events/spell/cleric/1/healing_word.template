@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Healing Word",
+  "description": "A low-level healing spell.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "bonus_action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "minimum_potency": 1,
+      "scale": [
+        {
+          "field": "subevents[0].healing[0].dice[0].count",
+          "magnitude": 1
+        }
+      ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "heal",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "healing": [
+        {
+          "formula": "range",
+          "dice": [
+            { "count": 1, "size": 4, "determined": [ 2 ] }
+          ],
+          "bonus": 0
+        },
+        {
+          "formula": "modifier",
+          "ability": "wis",
+          "object": {
+            "from": "subevent",
+            "object": "source"
+          }
+        }
+      ]
+    }
+  ]
+}
