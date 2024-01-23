@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Vital Aura",
+  "description": "You emanate an aura which can heal your allies.",
+  "subevent_filters": {
+    "get_events": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "give_event",
+            "event": "std:spell/aura_of_vitality"
+          }
+        ]
+      }
+    ],
+    "info_subevent": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          },
+          {
+            "condition": "any",
+            "conditions": [
+              {
+                "condition": "subevent_has_tag",
+                "tag": "short_rest"
+              },
+              {
+                "condition": "subevent_has_tag",
+                "tag": "long_rest"
+              }
+            ]
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ],
+    "ability_check": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          },
+          {
+            "condition": "check_skill",
+            "skill": "initiative"
+          }
+        ],
+        "functions": [
+          {
+            "function": "end_effect"
+          }
+        ]
+      }
+    ]
+  }
+}

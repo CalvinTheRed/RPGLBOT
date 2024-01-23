@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Aura of Vitality",
+  "description": "You emanate an aura of healing.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ],
+      "minimum_potency": 3
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "give_effect",
+      "effect": "std:spell/3/aura_of_vitality"
+    }
+  ]
+}
