@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Radiant Resistance",
+  "description": "Creatures with this effect take reduced radiant damage.",
+  "subevent_filters": {
+    "damage_affinity": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "grant_resistance",
+            "damage_type": "radiant"
+          }
+        ]
+      }
+    ]
+  }
+}
