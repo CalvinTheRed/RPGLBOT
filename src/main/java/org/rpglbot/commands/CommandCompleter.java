@@ -142,7 +142,8 @@ public class CommandCompleter extends ListenerAdapter {
         if (object != null && Objects.equals(object.getUserId(), e.getUser().getName())) {
             String value = e.getFocusedOption().getValue();
             List<Command.Choice> options = object.getEventObjects(RPGLClient.CONTEXT).stream()
-                    .filter(rpglEvent -> rpglEvent.getName().toUpperCase().startsWith(value.toUpperCase()))
+                    .filter(rpglEvent -> rpglEvent.getName().toUpperCase().startsWith(value.toUpperCase())
+                            || rpglEvent.getId().toUpperCase().startsWith(value.toUpperCase()))
                     .map(rpglEvent -> new Command.Choice(rpglEvent.getName(), rpglEvent.getId()))
                     .toList();
             e.replyChoices(options).queue();
