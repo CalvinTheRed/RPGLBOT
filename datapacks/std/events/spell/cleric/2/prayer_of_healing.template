@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Prayer of Healing",
+  "description": "Heal your allies with a slow prayer.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "spell_slot" ],
+      "minimum_potency": 2,
+      "scale": [
+        {
+          "field": "subevents[0].healing[0].dice[0].count",
+          "magnitude": 1
+        }
+      ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "heal",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "healing": [
+        {
+          "formula": "range",
+          "dice": [
+            { "count": 2, "size": 8, "determined": [ 4 ]}
+          ],
+          "bonus": 0
+        },
+        {
+          "formula": "modifier",
+          "ability": "wis",
+          "object": {
+            "from": "subevent",
+            "object": "source"
+          }
+        }
+      ]
+    }
+  ]
+}
