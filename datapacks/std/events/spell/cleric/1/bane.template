@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Bane",
+  "description": "Hinder your foes' attacks and saves.",
+  "area_of_effect": { },
+  "cost": [
+    {
+      "resource_tags": [ "action" ]
+    },
+    {
+      "resource_tags": [ "spell_slot" ]
+    }
+  ],
+  "subevents": [
+    {
+      "subevent": "saving_throw",
+      "tags": [
+        "spell",
+        "cleric_spell"
+      ],
+      "difficulty_class_ability": "wis",
+      "save_ability": "cha",
+      "fail": [
+        {
+          "subevent": "give_effect",
+          "effect": "std:spell/1/bane"
+        }
+      ]
+    }
+  ]
+}

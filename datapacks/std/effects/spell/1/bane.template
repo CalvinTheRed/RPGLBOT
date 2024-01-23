@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "author": "Calvin Withun"
+  },
+  "name": "Baned",
+  "description": "You have been baned.",
+  "tags": [
+    "spell"
+  ],
+  "subevent_filters": {
+    "attack_roll": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "source"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [
+                  { "count": 1, "size": 4, "determined": [ 2 ] }
+                ],
+                "bonus": 0,
+                "scale": {
+                  "numerator": -1,
+                  "denominator": 1,
+                  "round_up": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "saving_throw": [
+      {
+        "conditions": [
+          {
+            "condition": "objects_match",
+            "effect": "target",
+            "subevent": "target"
+          }
+        ],
+        "functions": [
+          {
+            "function": "add_bonus",
+            "bonus": [
+              {
+                "formula": "range",
+                "dice": [
+                  { "count": 1, "size": 4, "determined": [ 2 ] }
+                ],
+                "bonus": 0,
+                "scale": {
+                  "numerator": -1,
+                  "denominator": 1,
+                  "round_up": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
