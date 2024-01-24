@@ -20,16 +20,8 @@
         ],
         "functions": [
           {
-            "function": "add_damage",
-            "damage": [
-              {
-                "formula": "range",
-                "dice": [
-                  { "count": 3, "size": 10, "determined": [ 5 ] }
-                ],
-                "bonus": 0
-              }
-            ]
+            "function": "repeat_damage_dice",
+            "count": 3
           }
         ]
       }
