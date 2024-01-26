@@ -13,13 +13,25 @@
     {
       "resource_tags": [ "spell_slot" ],
       "count": 1,
-      "minimum_potency": 1
+      "minimum_potency": 1,
+      "scale": [
+        {
+          "field": "subevents[0].effect_bonuses[0].bonus",
+          "magnitude": 1
+        }
+      ]
     }
   ],
   "subevents": [
     {
       "subevent": "give_effect",
-      "effect": "std:spell/wrathful_smite/passive"
+      "effect": "std:spell/wrathful_smite/passive",
+      "effect_bonuses": [
+        {
+          "field": "subevent_filters.damage_collection[0].functions[1].damage[0].dice[0].count",
+          "bonus": 0
+        }
+      ]
     }
   ]
 }
